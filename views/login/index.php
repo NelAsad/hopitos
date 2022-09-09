@@ -1,128 +1,93 @@
-<!-- 
-/**
- * Copyright (c) 2019, Innovate For Future Tech.
- * Powered by Elysée Asad Luboya
- * Soft-Mat
- * 
- * @package   Soft-Mat
- * @author    Elysée Asad Luboya (email:nel7luboya@gmail.com, Tél:+243 819664909)
- * @copyright Copyright (c) 2019, Innovate For Future Tech.  (http://innovateforfuture.com)
- * @since     Version 1.3.0
- */
- -->
-
 <!DOCTYPE html>
-<html lang="fr">
-
+<html>
 <head>
-  <title>HOSPITALIA</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--===============================================================================================-->
-  <link rel="icon" type="image/ico" href="<?php echo URL; ?>public/template/production/images/favicon.ico" />
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/vendor/bootstrap/css/bootstrap.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/fonts/iconic/css/material-design-iconic-font.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/vendor/animate/animate.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/vendor/css-hamburgers/hamburgers.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/vendor/animsition/css/animsition.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/vendor/select2/select2.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/vendor/daterangepicker/daterangepicker.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/css/util.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/templates/login/css/main.css">
-  <!--===============================================================================================-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HOSPITALIA | CONNEXION</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/plugins/iCheck/square/blue.css">
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-
-<body>
-
-  <div class="limiter">
-    <div class="container-login100" style="background-image: url('http://localhost/hopitos/public/templates/login/images/fond11.jpg'); background-size:cover;">
-      <div class="wrap-login100" style="border-radius: 0px;">
-        <form action="<?php echo URL; ?>login/connect" method="POST" class="login100-form validate-form">
-
-        <?php
-              if (isset($this->notification)) {
-                  if ($this->notification == 'c_pas_ton_compte') {
-                      $message = '
-                          <div role="alert" class="alert alert-danger alert-dismissible">
-                              <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                              Le login et le mot de passe saisis ne correspondent à aucun compte.
-                          </div>
-                              ';
-                      echo $message;
-                  }
-                  if ($this->notification == 'champs_vide') {
-                      $message = '
-                          <div role="alert" class="alert alert-danger alert-dismissible">
-                              <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                              Veillez remplir tout les champs.
-                          </div>
-                              ';
-                      echo $message;
-                  }
-              }
-        ?>
-
-
-          <div class="wrap-input100 validate-input" data-validate="Entrez votre login">
-            <span class="btn-show-pass">
-              <i class="fa fa-user"></i>
-            </span>
-            <input class="input100" type="text" name="login" value="<?php if(isset($this->login)) echo $this->login; ?>" >
-            <span class="focus-input100" data-placeholder="Login"></span>
-          </div>
-
-          <div class="wrap-input100 validate-input" data-validate="Entrez votre mot de passe">
-            <span class="btn-show-pass">
-              <i class="zmdi zmdi-eye"></i>
-            </span>
-            <input class="input100" type="password" name="password">
-            <span class="focus-input100" data-placeholder="Mot de passe"></span>
-          </div>
-
-          <div class="container-login100-form-btn">
-            <div class="wrap-login100-form-btn" style="border-radius: 0px;">
-              <div class="login100-form-bgbtn"></div>
-              <button class="login100-form-btn">
-                Connexion
-              </button>
-            </div>
-          </div>
-
-        </form>
-      </div>
-    </div>
+<body class="hold-transition login-page" style="background-image: url('http://localhost/hopitos/public/templates/login/images/fond11.jpg'); background-size:cover;">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="<?php echo URL; ?>public/design/vendors/index2.html"><b>HOSPITALIA</b></a>
   </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Connectez-vous pour commencer</p>
 
+    <?php
+      if (isset($this->notification)) {
+          if ($this->notification == 'c_pas_ton_compte') {
+            $message = '
+              <div role="alert" class="alert alert-danger alert-dismissible">
+                  <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                  Le login et le mot de passe saisis ne correspondent à aucun compte.
+              </div>
+                  ';
+            echo $message;
+          }
+          if ($this->notification == 'champs_vide') {
+            $message = '
+              <div role="alert" class="alert alert-danger alert-dismissible">
+                  <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                  Veillez remplir tout les champs.
+              </div>
+                  ';
+            echo $message;
+          }
+      }
+    ?>
 
-  <div id="dropDownSelect1"></div>
+    <form action="<?php echo URL; ?>login/connect" method="POST">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" name="login" value="<?php if(isset($this->login)) echo $this->login; ?>" placeholder="Email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" name="password" placeholder="Mot de passe">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
 
-  <!--===============================================================================================-->
-  <script src="<?php echo URL; ?>public/templates/login/vendor/jquery/jquery-3.2.1.min.js"></script>
-  <!--===============================================================================================-->
-  <script src="<?php echo URL; ?>public/templates/login/vendor/animsition/js/animsition.min.js"></script>
-  <!--===============================================================================================-->
-  <script src="<?php echo URL; ?>public/templates/login/vendor/bootstrap/js/popper.js"></script>
-  <script src="<?php echo URL; ?>public/templates/login/vendor/bootstrap/js/bootstrap.min.js"></script>
-  <!--===============================================================================================-->
-  <script src="<?php echo URL; ?>public/templates/login/vendor/select2/select2.min.js"></script>
-  <!--===============================================================================================-->
-  <script src="<?php echo URL; ?>public/templates/login/vendor/daterangepicker/moment.min.js"></script>
-  <script src="<?php echo URL; ?>public/templates/login/vendor/daterangepicker/daterangepicker.js"></script>
-  <!--===============================================================================================-->
-  <script src="<?php echo URL; ?>public/templates/login/vendor/countdowntime/countdowntime.js"></script>
-  <!--===============================================================================================-->
-  <script src="<?php echo URL; ?>public/templates/login/js/main.js"></script>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
 
+<!-- jQuery 3 -->
+<script src="<?php echo URL; ?>public/design/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo URL; ?>public/design/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="<?php echo URL; ?>public/design/vendors/plugins/iCheck/icheck.min.js"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
+    });
+  });
+</script>
 </body>
-
 </html>
