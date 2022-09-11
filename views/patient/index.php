@@ -25,7 +25,7 @@
                       </ul>
                       <div class="tab-content">
                           <div class="tab-pane active" id="tab_1">
-                              <table id="table_patients" class="ui small green celled table">
+                              <table id="table_patients" class="table ">
                                   <thead>
                                       <tr>
                                           <th>Id</th>
@@ -35,92 +35,91 @@
                                           <th>Sexe</th>
                                           <th>Statut</th>
                                           <th>Date naissance</th>
-                                          <th width="7%">Actions</th>
+                                          <th width="10%">Actions</th>
                                       </tr>
                                   </thead>
                               </table>
                           </div>
                           <!-- /.tab-pane -->
                           <div class="tab-pane" id="tab_2">
-                              <div class="ui two column green segment">
-                                  <form class="ui mini form" id="form_add_new_patient">
-                                      <h4 class="ui dividing header">Nouveau Patient</h4>
-                                      <div class="field">
-                                          <div class="three fields">
-                                              <div class="field">
-                                                  <label>Prénom</label>
-                                                  <input type="text" id="new_patient_prenom" placeholder="Prénom">
-                                              </div>
-                                              <div class="field">
-                                                  <label>Nom</label>
-                                                  <input type="text" id="new_patient_nom" placeholder="Nom">
-                                              </div>
-                                              <div class="field">
-                                                  <label>Post-Nom</label>
-                                                  <input type="text" id="new_patient_postnom" placeholder="Post-Nom">
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="three fields">
-                                          <div class="field">
-                                              <label>Date de naissance</label>
-                                              <input type="date" id="new_patient_date_naissance">
-                                          </div>
-                                          <div class="field">
-                                              <label>Sexe</label>
-                                              <select class="dropdown" id="new_patient_sexe">
-                                                  <option value="M">Masculin</option>
-                                                  <option value="F">Feminin</option>
-                                              </select>
-                                          </div>
-                                          <div class="field">
-                                              <label>Adresse</label>
-                                              <input type="text" id="new_patient_adresse" placeholder="Adresse">
-                                          </div>
-                                      </div>
-                                      <div class="four fields">
-                                          <div class="field">
-                                              <label>Statut</label>
-                                              <select class="dropdown" id="new_patient_statut">
-                                                  <option value="familleConv">Famille Conventionne</option>
-                                                  <option value="conventionne">Conventionne</option>
-                                                  <option value="simple">Simple</option>
-                                              </select>
-                                          </div>
-                                          <div class="field">
-                                              <label>Num. du dossier</label>
-                                              <input type="text" id="new_patient_dossier_num" placeholder="Numero du dossier">
-                                          </div>
-                                          <div class="field">
-                                              <label>Num. de la fiche</label>
-                                              <input type="text" id="new_patient_fiche_num" placeholder="Numero de la fiche">
-                                          </div>
-                                          <div class="field" id="bloc_titulaire_toggle">
-                                              <label>Titulaire</label>
-                                              <input type="text" id="new_patient_titulaire_id" placeholder="Identifiant du titulaire" value="0">
-                                          </div>
-                                      </div>
-                                      <div class="three fields" id="bloc_conv_toggle">
-                                          <div class="field">
-                                              <label>Affiliation</label>
-                                              <input type="text" id="new_patient_affiliation" placeholder="Affiliation">
-                                          </div>
-                                          <div class="field">
-                                              <label>Code_convention</label>
-                                              <input type="text" id="new_patient_code_conv" placeholder="Code Convention" value="0">
-                                          </div>
-                                          <div class="field">
-                                              <label>Occupation</label>
-                                              <input type="text" id="new_patient_occupation" placeholder="Occupation">
-                                          </div>
-                                      </div>
 
-                                      <div class="ui green inverted button" id="btn_add_new_patient">
-                                          <i class="save icon"></i>
-                                          Enregistrer
-                                      </div>
-                                  </form>
-                              </div>
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                <h3 class="box-title">Nouveau Patient</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <label>Prenom</label>
+                                            <input class="form-control" type="text" id="new_patient_prenom" placeholder="Prénom">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label>Nom</label>
+                                            <input class="form-control"  type="text" id="new_patient_nom" placeholder="Nom">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label>Postnom</label>
+                                            <input class="form-control"  type="text" id="new_patient_postnom" placeholder="Post-Nom">
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <label>Date de naissance</label>
+                                            <input class="form-control"  type="date" id="new_patient_date_naissance">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label>Sexe</label>
+                                            <select class="form-control"  class="dropdown" id="new_patient_sexe">
+                                                <option value="M">Masculin</option>
+                                                <option value="F">Feminin</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label>Adresse</label>
+                                            <input class="form-control" type="text" id="new_patient_adresse" placeholder="Adresse">
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <label>Statut</label>
+                                            <select class="form-control" class="dropdown" id="new_patient_statut">
+                                                <option value="familleConv">Famille Conventionne</option>
+                                                <option value="conventionne">Conventionne</option>
+                                                <option value="simple">Simple</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label>Num. du dossier</label>
+                                            <input class="form-control" type="text" id="new_patient_dossier_num" placeholder="Numero du dossier">
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label>Num. de la fiche</label>
+                                            <input class="form-control" type="text" id="new_patient_fiche_num" placeholder="Numero de la fiche">
+                                        </div>
+                                        <div class="col-xs-3" id="bloc_titulaire_toggle">
+                                            <label>Titulaire</label>
+                                            <input class="form-control" type="text" id="new_patient_titulaire_id" placeholder="Identifiant du titulaire" value="0">
+                                        </div>
+
+                                        <div id="bloc_conv_toggle">
+                                            <div class="col-xs-4">
+                                                <label>Affiliation</label>
+                                                <input class="form-control" type="text" id="new_patient_affiliation" placeholder="Affiliation">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label>Code_convention</label>
+                                                <input class="form-control" type="text" id="new_patient_code_conv" placeholder="Code Convention" value="0">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label>Occupation</label>
+                                                <input class="form-control" type="text" id="new_patient_occupation" placeholder="Occupation">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <button class="btn btn-primary btn-block" id="btn_add_new_patient" style="margin-top: 30px;">Enregistrer</button>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
                           </div>
                           <!-- /.tab-pane -->
                       </div>
@@ -131,4 +130,53 @@
               <!-- /.col -->
       </section>
   </div>
-  </div>
+
+  <div class="modal fade" id="ouvrir_fiche_modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Ouverture fiche</h4>
+        </div>
+        <div class="modal-body">
+            <form class="ui small form" id="form_ouvrir_fiche">
+                <input type="hidden" id="ouvrir_fiche_fk_patient_id">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <label>Poids</label>
+                        <input class="form-control" type="text" id="ouvrir_fiche_poids" placeholder="Poids">
+                    </div>
+                    <div class="col-xs-3">
+                        <label>Tension</label>
+                        <input class="form-control" type="text" id="ouvrir_fiche_tension" placeholder="Tension">
+                    </div>
+                    <div class="col-xs-3">
+                        <label>Temperature</label>
+                        <input class="form-control" type="text" id="ouvrir_fiche_temperature" placeholder="Temperature">
+                    </div>
+                    <div class="col-xs-3">
+                        <label>Medecin Consultant</label>
+                        <select class="form-control" id="ouvrir_fiche_medecin_id">
+                            <?php
+                                foreach ($this->medecins as $medecin) {
+                            ?>
+                                    <option value="<?php echo $medecin['users_id'] ?>"><?php echo $medecin['prenom'].' '.$medecin['nom'] ?></option>
+                            <?php
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" id="btn_done_ouverture_fiche">Valider</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

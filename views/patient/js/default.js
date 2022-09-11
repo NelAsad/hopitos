@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-    let path = "http://localhost/hopitos/";
+    let path = "http://localhost:92/hopitos/";
 
     //initialise_datatable_patients
     var dataTable_patient = $('#table_patients').DataTable({
@@ -197,6 +197,9 @@ $(document).ready(function () {
     //OUVRIR UNE FICHE
     //Afficher modal ouvrir fiche
     $(document).on('click', '.btn_ouvrir_fiche_patient', function (e) {
+
+        // alert('im here');
+
         e.preventDefault();
         let patient_id = $(this).attr('id');
         $('#ouvrir_fiche_fk_patient_id').val(patient_id);

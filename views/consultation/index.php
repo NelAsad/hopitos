@@ -1,104 +1,110 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+          <h1>
+              Les Payements
+          </h1>
+          <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">UI</a></li>
+        <li class="active">General</li>
+      </ol> -->
+      </section>
 
-<!-- page content -->
-<div style="margin-left:220px; margin-right:1%; padding-top:0.5%;">
-	<div class="ui segment blue">
-
-		<div class="ui secondary tabular pointing menu">
-			<a class="active item green tab_item" data-tab="first">
-				<i class="file icon"></i>
-				Fiches ouvertes
-			</a>
-			<a class="item green tab_item" data-tab="second">
-				<i class="spinner icon"></i>
-				Consultations en cours
-			</a>
-			<a class="item green tab_item" data-tab="third">
-				<i class="history icon"></i>
-				Consultations terminees aujourd'hui
-			</a>
-			<a class="item green tab_item" data-tab="four">
-				<i class="history icon"></i>
-				Toutes les consultations terminees
-			</a>
-		</div>
-
-		<div class="ui bottom attached active tab segment" data-tab="first">
-            <div>
-                <table id="table_fiche_juste_ouvertes" class="ui small green celled table">
-                    <thead>
-                        <tr>
-                            <th>N° Consultation</th>
-                            <th>Fiche</th>
-                            <th>Nom</th>
-                            <th>Post-Nom</th>
-                            <th>Prenom</th>
-                            <th>Sexe</th>
-                            <th>Date d'ouverture</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>			
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="second">
-            <div>
-                <table style=" width: 100% ;" id="table_fiche_en_cours_etape_2" class="ui small green celled table">
-                    <thead>
-                        <tr>
-                            <th>N° Consultation</th>
-                            <th>Fiche</th>
-                            <th>Nom</th>
-                            <th>Post-Nom</th>
-                            <th>Prenom</th>
-                            <th>Sexe</th>
-                            <th>Date d'ouverture</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="third">
-            <div>
-                <table style=" width: 100% ;" id="table_fiches_cloturees" class="ui small green celled table">
-                    <thead>
-                        <tr>
-                            <th>N° Consultation</th>
-                            <th>Fiche</th>
-                            <th>Nom</th>
-                            <th>Post-Nom</th>
-                            <th>Prenom</th>
-                            <th>Sexe</th>
-                            <th>Date d'ouverture</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="four">
-            <div>
-                <table style=" width: 100% ;" id="table_toutes_les_fiches_cloturees" class="ui small green celled table">
-                    <thead>
-                        <tr>
-                            <th>N° Consultation</th>
-                            <th>Fiche</th>
-                            <th>Nom</th>
-                            <th>Post-Nom</th>
-                            <th>Prenom</th>
-                            <th>Sexe</th>
-                            <th>Date d'ouverture</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-		</div>
-	</div>
-</div>
-<!-- /page content -->
+      <!-- Main content -->
+      <section class="content">
+          <div class="row">
+              <div class="col-md-12">
+                  <!-- Custom Tabs -->
+                  <div class="nav-tabs-custom">
+                      <ul class="nav nav-tabs">
+                          <li class="active"><a href="#tab_1" data-toggle="tab">Fiches ouvertes</a></li>
+                          <li><a href="#tab_2" data-toggle="tab">Consultations en cours</a></li>
+                          <li><a href="#tab_3" data-toggle="tab">Consultations terminees aujourd'hui</a></li>
+                          <li><a href="#tab_4" data-toggle="tab">Toutes les consultations terminees</a></li>
+                          <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                      </ul>
+                      <div class="tab-content">
+                          <div class="tab-pane active" id="tab_1">
+                            <table id="table_fiche_juste_ouvertes" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>N° Consultation</th>
+                                        <th>Fiche</th>
+                                        <th>Nom</th>
+                                        <th>Post-Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Sexe</th>
+                                        <th>Date d'ouverture</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                          </div>
+                          <!-- /.tab-pane -->
+                          <div class="tab-pane" id="tab_2">
+                            <table style=" width: 100% ;" id="table_fiche_en_cours_etape_2" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>N° Consultation</th>
+                                        <th>Fiche</th>
+                                        <th>Nom</th>
+                                        <th>Post-Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Sexe</th>
+                                        <th>Date d'ouverture</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                          </div>
+                          <div class="tab-pane" id="tab_3">
+                            <table style=" width: 100% ;" id="table_fiches_cloturees" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>N° Consultation</th>
+                                        <th>Fiche</th>
+                                        <th>Nom</th>
+                                        <th>Post-Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Sexe</th>
+                                        <th>Date d'ouverture</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                          </div>
+                          <!-- /.tab-pane -->
+                          <div class="tab-pane" id="tab_4">
+                            <table style=" width: 100% ;" id="table_toutes_les_fiches_cloturees" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>N° Consultation</th>
+                                        <th>Fiche</th>
+                                        <th>Nom</th>
+                                        <th>Post-Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Sexe</th>
+                                        <th>Date d'ouverture</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                          </div>
+                          <!-- /.tab-pane -->
+                      </div>
+                      <!-- /.tab-content -->
+                  </div>
+                  <!-- nav-tabs-custom -->
+              </div>
+              <!-- /.col -->
+      </section>
+  </div>
+  </div>
 
 
+  
 <!-- Modal_commencer_consultation -->
 <div class="ui modal" id="commencer_consultation_modal">
     <i class="close icon"></i>

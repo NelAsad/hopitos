@@ -1,0 +1,92 @@
+
+html,
+body{
+	font-family: 'Open Sans', sans-serif;
+
+}
+
+.container{
+	padding: 0 70px;
+}
+
+.navbar{
+	margin-bottom: 0;
+	background-color: #252A2F;
+	border:0;
+	border-radius: 0;
+	font-size: 15px !important; 
+}
+
+.navbar li a,.navbar .navbar-brand{
+	color:#fff !important;
+}
+
+.navbar li a:hover,.navbar-nav li.active a{
+	color:#fff !important;
+	background-color: #9B59B6 !important;
+}
+ 
+
+.navbar-default .navbar-toggle{
+	background-color: transparent;
+	color: #fff;
+}
+
+.jumbotron{
+	background-color: #252A2F;
+	color: #fff;
+	padding: 120px 0;
+	margin-bottom: 0;
+
+}
+.jumbotron p{
+	letter-spacing: 0.2 !important;
+	font-size: 19px;
+	padding: 12px 0;
+}
+
+.jumbotron h1{
+	text-transform: uppercase;
+	font-weight: 900px;
+	color:#fff;
+	font-size: 47px;
+}
+
+.jumbotron .btn-primary{
+	padding: 15px 46px;
+	text-transform: uppercase;
+	font-weight: 900;
+	background-color: #9B59B6;
+}
+
+.jumbotron a{
+	text-transform: uppercase;
+	padding: 0 30px;
+	color:#fff;
+	margin-left: 30px;
+}
+.jumbotron a:hover{
+	text-transform: none; 
+	color: #9B59B6; 
+}
+
+.g{
+	background-image: url("../images/bralima.jpg");
+	background-repeat: no-repeat;
+	background-position: 80% 100%;
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 70px;
+	overflow: hidden;
+	background-color: #222;
+}
+.dropdown-menu a{
+	color: #fff;
+	text-decoration: none;
+}
+.dropdown-menu a:hover{ 
+	text-decoration: underline;
+}
+ 

@@ -50,9 +50,9 @@ class Patient_model extends Model {
         $sub_array[] = $row["patient_statut"];
         $sub_array[] = $row["patient_date_naissance"];
         $sub_array[] = "
-            <a style='cursor: pointer;' class='btn_show_patient_modal' id='". $row["patient_id"] ."' title='Voir les details'><i class='eye icon'></i></a>
-            <a style='cursor: pointer;' class='btn_update_patient_modal' id='". $row["patient_id"] ."' title='Mettre a jour'><i class='edit orange icon'></i></a>
-            <a style='cursor: pointer;' class='btn_ouvrir_fiche_patient' id='". $row["patient_id"] ."' title='Ouvrir une fiche'><i class='file green icon'></i></a>
+            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_patient_modal' id='". $row["patient_id"] ."' title='Voir les details'><i class='fa fa-eye'></i></a>
+            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_update_patient_modal' id='". $row["patient_id"] ."' title='Mettre a jour'><i class='fa fa-edit'></i></a>
+            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_ouvrir_fiche_patient' id='". $row["patient_id"] ."' title='Ouvrir une fiche'><i class='fa fa-send'></i></a>
                     ";
         $data[] = $sub_array;
         }

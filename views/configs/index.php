@@ -1,114 +1,121 @@
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+          <h1>
+              Les patients
+          </h1>
+          <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">UI</a></li>
+        <li class="active">General</li>
+      </ol> -->
+      </section>
 
-<!-- page content -->
-<div style="margin-left:220px; margin-right:1%; padding-top:0.5%;">
+      <!-- Main content -->
+      <section class="content">
+          <div class="row">
+              <div class="col-md-12">
+                  <!-- Custom Tabs -->
+                  <div class="nav-tabs-custom">
+                      <ul class="nav nav-tabs">
+                          <li class="active"><a href="#tab_1" data-toggle="tab">Les configurations</a></li>
+                          <li><a href="#tab_2" data-toggle="tab">Ajouter Une configurations</a></li>
+                          <li><a href="#tab_3" data-toggle="tab">Effectuer une depense</a></li>
+                          <li><a href="#tab_4" data-toggle="tab">Les Depenses</a></li>
+                          <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                      </ul>
+                      <div class="tab-content">
+                          <div class="tab-pane active" id="tab_1">
+                            <table id="table_configs" class="ui small green celled table">
+                                <thead>
+                                    <tr>
+                                        <th>Identifiant</th>
+                                        <th>Nom</th>
+                                        <th>Valeur</th>
+                                        <th>Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                          </div>
+                          <div class="tab-pane" id="tab_2">
+                            <div class="ui two column green segment">
+                                <form class="ui mini form" id="form_add_new_config">
+                                    <h4 class="ui dividing header">Nouvelle Configuration</h4>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <label>Type de la configuration</label>
+                                            <select class="form-control" id="config_type">
+                                                <option value="1">Frais</option>
+                                                <option value="-">--Autres--</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label>Code de la configuration</label>
+                                            <input class="form-control" type="text" id="config_id" placeholder="Code de la configuration">
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label>Nom de la configuration</label>
+                                            <input class="form-control" type="text" id="config_nom" placeholder="Nom de la configuration">
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label>Valeur de la configuration</label>
+                                            <input class="form-control" type="text" id="config_val" placeholder="Valeur de la configuration">
+                                        </div>
+                                    </div>
 
-    <div class="ui segment blue">
+                                    <div class="btn btn-primary btn-block" id="btn_add_new_config" style="margin-top: 30px;">
+                                        <i class="save icon"></i>
+                                        Enregistrer
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                          <div class="tab-pane" id="tab_3">
+                            <div class="ui two column green segment">
+                                <form class="ui mini form" id="form_add_new_depense">
+                                    <h4 class="ui dividing header">Effectuer une depense</h4>
 
-        <div class="ui secondary pointing menu">
-            <a class="active item green tab_item" data-tab="first">
-                <i class="cogs icon"></i>
-                Les configurations
-            </a>
-            <a class="item green tab_item" data-tab="second">
-                <i class="plus card icon"></i>
-                Ajouter Une configurations
-            </a>
-            <a class="item green tab_item" data-tab="third">
-                <i class="money icon"></i>
-                Effectuer une depense
-            </a>
-            <a class="item green tab_item" data-tab="fourth">
-                <i class="money icon"></i>
-                Les Depenses
-            </a>
-        </div>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label>Motif de la depense</label>
+                                            <input class="form-control" type="text" id="new_depense_motif" placeholder="Motif de la depense">
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label>Montant</label>
+                                            <input class="form-control" type="text" id="new_depense_montant" placeholder="Montant">
+                                        </div>
+                                    </div>
 
-        <div class="ui bottom attached active tab segment" data-tab="first">
-            <table id="table_configs" class="ui small green celled table">
-                <thead>
-                    <tr>
-                        <th>Identifiant</th>
-                        <th>Nom</th>
-                        <th>Valeur</th>
-                        <th>Type</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-        <div class="ui bottom attached tab segment" data-tab="second">
-            <div class="ui two column green segment">
-                <form class="ui mini form" id="form_add_new_config">
-                    <h4 class="ui dividing header">Nouvelle Configuration</h4>
-                    <div class="four fields">
-                        <div class="field">
-                            <label>Type de la configuration</label>
-                            <select class="dropdown" id="config_type">
-                                <option value="1">Frais</option>
-                                <option value="-">--Autres--</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>Code de la configuration</label>
-                            <input type="text" id="config_id" placeholder="Code de la configuration">
-                        </div>
-                        <div class="field">
-                            <label>Nom de la configuration</label>
-                            <input type="text" id="config_nom" placeholder="Nom de la configuration">
-                        </div>
-                        <div class="field">
-                            <label>Valeur de la configuration</label>
-                            <input type="text" id="config_val" placeholder="Valeur de la configuration">
-                        </div>
-                    </div>
-
-                    <div class="ui green inverted button" id="btn_add_new_config">
-                        <i class="save icon"></i>
-                        Enregistrer
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="ui bottom attached tab segment" data-tab="third">
-            <div class="ui two column green segment">
-                <form class="ui mini form" id="form_add_new_depense">
-                    <h4 class="ui dividing header">Effectuer une depense</h4>
-
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Motif de la depense</label>
-                            <input type="text" id="new_depense_motif" placeholder="Motif de la depense">
-                        </div>
-                        <div class="field">
-                            <label>Montant</label>
-                            <input type="text" id="new_depense_montant" placeholder="Montant">
-                        </div>
-                    </div>
-
-                    <div class="ui green inverted button" id="btn_done_new_depense">
-                        <i class="save icon"></i>
-                        Valider
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="ui bottom attached tab segment" data-tab="fourth">
-            <table id="table_depenses" class="ui small green celled table" width="100%">
-                <thead>
-                    <tr>
-                        <th>Identifiant</th>
-                        <th>Motif</th>
-                        <th>Montant</th>
-                        <th>Date</th>
-                        <th>Auteur</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-
-    </div>
-</div>
-<!-- /page content -->
+                                    <div class="btn btn-primary btn-block" id="btn_done_new_depense" style="margin-top: 30px;">
+                                        <i class="save icon"></i>
+                                        Valider
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                          <div class="tab-pane" id="tab_4">
+                            <table id="table_depenses" class="ui small green celled table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Identifiant</th>
+                                        <th>Motif</th>
+                                        <th>Montant</th>
+                                        <th>Date</th>
+                                        <th>Auteur</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                          </div>
+                      </div>
+                      <!-- /.tab-content -->
+                  </div>
+                  <!-- nav-tabs-custom -->
+              </div>
+              <!-- /.col -->
+      </section>
+  </div>
 
 <!-- modal declasser examen -->
 <div class="ui modal" id="update_config_val_modal">

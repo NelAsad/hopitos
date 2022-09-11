@@ -201,9 +201,17 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="<?php echo URL; ?>public/design/vendors/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
+<script type="text/javascript" src="<?php echo URL; ?>public/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo URL; ?>public/js/custom.js"></script>
+
+<script type="text/javascript" src="<?php echo URL; ?>public/js/bootstrap3-typeahead.min.js"></script>
+<script src="<?php echo URL; ?>public/js/bootstrap.min.js"></script>   
+<script type="text/javascript" src="<?php echo URL; ?>public/js/jquery.dataTables.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo URL; ?>public/js/dataTables.bootstrap.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo URL; ?>public/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo URL; ?>public/js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo URL; ?>public/js/jquery-editable-select.min.js" charset="UTF-8"></script> 
+
 <script src="<?php echo URL; ?>public/design/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo URL; ?>public/design/vendors/bower_components/fastclick/lib/fastclick.js"></script>
@@ -222,5 +230,42 @@
 <script src="<?php echo URL; ?>public/design/vendors/dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo URL; ?>public/design/vendors/dist/js/demo.js"></script>
+
+<script src="<?php echo URL; ?>public/librairies/sweetalert/Resources/Public/Assets/sweetalert2.min.js" type="text/javascript"></script>
+<!-- Toastr JS -->
+<script src="<?php echo URL; ?>public/librairies/toastr/toastr.js"></script>
+<!-- Tinymce -->
+<script src="<?php echo URL; ?>public/librairies/tinymce/jquery.tinymce.min.js"></script>
+<script src="<?php echo URL; ?>public/librairies/tinymce/tinymce.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="<?php echo URL; ?>public/js/main.js"></script>
+
+<!-- Css propre au module-->
+<?php
+  if (isset($this->js)) {
+      foreach ($this->js as $js) {
+          echo '<script type="text/javascript" src="' . URL . 'views/' . $js . '"></script>';
+      }
+  }
+?>
+<!-- inclue uniquement pour la page : dossier_resultat_patient_id-->
+<?php
+  //inclue uniquement pour la page : dossier_resultat_patient_id
+  if (isset($this->dossier_resultat_patient_id_own_js)) {
+      if ($this->dossier_resultat_patient_id_own_js) {
+          echo '<script type="text/javascript" src="' . URL . 'views/dossier/js/dossier_resultat_patient_id.js"></script>';
+      }
+  }
+?>
+<!-- inclue uniquement pour la page : resultat_patients_d_un_dossier-->
+<?php
+  //inclue uniquement pour la page : resultat_patients_d_un_dossier
+  if (isset($this->resultat_patient_d_un_dossier_own_js)) {
+      if ($this->resultat_patient_d_un_dossier_own_js) {
+          echo '<script type="text/javascript" src="' . URL . 'views/dossier/js/resultat_patients_d_un_dossier.js"></script>';
+      }
+  }
+?>
+	
 </body>
 </html>

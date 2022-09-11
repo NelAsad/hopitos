@@ -1,42 +1,52 @@
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+          <h1>
+              Resultat dossier patient
+          </h1>
+          <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">UI</a></li>
+        <li class="active">General</li>
+      </ol> -->
+      </section>
 
-<!-- page content -->
-<div style="margin-left:220px; margin-right:1%; padding-top:0.5%;">
+<section class="content">
+      <div class="callout callout-info">
+        <h4>Reminder!</h4>
+        Instructions for how to use modals are available on the
+        <a href="http://getbootstrap.com/javascript/#modals">Bootstrap documentation</a>
+      </div>
 
-    <div class="ui segment blue">
-        <div class="ui icon message">
-
-            <i class="inbox icon"></i>
-
-            <div class="content">
-                <div class="header">Importance</div>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                </p>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Modal Examples</h3>
             </div>
-
+            <div class="box-body">
+                <table id="table_fiches_dossier_by_patient_id" class="table">
+                    <thead>
+                        <tr>
+                            <th>Id du patient</th>
+                            <th>Nom</th>
+                            <th>Post-Nom</th>
+                            <th>Prenom</th>
+                            <th>Numero de la fiche</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+</section>
 
-    <div class="ui segment blue">
+ </div>
 
-        <table id="table_fiches_dossier_by_patient_id" class="ui small green celled table">
-            <thead>
-                <tr>
-                    <th>Id du patient</th>
-                    <th>Nom</th>
-                    <th>Post-Nom</th>
-                    <th>Prenom</th>
-                    <th>Numero de la fiche</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-        </table>
 
-    </div>
-
-</div>
-<!-- /page content -->
 
 
 <!-- Modal_voir_consultation -->
