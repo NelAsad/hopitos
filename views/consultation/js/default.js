@@ -79,9 +79,39 @@ $(document).ready(function () {
     //ouvrir_modal_commencer_consultation
     $(document).on('click', '.btn_commencer_consultation_patient_modal', function (e) {
         e.preventDefault();
-        var patient_id = $(this).attr('id');
-        $('#hidden_commencer_consultation_fiche_id').val(patient_id);
-        $('#commencer_consultation_modal').modal('show');
+        let fiche_id = $(this).attr('id');
+
+        $.ajax({
+            url: path + "consultation/get_fiche",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                fiche_id: fiche_id
+            },
+            success: function (fiche) {
+
+                console.log(fiche);
+                console.log(fiche_id);
+
+                $('#start_consulation_fiche_id').html(fiche.fiche_id);
+                $('#start_consulation_patient_fiche_numero').html(fiche.patient_fiche_numero);
+                $('#start_consulation_patient_nom').html(fiche.patient_nom);
+                $('#start_consulation_patient_postnom').html(fiche.patient_postnom);
+                $('#start_consulation_patient_prenom').html(fiche.patient_prenom);
+                $('#start_consulation_patient_poids').html(fiche.poids);
+                $('#start_consulation_patient_tension').html(fiche.tension);
+                $('#start_consulation_date_ouverture').html(fiche.fiche_ouverture_date);
+                $('#start_consulation_date_cloture').html(fiche.fiche_cloture_date);
+                
+                $('#hidden_commencer_consultation_fiche_id').val(fiche_id);
+                $('#commencer_consultation_modal').modal('show');
+            },
+            error: function (data) {
+                alert('Error!!');
+            }
+        });
+
+        
     });
     //done_commencer_consultation
     $(document).on('click', '#btn_done_commencer_consultation', function (e) {

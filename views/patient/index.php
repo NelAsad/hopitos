@@ -19,36 +19,19 @@
                   <!-- Custom Tabs -->
                   <div class="nav-tabs-custom">
                       <ul class="nav nav-tabs">
-                          <li class="active"><a href="#tab_1" data-toggle="tab">Patient</a></li>
-                          <li><a href="#tab_2" data-toggle="tab">Ajouter patient</a></li>
+                          <li class="active"><a href="#tab_1" data-toggle="tab">Patients</a></li>
                           <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
                       </ul>
                       <div class="tab-content">
                           <div class="tab-pane active" id="tab_1">
-                              <table id="table_patients" class="table ">
-                                  <thead>
-                                      <tr>
-                                          <th>Id</th>
-                                          <th>Prénom</th>
-                                          <th>Nom</th>
-                                          <th>Post-Nom</th>
-                                          <th>Sexe</th>
-                                          <th>Statut</th>
-                                          <th>Date naissance</th>
-                                          <th width="10%">Actions</th>
-                                      </tr>
-                                  </thead>
-                              </table>
-                          </div>
-                          <!-- /.tab-pane -->
-                          <div class="tab-pane" id="tab_2">
 
-                            <div class="box box-danger">
+                          <div class="box box-danger">
                                 <div class="box-header with-border">
                                 <h3 class="box-title">Nouveau Patient</h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
+                                        <input type="hidden" id="hidden_update_patient_id">
                                         <div class="col-xs-4">
                                             <label>Prenom</label>
                                             <input class="form-control" type="text" id="new_patient_prenom" placeholder="Prénom">
@@ -115,12 +98,37 @@
                                         </div>
                                         
                                     </div>
-                                    <button class="btn btn-primary btn-block" id="btn_add_new_patient" style="margin-top: 30px;">Enregistrer</button>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <button class="btn btn-primary  btn-block" id="btn_add_new_patient" style="margin-top: 30px;">Enregistrer</button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button class="btn btn-warning btn-block" id="btn_update_patient" style="margin-top: 30px;">Modifier</button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button class="btn btn-danger btn-block" id="btn_delete_patient" style="margin-top: 30px;">Supprimer</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.box-body -->
                             </div>
-                            <!-- /.box -->
+
+                              <table id="table_patients" class="table ">
+                                  <thead>
+                                      <tr>
+                                          <th>Id</th>
+                                          <th>Prénom</th>
+                                          <th>Nom</th>
+                                          <th>Post-Nom</th>
+                                          <th>Sexe</th>
+                                          <th>Statut</th>
+                                          <th>Date naissance</th>
+                                          <th width="10%">Actions</th>
+                                      </tr>
+                                  </thead>
+                              </table>
                           </div>
+                          
                           <!-- /.tab-pane -->
                       </div>
                       <!-- /.tab-content -->
@@ -131,6 +139,128 @@
       </section>
   </div>
 
+  <!-- modal voir patient -->
+  <div class="modal fade" id="patient_show_modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Patient</h4>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Identifiant</td>
+                        <td>
+                            <span id="show_patient_id"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Numero de la fiche</td>
+                        <td>
+                            <span id="show_patient_fiche_numero">123213val</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Numero du dossier</td>
+                        <td>
+                            <span id="show_patient_dossier_numero"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nom</td>
+                        <td>
+                            <span id="show_patient_nom"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Post-Nom</td>
+                        <td>
+                            <span id="show_patient_postnom"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Prenom</td>
+                        <td>
+                            <span id="show_patient_prenom"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sexe</td>
+                        <td>
+                            <span id="show_patient_sexe"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date de naissance</td>
+                        <td>
+                            <span id="show_patient_date_naissance"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Adresse</td>
+                        <td>
+                            <span id="show_patient_adresse"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Statut</td>
+                        <td>
+                            <span id="show_patient_statut"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Conventionne id</td>
+                        <td>
+                            <span id="show_patient_fk_patient_conv"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Affiliation</td>
+                        <td>
+                            <span id="show_patient_affiliation"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Code Convention</td>
+                        <td>
+                            <span id="show_patient_code_convention"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Occupation</td>
+                        <td>
+                            <span id="show_patient_occupation"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date d'enregistrement</td>
+                        <td>
+                            <span id="show_patient_save_date"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enregistre(e) par</td>
+                        <td>
+                            <span id="show_patient_fk_users_id"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+  <!-- modal ouvrir une fiche -->
   <div class="modal fade" id="ouvrir_fiche_modal">
     <div class="modal-dialog">
     <div class="modal-content">

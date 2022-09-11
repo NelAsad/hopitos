@@ -13,7 +13,7 @@
       </section>
 
 <section class="content">
-      <div class="callout callout-info">
+      <div class="callout callout-default">
         <h4>Reminder!</h4>
         Instructions for how to use modals are available on the
         <a href="http://getbootstrap.com/javascript/#modals">Bootstrap documentation</a>
@@ -79,16 +79,16 @@
 </div>
 <!-- /page content -->
 
-
-<!-- Modal_voir_consultation -->
-<div class="ui modal" id="voir_consultation_modal_dossier">
-    <i class="close icon"></i>
-    <div class="header">
-        Consultation
+<div class="modal fade" id="voir_consultation_modal_dossier">
+<div class="modal-dialog">
+<div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Consultation</h4>
     </div>
-    <div class="content">
-
-        <table class="ui small table">
+    <div class="modal-body">
+    <table class="ui small table">
             <tbody>
                 <tr>
                     <td>Num consultation</td>
@@ -153,29 +153,29 @@
             <input type="hidden" id="hidden_voir_consultation_fiche_id">
 
             <span>Anamnèse</span>
-            <div id="voir_consultation_syptomes" class="ui segment shwo_fiche_box"></div>
+            <div class="callout callout-default shwo_fiche_box" id="voir_consultation_syptomes"></div>
 
             <span>Diagnostic</span>
-            <div id="voir_consultation_diagnostic" class="ui segment shwo_fiche_box"></div>
+            <div id="voir_consultation_diagnostic" class="callout callout-default shwo_fiche_box"></div>
 
             <span>Resultats Labo</span>
-            <div id="voir_consultation_resultat_labo" class="ui segment shwo_fiche_box"></div>
+            <div id="voir_consultation_resultat_labo" class="callout callout-default shwo_fiche_box"></div>
 
             <span>Traitement</span>
-            <div id="voir_consultation_traitement" class="ui segment shwo_fiche_box"></div>
+            <div id="voir_consultation_traitement" class="callout callout-default shwo_fiche_box"></div>
 
             <span>Prescription</span>
-            <div id="voir_consultation_precription" class="ui segment shwo_fiche_box"></div>
+            <div id="voir_consultation_precription" class="callout callout-default shwo_fiche_box"></div>
         
         </div>
-        
     </div>
-    <div class="actions">
-        <button class="ui negative button">
-            Fermer
-        </button>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
     </div>
 </div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-->
 
 <!-- Des champs caches pour la datatable -->
 <input type="hidden" id="hidden_search_text" value="<?php echo $this->parametres['text']; ?>">

@@ -84,8 +84,8 @@ class Consultation_model extends Model {
             switch ($exam_etape) {
                 case '2':
                     $action_sur_la_demande = "
-                        <a class='ui small label consultation_voir_resultat_labo' id='". $row["fiche_id"] ."' title='Voir les resultats'><i class='eye green icon'></i></a>
-                        <a class='ui small label consultation_supprimer_demande' id='". $row["fiche_id"] ."' title='Supprimer la demande'><i class='times circle red icon'></i></a>
+                        <a class='btn btn-primary btn-xs consultation_voir_resultat_labo' id='". $row["fiche_id"] ."' title='Voir les resultats'><i class='fa fa-eye'></i></a>
+                        <a class='btn btn-primary btn-xs consultation_supprimer_demande' id='". $row["fiche_id"] ."' title='Supprimer la demande'><i class='fa fa-file'></i></a>
                     ";
                     $icon_color = "green";
                     $infobulle_etat_demande = "Demande satisfaite";
@@ -93,8 +93,8 @@ class Consultation_model extends Model {
                 
                 case '3':
                     $action_sur_la_demande = "
-                        <a class='ui small label consultation_voir_motif_declassement' id='". $row["fiche_id"] ."' title='Voir le motif du declassement'><i class='eye red icon'></i></a>
-                        <a class='ui small label consultation_supprimer_demande' id='". $row["fiche_id"] ."' title='Supprimer la demande'><i class='times circle red icon'></i></a>
+                        <a class='btn btn-primary btn-xs consultation_voir_motif_declassement' id='". $row["fiche_id"] ."' title='Voir le motif du declassement'><i class='fa fa-eye'></i></a>
+                        <a class='btn btn-primary btn-xs consultation_supprimer_demande' id='". $row["fiche_id"] ."' title='Supprimer la demande'><i class='fa fa-remove'></i></a>
                     ";
                     $icon_color = "red";
                     $infobulle_etat_demande = "Demande declasee";
@@ -102,7 +102,7 @@ class Consultation_model extends Model {
                 
                 default:
                     $action_sur_la_demande = "
-                        <a class='ui small label consultation_supprimer_demande' id='". $row["fiche_id"] ."' title='Supprimer la demande'><i class='times circle red icon'></i></a>
+                        <a class='btn btn-primary btn-xs consultation_supprimer_demande' id='". $row["fiche_id"] ."' title='Supprimer la demande'><i class='fa fa-remove'></i></a>
                         <span>".$exam_ident."</span>
                     ";
                     $icon_color = "";
@@ -115,29 +115,29 @@ class Consultation_model extends Model {
                 switch ($etape) {
                     case '1':
                         $action_btns = "
-                            <a style='cursor: pointer;' class='btn_show_consultation_modal' id='". $row["fiche_id"] ."' title='Voir les details'><i class='eye icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_commencer_consultation_patient_modal' id='". $row["fiche_id"] ."' title='commencer la consultation'><i class='edit green icon'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_show_consultation_modal' id='". $row["fiche_id"] ."' title='Voir les details'><i class='fa fa-eye'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_commencer_consultation_patient_modal' id='". $row["fiche_id"] ."' title='commencer la consultation'><i class='fa fa-edit'></i></a>
                             
-                            <a style='cursor: pointer;' class='btn_commencer_consultation_appeler_patient' nom='". $row["patient_nom"] ."' postnom='". $row["patient_postnom"] ."' prenom='". $row["patient_prenom"] ."'  patient_id='". $row["patient_id"] ."' id='". $row["fiche_id"] ."' title='Appeler le patient'> <i class='bullhorn orange icon'></i> </a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_commencer_consultation_appeler_patient' nom='". $row["patient_nom"] ."' postnom='". $row["patient_postnom"] ."' prenom='". $row["patient_prenom"] ."'  patient_id='". $row["patient_id"] ."' id='". $row["fiche_id"] ."' title='Appeler le patient'> <i class='fa fa-microphone'></i> </a>
                         ";
                         break;                    
 
                     case '2':
                         $action_btns = "
-                            <a style='cursor: pointer;' class='btn_show_consultation_modal' id='". $row["fiche_id"] ."' title='Voir les details de la fiche'><i class='eye icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_consultation_demander_examens' fiche_id='". $row["fiche_id"] ."' patient_id='". $row["patient_id"] ."' title='Demander des examens au labo'><i class='send green icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_commencer_consultation_appeler_patient' nom='". $row["patient_nom"] ."' postnom='". $row["patient_postnom"] ."' prenom='". $row["patient_prenom"] ."'  patient_id='". $row["patient_id"] ."' id='". $row["fiche_id"] ."' title='Appeler le patient'> <i class='bullhorn orange icon'></i> </a>
-                            <a style='cursor: pointer;' class='btn_completer_consultation_patient_modal' id='". $row["fiche_id"] ."' title='completer la fiche'><i class='refresh green icon'></i></a>
-                            <a class='ui small label' title='".$infobulle_etat_demande."'><i class='file ".$icon_color." icon'></i>".$nbre_demandes."</a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_show_consultation_modal' id='". $row["fiche_id"] ."' title='Voir les details de la fiche'><i class='fa fa-eye'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_consultation_demander_examens' fiche_id='". $row["fiche_id"] ."' patient_id='". $row["patient_id"] ."' title='Demander des examens au labo'><i class='fa fa-send'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_commencer_consultation_appeler_patient' nom='". $row["patient_nom"] ."' postnom='". $row["patient_postnom"] ."' prenom='". $row["patient_prenom"] ."'  patient_id='". $row["patient_id"] ."' id='". $row["fiche_id"] ."' title='Appeler le patient'> <i class='fa fa-microphone'></i> </a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_completer_consultation_patient_modal' id='". $row["fiche_id"] ."' title='completer la fiche'><i class='fa fa-refresh'></i></a>
+                            <a class='btn btn-primary btn-xs' title='".$infobulle_etat_demande."'><i class='fa fa-file ".$icon_color."'></i>".$nbre_demandes."</a>
                             ".$action_sur_la_demande."
                         ";
                         break;
 
                     case '3':
                         $action_btns = "
-                            <a style='cursor: pointer;' class='btn_show_consultation_modal' id='". $row["fiche_id"] ."' title='Voir les details'><i class='eye icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_imprimer_fiche' id='". $row["fiche_id"] ."' title='Imprimer'><i class='print green icon'></i></a>
-                            <a class='ui small label' title='".$infobulle_etat_demande."'><i class='file ".$icon_color." icon'></i>".$nbre_demandes."</a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_show_consultation_modal' id='". $row["fiche_id"] ."' title='Voir les details'><i class='fa fa-eye'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_imprimer_fiche' id='". $row["fiche_id"] ."' title='Imprimer'><i class='fa fa-print'></i></a>
+                            <a class='btn btn-primary btn-xs' title='".$infobulle_etat_demande."'><i class='fa fa-file ".$icon_color." '></i>".$nbre_demandes."</a>
                         ";
                         break;
                     

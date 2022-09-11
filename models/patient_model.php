@@ -98,6 +98,39 @@ class Patient_model extends Model {
     }
 
     /**
+     * Update_patient
+     */
+    public function update_patient($patient_id, $prenom, $nom,$postnom,$date_naissance, $sexe, $adresse,$statut,$dossier_num,$fiche_num,$titulaire_id,$affiliation,$code_conv,$occupation,$users_id) {
+        $query = "UPDATE patient SET patient_dossier_numero = :patient_dossier_numero, patient_fiche_numero = :patient_fiche_numero,
+        patient_prenom = :patient_prenom, patient_nom = :patient_nom, patient_postnom = :patient_postnom,
+        patient_date_naissance = :patient_date_naissance, patient_sexe = :patient_sexe, patient_adresse = :patient_adresse,
+        patient_statut = :patient_statut, fk_patient_conv = :fk_patient_conv,patient_affiliation = :patient_affiliation,
+        patient_code_convention = :patient_code_convention, patient_occupation = :patient_occupation, fk_users_id = :fk_users_id,
+        patient_save_date = NOW() WHERE patient_id = :patient_id ";
+        $statement = $this->db->prepare($query);
+
+        $result = $statement->execute(array(
+            ':patient_dossier_numero' => $dossier_num,
+            ':patient_fiche_numero' => $fiche_num,
+            ':patient_prenom' => $prenom,
+            ':patient_nom' => $nom,
+            ':patient_postnom' => $postnom,
+            ':patient_date_naissance' => $date_naissance,
+            ':patient_sexe' => $sexe,
+            ':patient_adresse' => $adresse,
+            ':patient_statut' => $statut,
+            ':fk_patient_conv' => $titulaire_id,
+            ':patient_affiliation' => $affiliation,
+            ':patient_code_convention' => $code_conv,
+            ':patient_occupation' => $occupation,
+            ':fk_users_id' => $users_id,
+            ':patient_id' => $patient_id,
+        ));
+
+        return $result;
+    }
+
+    /**
      * Renvoie la liste des patients
      * @return array patients
      */
@@ -241,6 +274,18 @@ class Patient_model extends Model {
             return $result;
         }
         
+    }
+
+    //delete patient
+    function delete_patient($patient_id){
+        $query = "DELETE FROM patient WHERE patient_id = :patient_id ";
+        $statement = $this->db->prepare($query);
+
+        $result = $statement->execute(array(
+            ':patient_id' => $patient_id,
+        ));
+
+        return $result;
     }
 
 

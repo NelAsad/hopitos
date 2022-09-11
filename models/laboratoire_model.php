@@ -77,21 +77,21 @@ class Laboratoire_model extends Model {
                 switch ($etape) {
                     case '1':
                         $action_btns = "
-                            <a style='cursor: pointer;' class='btn_commencer_exam_appeler_patient'  nom='". $row["patient_nom"] ."' postnom='". $row["patient_postnom"] ."' prenom='". $row["patient_prenom"] ."'  patient_id='". $row["patient_id"] ."' exam_id='". $row["exam_id"] ."' title='Appeler le patient'><i class='bullhorn purple icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_show_inserer_exam_modal' id='". $row["exam_id"] ."' title='Inserer les resultats'><i class='edit green icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_declasser_demande' id='". $row["exam_id"] ."' title='Declasser la demande'><i class='times circle red icon'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_commencer_exam_appeler_patient'  nom='". $row["patient_nom"] ."' postnom='". $row["patient_postnom"] ."' prenom='". $row["patient_prenom"] ."'  patient_id='". $row["patient_id"] ."' exam_id='". $row["exam_id"] ."' title='Appeler le patient'><i class='fa fa-microphone'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_inserer_exam_modal' id='". $row["exam_id"] ."' title='Inserer les resultats'><i class='fa fa-edit'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_declasser_demande' id='". $row["exam_id"] ."' title='Declasser la demande'><i class='fa fa-remove'></i></a>
                         ";
                         break;                    
 
                     case '2':
                         $action_btns = "
-                            <a style='cursor: pointer;' class='btn_show_exam_modal' id='". $row["exam_id"] ."' title='Voir les details'><i class='eye icon'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_exam_modal' id='". $row["exam_id"] ."' title='Voir les details'><i class='fa fa-eye'></i></a>
                         ";
                         break;
 
                     case '3':
                         $action_btns = "
-                            <a style='cursor: pointer;' class='btn_show_exam_motif_declassement_modal' id='". $row["exam_id"] ."' title='Voir les details'><i class='eye icon'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_exam_motif_declassement_modal' id='". $row["exam_id"] ."' title='Voir les details'><i class='fa fa-eye'></i></a>
                         ";
                         break;
                     

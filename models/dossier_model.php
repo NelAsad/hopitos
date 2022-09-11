@@ -58,8 +58,8 @@ class Dossier_model extends Model {
         $sub_array[] = $row["fiche_ouverture_date"];
         $sub_array[] = $row["fiche_cloture_date"];
         $sub_array[] = "
-            <a style='cursor: pointer;' class='btn_show_consultation_modal_dossier' id='". $row["fiche_id"] ."' title='Voir les details'><i class='eye icon'></i></a>
-            <a style='cursor: pointer;' class='btn_imprimer_fiche' id='". $row["fiche_id"] ."' title='Imprimer'><i class='print green icon'></i></a>
+            <a style='cursor: pointer;' class='btn_show_consultation_modal_dossier' id='". $row["fiche_id"] ."' title='Voir les details'><i class='fa fa-eye'></i></a>
+            <a style='cursor: pointer;' class='btn_imprimer_fiche' id='". $row["fiche_id"] ."' title='Imprimer'><i class='fa fa-print'></i></a>
                        ";
         $data[] = $sub_array;
 
@@ -119,7 +119,7 @@ class Dossier_model extends Model {
         $sub_array[] = $row["patient_postnom"];
         $sub_array[] = $row["patient_fiche_numero"];
         $sub_array[] = "
-                <a href='". URL ."dossier/get_all_fiches_patient/?search_text=".$row["patient_id"]."&search_type=patient_id' title='Voir la fiche'><i class='file icon'></i></a>
+                <a href='". URL ."dossier/get_all_fiches_patient/?search_text=".$row["patient_id"]."&search_type=patient_id' title='Voir la fiche'><i class='fa fa-file'></i></a>
                     ";
         $data[] = $sub_array;
         }
