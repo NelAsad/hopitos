@@ -129,6 +129,6 @@
                   <!-- nav-tabs-custom -->
               </div>
               <!-- /.col -->
+          </div>
       </section>
-  </div>
   </div>
