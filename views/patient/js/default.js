@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-    let path = "http://localhost:92/hopitos/";
+    let path = "http://localhost/hopitos/";
 
     //initialise_datatable_patients
     var dataTable_patient = $('#table_patients').DataTable({

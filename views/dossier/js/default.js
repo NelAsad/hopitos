@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-    let path = "http://localhost:92/hopitos/";
+    let path = "http://localhost/hopitos/";
 
 
     //VOIR_LES_DETAILS_D'UNE_CONSULTATION

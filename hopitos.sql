@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : jeu. 29 avr. 2021 à 11:36
--- Version du serveur :  10.4.17-MariaDB
--- Version de PHP : 8.0.0
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  lun. 12 sep. 2022 à 17:09
+-- Version du serveur :  5.7.21
+-- Version de PHP :  5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `hopitos`
+-- Base de données :  `hopitos`
 --
 
 -- --------------------------------------------------------
@@ -27,12 +28,14 @@ SET time_zone = "+00:00";
 -- Structure de la table `configs`
 --
 
-CREATE TABLE `configs` (
-  `config_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `configs`;
+CREATE TABLE IF NOT EXISTS `configs` (
+  `config_id` int(11) NOT NULL AUTO_INCREMENT,
   `config_nom` varchar(50) NOT NULL,
   `config_val` varchar(50) NOT NULL,
-  `config_type` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `config_type` varchar(10) NOT NULL,
+  UNIQUE KEY `config_id` (`config_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `configs`
@@ -83,13 +86,15 @@ INSERT INTO `configs` (`config_id`, `config_nom`, `config_val`, `config_type`) V
 -- Structure de la table `depense`
 --
 
-CREATE TABLE `depense` (
-  `depense_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `depense`;
+CREATE TABLE IF NOT EXISTS `depense` (
+  `depense_id` int(11) NOT NULL AUTO_INCREMENT,
   `depense_motif` varchar(200) NOT NULL,
   `depense_montant` varchar(10) NOT NULL,
   `depense_datetime` datetime NOT NULL,
-  `fk_users_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fk_users_id` int(11) NOT NULL,
+  PRIMARY KEY (`depense_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `depense`
@@ -105,14 +110,15 @@ INSERT INTO `depense` (`depense_id`, `depense_motif`, `depense_montant`, `depens
 -- Structure de la table `examen`
 --
 
-CREATE TABLE `examen` (
-  `exam_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `examen`;
+CREATE TABLE IF NOT EXISTS `examen` (
+  `exam_id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_fiche_id` int(11) NOT NULL,
   `fk_patient_id` int(11) NOT NULL,
   `fk_demandeur_id` int(11) NOT NULL,
   `fk_laborantin_id` int(11) DEFAULT NULL,
-  `exam_date_demande` datetime NOT NULL DEFAULT current_timestamp(),
-  `exam_date_reponse` datetime NOT NULL,
+  `exam_date_demande` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `exam_date_reponse` datetime DEFAULT NULL,
   `exam_service` varchar(200) DEFAULT NULL,
   `hemato_Hbg` varchar(50) DEFAULT NULL,
   `hemato_GB` varchar(50) DEFAULT NULL,
@@ -150,11 +156,12 @@ CREATE TABLE `examen` (
   `is_HBS` varchar(50) DEFAULT NULL,
   `is_HC` varchar(50) DEFAULT NULL,
   `is_P120` varchar(50) DEFAULT NULL,
-  `autres_examens` text NOT NULL,
-  `autres_examens_resultats` text NOT NULL,
+  `autres_examens` text,
+  `autres_examens_resultats` text,
   `exam_etape` varchar(10) NOT NULL DEFAULT '1',
-  `motif_declasse` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `motif_declasse` text,
+  PRIMARY KEY (`exam_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `examen`
@@ -177,8 +184,10 @@ INSERT INTO `examen` (`exam_id`, `fk_fiche_id`, `fk_patient_id`, `fk_demandeur_i
 (37, 11, 5, 1, 1, '2020-06-10 19:55:05', '2020-06-10 19:55:39', 'cmdlvk', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', '', '', '4', 'mldvmdlvnk'),
 (38, 11, 5, 1, 1, '2020-06-10 19:56:02', '2020-06-10 19:56:14', 'cnkdjd', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'cmlx', '', '', '2', NULL),
 (39, 14, 7, 1, 1, '2020-06-10 20:46:01', '2020-06-10 20:46:13', 'mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'mm', '', '', '', '', '', '', '', '2', NULL),
-(40, 9, 2, 1, NULL, '2020-06-14 10:10:14', '0000-00-00 00:00:00', 'ncdjd', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '1', NULL),
-(41, 15, 8, 2, 3, '2021-04-25 22:17:53', '2021-04-26 10:33:03', 'conscience service', '12', '12', '', '', '', '', '', '', '', '', '', '12', '12', '', '', '', '12', '', '', '', '', '', '', '', '', '', '', '', '12', '', '', '', '', '', '', '', 'voici les autres examens', 'les resultats des examans', '2', NULL);
+(40, 9, 2, 1, 3, '2020-06-14 10:10:14', '2022-09-06 11:29:18', 'ncdjd', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '3', 'null\n'),
+(41, 15, 8, 2, 3, '2021-04-25 22:17:53', '2021-04-26 10:33:03', 'conscience service', '12', '12', '', '', '', '', '', '', '', '', '', '12', '12', '', '', '', '12', '', '', '', '', '', '', '', '', '', '', '', '12', '', '', '', '', '', '', '', 'voici les autres examens', 'les resultats des examans', '2', NULL),
+(42, 16, 85, 2, 3, '2022-09-06 11:21:13', '2022-09-06 11:28:23', 'Le service', '12', '12', '', '', '', '', '', '', '', '', '', '12', '', '', '', '', '12', '', '', '', '', '', '', '12', '', '', '', '12', '', '', '', '', '', '', '', '', 'ndjbdj autres examens', 'resultats autres vlkjfldndkllfdk', '2', NULL),
+(43, 13, 7, 1, NULL, '2022-09-12 09:56:37', NULL, 'Imagerie', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -186,22 +195,24 @@ INSERT INTO `examen` (`exam_id`, `fk_fiche_id`, `fk_patient_id`, `fk_demandeur_i
 -- Structure de la table `fiche`
 --
 
-CREATE TABLE `fiche` (
-  `fiche_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `fiche`;
+CREATE TABLE IF NOT EXISTS `fiche` (
+  `fiche_id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_patient_id` int(11) NOT NULL,
   `poids` double NOT NULL,
   `tension` double NOT NULL,
   `temperature` varchar(10) NOT NULL,
-  `symptomes` text NOT NULL,
-  `diagnostic` text NOT NULL,
-  `traitement` text NOT NULL,
-  `resultat_labo` text NOT NULL,
-  `fiche_ouverture_date` datetime NOT NULL,
-  `fiche_cloture_date` datetime NOT NULL,
+  `symptomes` text,
+  `diagnostic` text,
+  `traitement` text,
+  `resultat_labo` text,
+  `fiche_ouverture_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fiche_cloture_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fiche_etape` varchar(50) NOT NULL DEFAULT '1',
-  `pres_medicale` text NOT NULL,
-  `fiche_fk_users_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `pres_medicale` text,
+  `fiche_fk_users_id` int(11) NOT NULL,
+  PRIMARY KEY (`fiche_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `fiche`
@@ -220,9 +231,11 @@ INSERT INTO `fiche` (`fiche_id`, `fk_patient_id`, `poids`, `tension`, `temperatu
 (10, 5, 77, 11, '', 'maux de tete\nfatigue', 'mon diag', 'un traitemnet mldkndd', 'hemato_Hbg = 12 \n <br>hemato_GB = 11 \n <br>parasito_GE = K7 \n <br>parasito_CATT = C33 \n <br>bio_PH = 3.1 \n <br>bio_nitrite = 7.1E \n <br>', '2020-06-09 12:35:52', '2020-06-09 12:51:20', '3', 'cnksdcndjkncd\ncndjcndjncd cndjcd\ncndcjdncdjnc\\cndjcndjc', 1),
 (11, 5, 4, 4, '', '4', '4', 'cmxlkmvck', '', '2020-06-10 19:29:24', '2020-06-10 20:19:35', '3', 'cmlkvmldvkd', 1),
 (12, 5, 54, 55, '', '544', '445', 'vdvfvfdv', 'hemato_Hbg = xc \n <br>', '2020-06-10 19:29:42', '2020-06-10 20:19:02', '3', 'vfvdfvvfv', 1),
-(13, 7, 0, 0, '', '', '', '', '', '2020-06-10 19:44:23', '0000-00-00 00:00:00', '1', '', 1),
+(13, 7, 0, 0, '', 'vnjfjknjnfdj', 'nkvnfkvnvjndkfjjk', '', '', '2020-06-10 19:44:23', '0000-00-00 00:00:00', '2', '', 1),
 (14, 7, 4, 4, '', '4', '4', '', 'is_widal_TO = mm \n <br>', '2020-06-10 20:45:34', '0000-00-00 00:00:00', '2', '', 1),
-(15, 8, 12, 12, '12', 'nckdjcndjkcndjkc\ncdnkcndjcnjkdc\ncndjcndskcjsdc', 'vnfkvnjkjvn\nvnfkvfkvndfjkv\nvdfkvnvjfkv\nvndfkvnjfvnjdf', 'mon traitement est la', '', '2021-04-25 22:09:35', '2021-04-26 10:36:31', '3', 'Les prescriptions sont la', 2);
+(15, 8, 12, 12, '12', 'nckdjcndjkcndjkc\ncdnkcndjcnjkdc\ncndjcndskcjsdc', 'vnfkvnjkjvn\nvnfkvfkvndfjkv\nvdfkvnvjfkv\nvndfkvnjfvnjdf', 'mon traitement est la', '', '2021-04-25 22:09:35', '2021-04-26 10:36:31', '3', 'Les prescriptions sont la', 2),
+(16, 85, 75, 12, '35', 'histoire de la maladie', 'mon diag fdksfdkfkfjkjdsf', 'v,flvnfjnfjnfvnfnfj', 'hemato_Hbg = 12 <br>hemato_GB = 12 <br>parasito_GE = 12 <br>parasito_urines_sediment = 12 <br>bio_glucose = 12 <br>bio_PH = 12 <br><span>Resultats autres examens : </span><br>resultats autres vlkjfldndkllfdk', '2022-09-06 11:05:13', '2022-09-06 11:33:44', '3', 'vfvnvkjfv\nvfjnkjnvkj\nvfnvvnj', 2),
+(17, 8, 75, 12, '35', NULL, NULL, NULL, NULL, '2022-09-12 11:01:41', '2022-09-12 11:01:41', '1', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -230,8 +243,9 @@ INSERT INTO `fiche` (`fiche_id`, `fk_patient_id`, `poids`, `tension`, `temperatu
 -- Structure de la table `patient`
 --
 
-CREATE TABLE `patient` (
-  `patient_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `patient`;
+CREATE TABLE IF NOT EXISTS `patient` (
+  `patient_id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_dossier_numero` varchar(50) NOT NULL,
   `patient_fiche_numero` varchar(50) NOT NULL,
   `patient_nom` varchar(100) NOT NULL,
@@ -241,13 +255,14 @@ CREATE TABLE `patient` (
   `patient_sexe` varchar(10) NOT NULL,
   `patient_adresse` text NOT NULL,
   `patient_statut` varchar(100) NOT NULL,
-  `fk_patient_conv` int(11) NOT NULL,
+  `fk_patient_conv` int(11) DEFAULT NULL,
   `patient_affiliation` varchar(100) DEFAULT NULL,
   `patient_code_convention` varchar(100) DEFAULT NULL,
   `patient_occupation` varchar(100) DEFAULT NULL,
   `fk_users_id` int(11) NOT NULL,
-  `patient_save_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `patient_save_date` datetime NOT NULL,
+  PRIMARY KEY (`patient_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patient`
@@ -261,7 +276,89 @@ INSERT INTO `patient` (`patient_id`, `patient_dossier_numero`, `patient_fiche_nu
 (5, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
 (6, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
 (7, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
-(8, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18');
+(8, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(9, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(10, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(11, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(12, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(13, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(14, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(15, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(16, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
+(17, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
+(18, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(19, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(20, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(21, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(22, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(23, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(24, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(25, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(26, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
+(27, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
+(28, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(29, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(30, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(31, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(32, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(33, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(34, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(35, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(36, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
+(37, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
+(38, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(39, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(40, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(41, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(42, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(43, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(44, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(45, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(46, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
+(47, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
+(48, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(49, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(50, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(51, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(52, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(53, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(54, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(55, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(56, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
+(57, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
+(58, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(59, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(60, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(61, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(62, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(63, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(64, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(65, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(66, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(67, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(68, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(69, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(70, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(71, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
+(72, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
+(73, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(74, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(75, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(76, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(77, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(78, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(79, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(80, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(81, 'D76', 'F57', 'Mwema', 'Info', 'Daniel', '2000-10-10', 'M', 'ndjili', 'simple', 0, '', '', '', 1, '2020-06-10 19:35:22'),
+(82, 'nkjd', ' ndjf', 'mckdj', 'cndiu', 'nkfj', '2020-06-10', 'M', 'mckjdj', 'simple', 0, '', '', '', 1, '2020-06-10 19:37:57'),
+(83, 'GM1', 'GMF1', 'Tshientu', 'Mputu', 'Glodi', '2001-06-06', 'M', 'mont ngagula', 'simple', 0, '', '', '', 1, '2021-04-21 11:40:18'),
+(84, 'rtr', 'et', 're', 'etre', 'rytr', '2022-09-06', 'M', 'tretre', 'simple', 0, '', '0', '', 4, '2022-09-06 10:23:27'),
+(85, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
+(86, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
+(87, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
+(88, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(89, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
+(90, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23');
 
 -- --------------------------------------------------------
 
@@ -269,18 +366,20 @@ INSERT INTO `patient` (`patient_id`, `patient_dossier_numero`, `patient_fiche_nu
 -- Structure de la table `payement`
 --
 
-CREATE TABLE `payement` (
-  `pay_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `payement`;
+CREATE TABLE IF NOT EXISTS `payement` (
+  `pay_id` int(11) NOT NULL AUTO_INCREMENT,
   `pay_montant` varchar(10) NOT NULL,
   `num_facture` varchar(20) NOT NULL,
   `pay_date` datetime NOT NULL,
   `pay_motif` varchar(5) NOT NULL,
   `pay_description` text NOT NULL,
-  `utilise` int(11) NOT NULL,
+  `utilise` int(11) DEFAULT '0',
   `fk_pay_patient_id` int(11) NOT NULL,
   `fk_pay_exam_id` int(11) NOT NULL,
-  `fk_pay_user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fk_pay_user_id` int(11) NOT NULL,
+  PRIMARY KEY (`pay_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `payement`
@@ -289,8 +388,51 @@ CREATE TABLE `payement` (
 INSERT INTO `payement` (`pay_id`, `pay_montant`, `num_facture`, `pay_date`, `pay_motif`, `pay_description`, `utilise`, `fk_pay_patient_id`, `fk_pay_exam_id`, `fk_pay_user_id`) VALUES
 (1, '10000', '25048232021', '2021-04-25 22:07:21', '1', '', 0, 3, 0, 1),
 (2, '10000', '25047842021', '2021-04-25 22:07:39', '1', '', 1, 8, 0, 1),
-(3, '10000', '25046722021', '2021-04-25 22:26:26', '1', '', 0, 8, 0, 1),
-(4, '17000', '26041912021', '2021-04-26 10:23:12', '2', '', 1, 0, 41, 1);
+(3, '10000', '25046722021', '2021-04-25 22:26:26', '1', '', 1, 8, 0, 1),
+(4, '17000', '26041912021', '2021-04-26 10:23:12', '2', '', 1, 0, 41, 1),
+(5, '10000', '06094502022', '2022-09-06 10:52:37', '1', '', 1, 85, 0, 1),
+(6, '19800', '06092552022', '2022-09-06 11:25:03', '2', '', 1, 0, 42, 1),
+(7, '10000', '07092532022', '2022-09-07 16:37:04', '1', '', 0, 90, 0, 1),
+(8, '6000', '12092472022', '2022-09-12 10:24:26', '2', '', 0, 0, 43, 1),
+(9, '10000', '12094472022', '2022-09-12 11:00:37', '1', '', 1, 8, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `personnel`
+--
+
+DROP TABLE IF EXISTS `personnel`;
+CREATE TABLE IF NOT EXISTS `personnel` (
+  `id_agent` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_agent` varchar(100) DEFAULT NULL,
+  `postnom_agent` varchar(100) DEFAULT NULL,
+  `prenom_agent` varchar(100) DEFAULT NULL,
+  `sexe_agent` varchar(10) DEFAULT NULL,
+  `tel_agent` varchar(20) DEFAULT NULL,
+  `email_agent` varchar(50) DEFAULT NULL,
+  `fonction_agent` varchar(225) DEFAULT NULL,
+  `site_agent` varchar(100) DEFAULT NULL,
+  `matricule_agent` text,
+  `etat_civil` varchar(20) DEFAULT NULL,
+  `nbre_enfant` int(11) DEFAULT NULL,
+  `epoux` varchar(100) DEFAULT NULL,
+  `nais_agent` varchar(200) NOT NULL,
+  `date_nais_agent` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `adresse_agent` text NOT NULL,
+  PRIMARY KEY (`id_agent`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `personnel`
+--
+
+INSERT INTO `personnel` (`id_agent`, `nom_agent`, `postnom_agent`, `prenom_agent`, `sexe_agent`, `tel_agent`, `email_agent`, `fonction_agent`, `site_agent`, `matricule_agent`, `etat_civil`, `nbre_enfant`, `epoux`, `nais_agent`, `date_nais_agent`, `adresse_agent`) VALUES
+(2, 'Mubake', 'WAl', 'Jonathan', 'm', '3123', 'nel7luboya@gmail.com', 'eztrer', 'zert', '98745', 'celibataire', 1, 'pou', '', '2022-09-12 16:47:27', ''),
+(3, 'Mubake', 'WAl', 'Jonathan', 'm', '3123', 'nel7luboya@gmail.com', 'eztrer', 'zert', '98745', 'celibataire', 1, 'pou', '', '2022-09-12 16:47:27', ''),
+(4, 'Mubake', 'WAl', 'Jonathan', 'm', '3123', 'nel7luboya@gmail.com', 'eztrer', 'zert', '98745', 'celibataire', 1, 'pou', '', '2022-09-12 16:47:27', ''),
+(5, 'Mubake', 'WAl', 'Jonathan', 'm', '3123', 'nel7luboya@gmail.com', 'eztrer', 'zert', '98745', 'celibataire', 1, 'pou', '', '2022-09-12 16:47:27', ''),
+(6, 'oui', 'uoi', 'rt', 'm', '21546', 'nel7luboya@gmail.com', 'ret', 'ert', '12123', 'marie', 1, 'dgfg', 'eede', '2022-09-12 00:00:00', 'rtyt');
 
 -- --------------------------------------------------------
 
@@ -298,14 +440,16 @@ INSERT INTO `payement` (`pay_id`, `pay_montant`, `num_facture`, `pay_date`, `pay
 -- Structure de la table `produit`
 --
 
-CREATE TABLE `produit` (
-  `produit_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `produit`;
+CREATE TABLE IF NOT EXISTS `produit` (
+  `produit_id` int(11) NOT NULL AUTO_INCREMENT,
   `produit_nom` varchar(50) NOT NULL,
   `produit_dosage` varchar(50) NOT NULL,
   `produit_dosage_unite` varchar(10) NOT NULL,
   `produit_pv` varchar(10) NOT NULL,
-  `produit_qte` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `produit_qte` int(11) NOT NULL,
+  PRIMARY KEY (`produit_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `produit`
@@ -320,13 +464,15 @@ INSERT INTO `produit` (`produit_id`, `produit_nom`, `produit_dosage`, `produit_d
 -- Structure de la table `sortie_produit`
 --
 
-CREATE TABLE `sortie_produit` (
-  `sortie_produit_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `sortie_produit`;
+CREATE TABLE IF NOT EXISTS `sortie_produit` (
+  `sortie_produit_id` int(11) NOT NULL AUTO_INCREMENT,
   `sortie_produit_qte` int(11) NOT NULL,
   `sortie_produit_datetime` datetime NOT NULL,
   `sortie_produit_fk_produit_id` int(11) NOT NULL,
-  `sortie_produit_fk_users_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `sortie_produit_fk_users_id` int(11) NOT NULL,
+  PRIMARY KEY (`sortie_produit_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `sortie_produit`
@@ -344,144 +490,28 @@ INSERT INTO `sortie_produit` (`sortie_produit_id`, `sortie_produit_qte`, `sortie
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
-  `users_id` int(11) NOT NULL,
-  `prenom` varchar(100) NOT NULL,
-  `nom` varchar(100) NOT NULL,
-  `user_titre` varchar(100) NOT NULL,
-  `user_poste` varchar(100) NOT NULL,
-  `user_sexe` varchar(10) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `users_id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `privilege` varchar(50) NOT NULL,
-  `etat` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `etat` varchar(50) NOT NULL,
+  `agent_id` int(11) NOT NULL,
+  PRIMARY KEY (`users_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`users_id`, `prenom`, `nom`, `user_titre`, `user_poste`, `user_sexe`, `login`, `password`, `privilege`, `etat`) VALUES
-(1, 'Elysee', 'Asad', 'Docteur', 'Administrateur', 'm', 'nel7', 'nel', '1', 'actif'),
-(2, 'Yannick', 'Moyo', 'medecin generaliste', 'consultant', 'm', 'wise', 'wise', '3', 'actif'),
-(3, 'Daniel', 'Mwema', 'virologue', 'laborantin', 'm', 'dan', 'dan', '4', 'actif'),
-(4, 'Glory', 'Lisole', 'infirmier', 'réceptionniste ', 'm', 'glory', 'glory', '2', 'actif');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `configs`
---
-ALTER TABLE `configs`
-  ADD UNIQUE KEY `config_id` (`config_id`);
-
---
--- Index pour la table `depense`
---
-ALTER TABLE `depense`
-  ADD PRIMARY KEY (`depense_id`);
-
---
--- Index pour la table `examen`
---
-ALTER TABLE `examen`
-  ADD PRIMARY KEY (`exam_id`);
-
---
--- Index pour la table `fiche`
---
-ALTER TABLE `fiche`
-  ADD PRIMARY KEY (`fiche_id`);
-
---
--- Index pour la table `patient`
---
-ALTER TABLE `patient`
-  ADD PRIMARY KEY (`patient_id`);
-
---
--- Index pour la table `payement`
---
-ALTER TABLE `payement`
-  ADD PRIMARY KEY (`pay_id`);
-
---
--- Index pour la table `produit`
---
-ALTER TABLE `produit`
-  ADD PRIMARY KEY (`produit_id`);
-
---
--- Index pour la table `sortie_produit`
---
-ALTER TABLE `sortie_produit`
-  ADD PRIMARY KEY (`sortie_produit_id`);
-
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`users_id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `configs`
---
-ALTER TABLE `configs`
-  MODIFY `config_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
---
--- AUTO_INCREMENT pour la table `depense`
---
-ALTER TABLE `depense`
-  MODIFY `depense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT pour la table `examen`
---
-ALTER TABLE `examen`
-  MODIFY `exam_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
-
---
--- AUTO_INCREMENT pour la table `fiche`
---
-ALTER TABLE `fiche`
-  MODIFY `fiche_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT pour la table `patient`
---
-ALTER TABLE `patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT pour la table `payement`
---
-ALTER TABLE `payement`
-  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT pour la table `produit`
---
-ALTER TABLE `produit`
-  MODIFY `produit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `sortie_produit`
---
-ALTER TABLE `sortie_produit`
-  MODIFY `sortie_produit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT pour la table `users`
---
-ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+INSERT INTO `users` (`users_id`, `login`, `password`, `privilege`, `etat`, `agent_id`) VALUES
+(1, 'nel7', 'nel', '1', 'actif', 0),
+(2, 'wise', 'wise', '3', 'actif', 0),
+(3, 'dan', 'dan', '4', 'actif', 0),
+(4, 'glory', 'glory', '2', 'actif', 0),
+(5, 'john', 'john', '2', 'inactif', 0),
+(6, 'nel7luboya@gmail.com', '1234', '1', 'actif', 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,7 +2,7 @@ let dataTable_produits
 
 $(document).ready(function () {
 
-    let path = "http://localhost:92/hopitos/";
+    let path = "http://localhost/hopitos/";
 
     //initialise datatable produit pharmaceutique
     dataTable_produits = $('#produits_table').DataTable({

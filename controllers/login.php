@@ -67,11 +67,11 @@ class Login extends Controller {
                 //definit les variables de session
                 Session::set('connected', true);
                 Session::set('privilege', $user_data['privilege']);
-                Session::set('prenom', $user_data['prenom']);
-                Session::set('nom', $user_data['nom']);
-                Session::set('titre', $user_data['user_titre']);
-                Session::set('poste', $user_data['user_poste']);
-                Session::set('sexe', $user_data['user_sexe']);
+                // Session::set('prenom', $user_data['prenom']);
+                // Session::set('nom', $user_data['nom']);
+                // Session::set('titre', $user_data['user_titre']);
+                // Session::set('poste', $user_data['user_poste']);
+                // Session::set('sexe', $user_data['user_sexe']);
                 Session::set('etat', $user_data['etat']);
                 Session::set('login', $user_data['login']);
                 Session::set('password', $user_data['password']);

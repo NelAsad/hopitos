@@ -20,7 +20,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page" style="background-image: url('http://localhost:92/hopitos/public/templates/login/images/fond11.jpg'); background-size:cover;">
+<body class="hold-transition login-page" style="background-image: url('http://localhost/hopitos/public/templates/login/images/fond11.jpg'); background-size:cover;">
 <div class="login-box">
   <div class="login-logo">
     <a href="<?php echo URL; ?>public/design/vendors/index2.html"><b>HOSPITALIA</b></a>

@@ -181,6 +181,15 @@
             </li>
         <?php endif; ?>
         
+        <?php if (Session::get('privilege') == '1'): ?>
+            <li>
+                <a href="<?php echo URL; ?>users">
+                    <i class="fa fa-user-md"></i>
+                    <span>Personnel</span>
+                </a>
+            </li>
+        <?php endif; ?>
+        
         
         <?php if (Session::get('privilege') == '1'): ?>
             <li class="treeview">

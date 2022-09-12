@@ -1,26 +1,46 @@
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    let path = "http://localhost:92/hopitos/";
+    let path = "http://localhost/hopitos/";
 
-    //initialise_datatable_users
-    $('#table_users').DataTable({});
+    //initialise datatable personnel
+    dataTable_personnel = $('#personnel_table').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "order": [],
+        "ajax": {
+            url: path + "users/personnel_datatable",
+            type: "POST"
+        },
+        "columnDefs": [
+            {
+                "target": [0, 3, 4],
+                "orderable": false
+            }
+        ]
+    });
 
-    //AJOUT_D'UN_NOUVEAU_UTILISATEURS
-    $(document).on('click', '#save_user_btn', function(e) {
+    //AJOUT_D'UN_NOUVEAU_PERSONNEL
+    $(document).on('click', '#save_personnel_btn', function (e) {
         e.preventDefault();
+        var prenom = $('#pers_prenom').val();
+        var nom = $('#pers_nom').val();
+        var postnom = $('#pers_postnom').val();
+        var sexe = $('#pers_sexe').val();
+        var tel = $('#pers_tel').val();
+        var email = $('#pers_email').val();
+        var pers_fonction = $('#pers_fonction').val();
+        var pers_site = $('#pers_site').val();
+        var pers_matricule = $('#pers_matricule').val();
+        var etat_civil = $('#pers_etat_civil').val();
+        var nbre_enfant = $('#pers_nbre_enfant').val();
+        var epoux = $('#pers_epoux').val();
 
-        var prenom = $('#prenom').val();
-        var nom = $('#nom').val();
-        var login = $('#login').val();
-        var password = $('#password').val();
-        var user_titre = $('#user_titre').val();
-        var user_poste = $('#user_poste').val();
-        var user_sexe = $('#user_sexe').val();
-        var confirme_password = $('#confirme_password').val();
-        var etat = $('#etat').val();
+        var nais = $('#pers_nais').val();
+        var date_nais = $('#pers_date_nais').val();
+        var adresse = $('#pers_adresse').val();
 
-        if (prenom == '' || nom == '' || login == '' || user_titre == '' || password == '' || confirme_password == '') {
+        if (prenom == '' || nom == '' || postnom == '') {
             swal.fire({
                 title: 'Veillez remplir tout les champs',
                 text: '',
@@ -29,223 +49,212 @@ $(document).ready(function() {
             });
         } else {
 
-            if (password != confirme_password) {
-                swal.fire({
-                    title: 'Le mot de passe ne correspond pas a sa definition',
-                    text: '',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                });
-            } else {
-
-                $.ajax({
-                    url: path + "users/new_user",
-                    type: 'POST',
-                    data: {
-                        prenom: prenom,
-                        nom: nom,
-                        login: login,
-                        password: password,
-                        user_titre: user_titre,
-                        user_poste: user_poste,
-                        user_sexe: user_sexe,
-                        confirme_password: confirme_password,
-                        privilege: user_poste,
-                        etat: etat
-                    },
-                    success: function(data) {
-                        if (data == 'inserted') {
-                            swal.fire({
-                                title: 'Utilisateur ajouté avec succès',
-                                text: '',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            });
-                            formulaire_ajout_user.reset();
-                        } else {
-                            swal.fire({
-                                title: 'Erreur!',
-                                text: 'Echec d\'enregistrement',
-                                type: 'error',
-                                confirmButtonText: 'Ok'
-                            });
-                        }
+            $.ajax({
+                url: path + "users/new_personnel",
+                type: 'POST',
+                data: {
+                    prenom: prenom,
+                    nom: nom,
+                    postnom: postnom,
+                    sexe: sexe,
+                    tel: tel,
+                    email: email,
+                    pers_fonction: pers_fonction,
+                    pers_site: pers_site,
+                    pers_matricule: pers_matricule,
+                    etat_civil: etat_civil,
+                    nbre_enfant: nbre_enfant,
+                    epoux: epoux,
+                    nais: nais,
+                    date_nais: date_nais,
+                    adresse: adresse,
+                },
+                success: function (data) {
+                    if (data == 'inserted') {
+                        swal.fire({
+                            title: 'Personnel ajouté avec succès',
+                            text: '',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                        formulaire_ajout_personnel.reset();
+                        dataTable_personnel.ajax.reload();
+                    } else {
+                        swal.fire({
+                            title: 'Erreur!',
+                            text: 'Echec d\'enregistrement',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        });
                     }
-                });
-            }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
     });
 
-
-    //  MODIFIER LE PRIVILEGE D'UN UTILISATEUR
-    //rendre actif
-    $(document).on('click', '.make_user_active', function() {
-        var user_id = $(this).attr('id');
-
-        $.ajax({
-            url: path + "users/active_user",
-            type: 'POST',
-            data: {
-                user_id: user_id
-            },
-            success: function(data) {
-                if (data == 'done') {
-                    load_contenu('#users_first_onglet', path +  'users/index #first_onglet_content');
-                }
-            }
-        });
-    });
-    //rendre inactif
-    $(document).on('click', '.make_user_blocked', function() {
-        var user_id = $(this).attr('id');
-
-        $.ajax({
-            url: path + "users/block_user",
-            type: 'POST',
-            data: {
-                user_id: user_id
-            },
-            success: function(data) {
-                if (data == 'done') {
-                    load_contenu('#users_first_onglet', path +  'users/index #first_onglet_content');
-                }
-            }
-        });
-    });
-
-    
-    //VOIR_LES_DETAILS_D'UN_USER
-    $(document).on('click', '.btn_show_user_modal', function(e) {
+    // Update personnel click btn
+    // load data
+    $(document).on('click', '.btn_update_personnel_modal', function (e) {
         e.preventDefault();
-        var user_id = $(this).attr('id');
+        var id_agent = $(this).attr('id');
 
         $.ajax({
-            url: path +  "users/show_one",
+            url: path + "users/get_personnel",
             type: 'POST',
             dataType: 'JSON',
             data: {
-                user_id: user_id
+                id_agent: id_agent
             },
-            success: function(user) {
-                $('#users_show_modal_header').html(user.prenom + ' ' + user.nom);
-                $('#users_show_modal_nom_complet').html(user.prenom + ' ' + user.nom);
-                $('#users_show_modal_privilege').html(user.privilege);
-                $('#users_show_modal_login').html(user.login);
-                $('#users_show_modal_etat').html(user.etat);
-                $('#users_show_modal').modal('show');
+            success: function (agent) {
+                $('#hidden_update_personnel_id').val(agent.id_agent);
+                $('#pers_prenom').val(agent.prenom_agent);
+                $('#pers_nom').val(agent.nom_agent);
+                $('#pers_postnom').val(agent.postnom_agent);
+                $('#pers_sexe').val(agent.sexe_agent);
+                $('#pers_tel').val(agent.tel_agent);
+                $('#pers_email').val(agent.email_agent);
+                $('#pers_fonction').val(agent.fonction_agent);
+                $('#pers_site').val(agent.site_agent);
+                $('#pers_matricule').val(agent.matricule_agent);
+                $('#pers_etat_civil').val(agent.etat_civil);
+                $('#pers_nbre_enfant').val(agent.nbre_enfant);
+                $('#pers_epoux').val(agent.epoux);
+                $('#pers_nais').val(agent.nais_agent);
+                $('#pers_date_nais').val(agent.date_nais_agent);
+                $('#pers_adresse').val(agent.adresse_agent);
+
+                // $('#patient_update_modal').modal('show');
             },
-            error: function(data) {
+            error: function (data) {
                 alert('Error!!');
             }
         });
     });
-
-
-
-    //UPDATE_USER
-    //show_modal
-    $(document).on('click', '.btn_edit_user_modal', function(e) {
+    // Valider update personnel
+    $(document).on('click', '#update_personnel_btn', function (e) {
         e.preventDefault();
-        var user_id = $(this).attr('id');
+        var id_agent = $('#hidden_update_personnel_id').val();
+        var prenom = $('#pers_prenom').val();
+        var nom = $('#pers_nom').val();
+        var postnom = $('#pers_postnom').val();
+        var sexe = $('#pers_sexe').val();
+        var tel = $('#pers_tel').val();
+        var email = $('#pers_email').val();
+        var profession = $('#pers_fonction').val();
+        var pers_site = $('#pers_site').val();
+        var pers_matricule = $('#pers_matricule').val();
+        var etat_civil = $('#pers_etat_civil').val();
+        var nbre_enfant = $('#pers_nbre_enfant').val();
+        var epoux = $('#pers_epoux').val();
 
-        $.ajax({
-            url: path +  "users/show_one",
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                user_id: user_id
-            },
-            success: function(user) {
-                $('#hidden_users_id').val(user.users_id);
-                $('#users_edit_modal_prenom').val(user.prenom);
-                $('#users_edit_modal_nom').val(user.nom);
-                $('#users_edit_modal_login').val(user.login);
+        var nais = $('#pers_nais').val();
+        var date_nais = $('#pers_date_nais').val();
+        var adresse = $('#pers_adresse').val();
 
-                $('#users_edit_modal').modal('show');
-            },
-            error: function(data) {
-                alert('Error!!');
-            }
-        });
-    });
-    //valide_update
-    $(document).on('click', '#modal_users_btn_update', function(e) {
-        e.preventDefault();
-
-        var hidden_users_id = $('#hidden_users_id').val();
-        var prenom = $('#users_edit_modal_prenom').val();
-        var nom = $('#users_edit_modal_nom').val();
-        var login = $('#users_edit_modal_login').val();
-        var privilege = $('#users_edit_modal_privilege').val();
-        var etat = $('#users_edit_modal_etat').val();
-
-        if (prenom == '' || nom == '' || login == '') {
-
+        if (prenom == '' || nom == '' || postnom == '') {
             swal.fire({
-                title: 'Champs vides',
-                text: 'Veillez remplir tous les champs',
+                title: 'Veillez remplir tout les champs',
+                text: '',
                 type: 'error',
                 confirmButtonText: 'Ok'
             });
         } else {
 
             $.ajax({
-                url: path + "users/edit_user",
+                url: path + "users/update_personnel",
                 type: 'POST',
                 data: {
-                    hidden_users_id: hidden_users_id,
+                    id_agent: id_agent,
                     prenom: prenom,
                     nom: nom,
-                    login: login,
-                    privilege: privilege,
-                    etat: etat
+                    postnom: postnom,
+                    sexe: sexe,
+                    tel: tel,
+                    email: email,
+                    profession: profession,
+                    pers_site: pers_site,
+                    pers_matricule: pers_matricule,
+                    etat_civil: etat_civil,
+                    nbre_enfant: nbre_enfant,
+                    epoux: epoux,
+                    nais: nais,
+                    date_nais: date_nais,
+                    adresse: adresse,
                 },
-                success: function(data) {
-                    if (data == 'bien') {
+                success: function (data) {
+                    if (data == 'inserted') {
                         swal.fire({
-                            title: 'Modifier avec succes',
+                            title: 'Personnel Modifié avec succès',
                             text: '',
                             type: 'success',
                             confirmButtonText: 'Ok'
                         });
-                        load_contenu('#users_first_onglet', path + 'users/index #first_onglet_content');
+                        formulaire_ajout_personnel.reset();
+                        dataTable_personnel.ajax.reload();
                     } else {
+                        console.log(data);
                         swal.fire({
-                            title: 'Echec de modification',
-                            text: '',
+                            title: 'Erreur!',
+                            text: 'Echec de modification',
                             type: 'error',
                             confirmButtonText: 'Ok'
                         });
                     }
+                },
+                error: function (data) {
+                    console.log(data);
                 }
             });
         }
     });
 
 
+    //Delete agent
+    $(document).on('click', '.btn_delete_personnel', function (e) {
+        e.preventDefault();
+        let id_agent = $(this).attr('id');
 
+        if (id_agent == '') {
+            alert('Veillez choisir un agent avant');
+        } else {
 
-    //CHARGEMENT_SYSTEMATIQUE_DES_CONTENUS_DES_ONGULET
-    $(document).on('click', '#users_utilisateurs', function() {
-        load_contenu('#users_first_onglet', path + 'users/index #first_onglet_content');
-        $('#table_users').DataTable().destroy();
-        $('#table_users').DataTable({
-            "processing" : false,
-            "serverSide" : false
-        });
+            if (confirm('Voulez-vous vraiment supprimer cet agent ?')) {
+                $.ajax({
+                    url: path + "users/delete_agent",
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                        id_agent: id_agent
+                    },
+                    success: function (data) {
+                        if (data.reponse == 'bien') {
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.success('Agent supprimé');
+                            dataTable_personnel.ajax.reload();
+                        }
+                        if (data.reponse == 'pas_bien') {
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.warning('Echec de suppression');
+                        }
+                    },
+                    error: function (data) {
+                        alert('Error');
+                    }
+                });
+            }
+            
+        }
+
     });
-    $(document).on('click', '#users_ajouter_un_utilisateur', function() {
-        load_contenu('#users_second_onglet', path + 'users/index #second_onglet_content');
-    });
-    $(document).on('click', '#users_mon_profil', function() {
-        load_contenu('#users_third_onglet', path + 'users/index #third_onglet_content');
-    });
-
-
-    //La method qui charge le contenu pour chaque ongulet d'un module
-    function load_contenu(id_element_content, url_content, donnees) {
-        $(id_element_content).load(url_content, donnees);
-    }
 
 
 });

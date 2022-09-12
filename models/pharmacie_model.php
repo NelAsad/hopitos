@@ -49,9 +49,9 @@ class Pharmacie_model extends Model {
             $sub_array[] = $row["produit_pv"].' fc';
             $sub_array[] = $row["produit_qte"];
             $sub_array[] = "
-                            <a style='cursor: pointer;' class='btn_update_produit_modal' id='". $row["produit_id"] ."' title='Mettre à jour le produit'><i class='edit icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_add_qte_produit_modal' id='". $row["produit_id"] ."' quantite='". $row["produit_qte"] ."' title='Ajouter une quantité'><i class='plus orange icon'></i></a>
-                            <a style='cursor: pointer;' class='btn_sortie_produit_modal' id='". $row["produit_id"] ."' title='Delivrer produit'><i class='send green icon'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_update_produit_modal' id='". $row["produit_id"] ."' title='Mettre à jour le produit'><i class='fa fa-edit'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_add_qte_produit_modal' id='". $row["produit_id"] ."' quantite='". $row["produit_qte"] ."' title='Ajouter une quantité'><i class='fa fa-plus'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_sortie_produit_modal' id='". $row["produit_id"] ."' title='Delivrer produit'><i class='fa fa-send'></i></a>
                         ";
             $data[] = $sub_array;
         }
