@@ -7,10 +7,10 @@ require 'public/librairies/dompdf/autoload.inc.php';
 //libs main files
 require 'libs/Bootstrap.php';
 require 'libs/Controller.php';
-require 'libs/database.php';
+require 'libs/Database.php';
 require 'libs/Session.php';
 require 'libs/Model.php';
-require 'libs/view.php';
+require 'libs/View.php';
 
 //Config
 require 'config/paths.php';

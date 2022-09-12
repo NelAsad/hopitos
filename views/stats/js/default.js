@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let path = "http://localhost/hopitos/";
+    let path = "http://localhost:92/hopitos/";
 
     $('#search_pour_date_block').hide();
     $('.search_pour_periode_block').hide();

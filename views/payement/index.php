@@ -1,80 +1,146 @@
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+          <h1>
+              Les Payements
+          </h1>
+          <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">UI</a></li>
+        <li class="active">General</li>
+      </ol> -->
+      </section>
 
-<!-- page content -->
-<div style="margin-left:220px; margin-right:1%; padding-top:0.5%;">
+      <!-- Main content -->
+      <section class="content">
+          <div class="row">
+              <div class="col-md-12">
+                  <!-- Custom Tabs -->
+                  <div class="nav-tabs-custom">
+                      <ul class="nav nav-tabs">
+                          <li class="active"><a href="#tab_1" data-toggle="tab">Carnet de payement</a></li>
+                          <li><a href="#tab_2" data-toggle="tab">Effectuer un payement</a></li>
+                          <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                      </ul>
+                      <div class="tab-content">
+                          <div class="tab-pane active" id="tab_1">
+                            <table id="table_payements" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Motif</th>
+                                        <th>Montant</th>
+                                        <th>Date</th>
+                                        <th>Facture</th>
+                                        <th>ID</th>
+                                        <th>Caissier</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                          </div>
+                          <!-- /.tab-pane -->
+                          <div class="tab-pane" id="tab_2">
 
-    <div class="ui segment blue">
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                <h3 class="box-title">Nouveau Payement</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                    <form class="ui mini form" id="form_add_payement">
+                                        <div class="col-xs-6">
+                                            <label>Motif</label>
+                                            <select class="form-control" id="new_payement_motif">
+                                                <option value="1">Frais Fiche</option>
+                                                <option value="2">Frais Laboratoire</option>
+                                                <option value="3">Autres frais</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-6" id="bloc_ident_patient">
+                                            <label>Identifiant du patient</label>
+                                            <input class="form-control" type="text" id="new_payement_patient_id" placeholder="Identifiant du patient">
+                                        </div>
+                                        <div class="col-xs-6" id="bloc_ident_demande">
+                                            <label>Identifiant Demande</label>
+                                            <input class="form-control" type="text" id="new_payement_demande_id" placeholder="Identifiant de la demande">
+                                        </div>
+                                        <div class="col-xs-6 bloc_autre_payement">
+                                            <label>Motif du payement</label>
+                                            <input class="form-control" type="text" id="new_payement_motif_autre_payement" placeholder="Motif du payement">
+                                        </div>
+                                        <div class="col-xs-6 bloc_autre_payement">
+                                            <label>Montant du payement</label>
+                                            <input class="form-control" type="number" min="0" id="new_payement_montant_autre_payement" placeholder="Identifiant de la demande">
+                                        </div>
+                                        
+                                    </form>
+                                    </div>
+                                        <div class="btn btn-primary btn-block ol-xs-12" id="btn_add_new_payement" style="margin-top: 30px;">
+                                            <i class="save icon"></i>
+                                            Valider le payement
+                                        </div>
+                                    <!-- <button class="btn btn-primary btn-block" id="btn_add_new_patient" style="margin-top: 30px;">Enregistrer</button> -->
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                          </div>
+                          <!-- /.tab-pane -->
+                      </div>
+                      <!-- /.tab-content -->
+                  </div>
+                  <!-- nav-tabs-custom -->
+              </div>
+              <!-- /.col -->
+      </section>
+  </div>
+  </div>
 
-        <div class="ui secondary pointing menu">
-            <a class="active item green tab_item" id="payement_carnet" data-tab="first">
-                <i class="folder icon"></i>
-                Carnet de payement
-            </a>
-            <a class="item green tab_item" id="payement_new_payement" data-tab="second">
-                <i class="credit card icon"></i>
-                Effectuer un payement
-            </a>
+
+  <div class="modal fade" id="valider_payement_fiche_modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Valider le payement ?</h4>
         </div>
-        <div class="ui bottom attached active tab segment" id="payement_first_onglet" data-tab="first">
-            <div id="first_onglet_content">
-                <table id="table_payements" class="ui small green celled table">
-                    <thead>
+        <div class="modal-body">
+            <h3><span id="patient_preview_payement_fiche"></span></h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tbody>
                         <tr>
-                            <th>Id</th>
-                            <th>Motif</th>
-                            <th>Montant</th>
-                            <th>Date</th>
-                            <th>Facture</th>
-                            <th>ID</th>
-                            <th>Caissier</th>
+                            <td>Motif : </td>
+                            <td>Frais de fiche</td>
+                            <td></td>
                         </tr>
-                    </thead>
+                        <tr>
+                            <td>Montant : </td>
+                            <td><span id="montant_preview_payement_fiche"></span> FC</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
-
-        <div class="ui bottom attached tab segment" id="payement_second_onglet" data-tab="second">
-            <div id="second_onglet_content">
-                <div class="ui two column green segment">
-                    <form class="ui mini form" id="form_add_payement">
-                        <h4 class="ui dividing header">Nouveau Payement</h4>
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Motif</label>
-                                <select class="dropdown" id="new_payement_motif">
-                                    <option value="1">Frais Fiche</option>
-                                    <option value="2">Frais Laboratoire</option>
-                                    <option value="3">Autres frais</option>
-                                </select>
-                            </div>
-                            <div class="field" id="bloc_ident_patient">
-                                <label>Identifiant du patient</label>
-                                <input type="text" id="new_payement_patient_id" placeholder="Identifiant du patient">
-                            </div>
-                            <div class="field" id="bloc_ident_demande">
-                                <label>Identifiant Demande</label>
-                                <input type="text" id="new_payement_demande_id" placeholder="Identifiant de la demande">
-                            </div>
-                            <div class="field bloc_autre_payement">
-                                <label>Motif du payement</label>
-                                <input type="text" id="new_payement_motif_autre_payement" placeholder="Motif du payement">
-                            </div>
-                            <div class="field bloc_autre_payement">
-                                <label>Montant du payement</label>
-                                <input type="number" min="0" id="new_payement_montant_autre_payement" placeholder="Identifiant de la demande">
-                            </div>
-                        </div>
-
-                        <div class="ui green inverted button" id="btn_add_new_payement">
-                            <i class="save icon"></i>
-                            Valider le payement
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btn_done_payement_fiche">Valider le payement</button>
         </div>
     </div>
+    <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
-<!-- /page content -->
+<!-- /.modal -->
+
+
+
+
+
+
 
 <!-- modal preview payement fiche -->
 <div class="ui modal" id="valider_payement_fiche_modal">

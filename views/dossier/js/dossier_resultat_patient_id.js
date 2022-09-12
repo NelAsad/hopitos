@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let path = "http://localhost/hopitos/";
+    let path = "http://localhost:92/hopitos/";
 
     //initialise_datatable_fiche_juste_ouvetes
     var dataTable_fiche_dossier_by_patient_id = $('#table_fiches_dossier_by_patient_id').DataTable({

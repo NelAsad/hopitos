@@ -82,6 +82,42 @@ class Patient extends Controller {
         
     }
 
+    /**
+     * Update d'un patient
+     */
+    function update_patient(){
+        
+        $users_id = Session::get('user_id');
+        
+        $patient_id = $_POST['new_patient_id'];
+        $prenom = $_POST['new_patient_prenom'];
+        $nom = $_POST['new_patient_nom'];
+        $postnom = $_POST['new_patient_postnom'];
+        $date_naissance = $_POST['new_patient_date_naissance'];
+        $sexe = $_POST['new_patient_sexe'];
+        $adresse = $_POST['new_patient_adresse'];
+        $statut = $_POST['new_patient_statut'];
+        $dossier_num = $_POST['new_patient_dossier_num'];
+        $fiche_num = $_POST['new_patient_fiche_num'];
+        $titulaire_id = $_POST['new_patient_titulaire_id'];
+        $affiliation = $_POST['new_patient_affiliation'];
+        $code_conv = $_POST['new_patient_code_conv'];
+        $occupation = $_POST['new_patient_occupation'];
+
+        $std = new stdClass();
+
+        //Update patient
+        $result = $this->model->update_patient($patient_id, $prenom, $nom,$postnom,$date_naissance, $sexe, $adresse,$statut,$dossier_num,$fiche_num,$titulaire_id,$affiliation,$code_conv,$occupation,$users_id);
+
+        if ($result) {
+            $std->reponse = 'bien';
+        } else {
+            $std->reponse = 'pas_bien';
+        }
+        echo json_encode($std);
+        
+    }
+
 
     /**
      * Donne un patient avec tout les details
@@ -132,6 +168,22 @@ class Patient extends Controller {
         
         echo json_encode($std);
 
+    }
+
+    //delete patient
+    function delete_patient(){
+        $patient_id = $_POST['patient_id'];
+        $std = new stdClass();
+
+        $result = $this->model->delete_patient($patient_id);
+
+        if ($result) {
+            $std->reponse = 'bien';
+        } else {
+            $std->reponse = 'pas_bien';
+        }
+        
+        echo json_encode($std);
     }
 
 }

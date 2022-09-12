@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-    let path = "http://localhost/hopitos/";
+    let path = "http://localhost:92/hopitos/";
 
     //initialise_datatable_patients
     var dataTable_patient = $('#table_patients').DataTable({
@@ -124,6 +124,8 @@ $(document).ready(function () {
             },
             success: function (patient) {
 
+                console.log(patient);
+
                 var date_naissance = new Date(patient.patient_date_naissance);
 
                 $('#show_patient_prenom_et_nom').html(patient.patient_prenom + ' ' + patient.patient_nom);
@@ -152,7 +154,7 @@ $(document).ready(function () {
     });
 
     //UPDATE UN USER
-    //affiche le modal
+    //Remplir les champs pour l'update
     $(document).on('click', '.btn_update_patient_modal', function(e){
         e.preventDefault();
         var patient_id = $(this).attr('id');
@@ -165,22 +167,22 @@ $(document).ready(function () {
                 patient_id: patient_id
             },
             success: function (patient) {
-                $('#hidden_patient_id').val(patient.patient_id);
-                $('#update_patient_prenom').val(patient.patient_prenom);
-                $('#update_patient_nom').val(patient.patient_nom);
-                $('#update_patient_postnom').val(patient.patient_postnom);
-                $('#update_patient_date_naissance').val(patient.patient_date_naissance);
-                $('#update_patient_sexe').val(patient.patient_sexe);
-                $('#update_patient_adresse').val(patient.patient_adresse);
-                $('#update_patient_statut').val(patient.patient_statut);
-                $('#update_patient_dossier_num').val(patient.patient_dossier_numero);
-                $('#update_patient_fiche_num').val(patient.patient_fiche_numero);
-                $('#update_patient_titulaire_id').val(patient.fk_patient_conv);// le personne liee a l'hopital
-                $('#update_patient_affiliation').val(patient.patient_affiliation);
-                $('#update_patient_code_conv').val(patient.patient_code_convention);
-                $('#update_patient_occupation').val(patient.patient_occupation);
+                $('#hidden_update_patient_id').val(patient.patient_id);
+                $('#new_patient_prenom').val(patient.patient_prenom);
+                $('#new_patient_nom').val(patient.patient_nom);
+                $('#new_patient_postnom').val(patient.patient_postnom);
+                $('#new_patient_date_naissance').val(patient.patient_date_naissance);
+                $('#new_patient_sexe').val(patient.patient_sexe);
+                $('#new_patient_adresse').val(patient.patient_adresse);
+                $('#new_patient_statut').val(patient.patient_statut);
+                $('#new_patient_dossier_num').val(patient.patient_dossier_numero);
+                $('#new_patient_fiche_num').val(patient.patient_fiche_numero);
+                $('#new_patient_titulaire_id').val(patient.fk_patient_conv);// le personne liee a l'hopital
+                $('#new_patient_affiliation').val(patient.patient_affiliation);
+                $('#new_patient_code_conv').val(patient.patient_code_convention);
+                $('#new_patient_occupation').val(patient.patient_occupation);
 
-                $('#patient_update_modal').modal('show');
+                // $('#patient_update_modal').modal('show');
             },
             error: function (data) {
                 alert('Error!!');
@@ -189,14 +191,88 @@ $(document).ready(function () {
 
     });
     // Valider la modification
-    /*
-        les codes ici
-    */
+    $(document).on('click', '#btn_update_patient', function (e) {
+        e.preventDefault();
+
+        var new_patient_id = $('#hidden_update_patient_id').val();
+        var new_patient_prenom = $('#new_patient_prenom').val();
+        var new_patient_nom = $('#new_patient_nom').val();
+        var new_patient_postnom = $('#new_patient_postnom').val();
+        var new_patient_date_naissance = $('#new_patient_date_naissance').val();
+        var new_patient_sexe = $('#new_patient_sexe').val();
+        var new_patient_adresse = $('#new_patient_adresse').val();
+        var new_patient_statut = $('#new_patient_statut').val();
+        var new_patient_dossier_num = $('#new_patient_dossier_num').val();
+        var new_patient_fiche_num = $('#new_patient_fiche_num').val();
+        var new_patient_titulaire_id = $('#new_patient_titulaire_id').val();
+        var new_patient_affiliation = $('#new_patient_affiliation').val();
+        var new_patient_code_conv = $('#new_patient_code_conv').val();
+        var new_patient_occupation = $('#new_patient_occupation').val();
+
+        if (new_patient_prenom == '' || new_patient_nom == '' || new_patient_postnom == '' || new_patient_dossier_num == '' || new_patient_fiche_num == '' || new_patient_date_naissance == '' || new_patient_adresse == '') {
+            swal.fire({
+                title: 'Champs vide',
+                text: 'Veillez remplir tout les champs obligatoires',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        } else {
+
+            $.ajax({
+                url: path + "patient/update_patient",
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    new_patient_id: new_patient_id,
+                    new_patient_prenom: new_patient_prenom,
+                    new_patient_nom: new_patient_nom,
+                    new_patient_postnom: new_patient_postnom,
+                    new_patient_date_naissance: new_patient_date_naissance,
+                    new_patient_sexe: new_patient_sexe,
+                    new_patient_adresse: new_patient_adresse,
+                    new_patient_statut: new_patient_statut,
+                    new_patient_dossier_num: new_patient_dossier_num,
+                    new_patient_fiche_num: new_patient_fiche_num,
+                    new_patient_titulaire_id: new_patient_titulaire_id,
+                    new_patient_affiliation: new_patient_affiliation,
+                    new_patient_code_conv: new_patient_code_conv,
+                    new_patient_occupation: new_patient_occupation
+                },
+                success: function (data) {
+                    if (data.reponse == 'bien') {
+                        toastr.options.progressBar = true;
+                        toastr.options.showMethod = 'slideDown';
+                        toastr.options.hideMethod = 'fadeOut';
+                        toastr.options.closeMethod = 'fadeOut';
+                        toastr.success('Patient Modifié avec succès');
+
+                        form_add_new_patient.reset();
+                        dataTable_patient.ajax.reload();
+                    }
+                    if (data.reponse == 'pas_bien') {
+                        toastr.options.progressBar = true;
+                        toastr.options.showMethod = 'slideDown';
+                        toastr.options.hideMethod = 'fadeOut';
+                        toastr.options.closeMethod = 'fadeOut';
+                        toastr.warning('Echec de modification');
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert('Error');
+                }
+            });
+        }
+    });
+
 
 
     //OUVRIR UNE FICHE
     //Afficher modal ouvrir fiche
     $(document).on('click', '.btn_ouvrir_fiche_patient', function (e) {
+
+        // alert('im here');
+
         e.preventDefault();
         let patient_id = $(this).attr('id');
         $('#ouvrir_fiche_fk_patient_id').val(patient_id);
@@ -267,6 +343,49 @@ $(document).ready(function () {
                 alert('Error!!');
             }
         });
+    });
+
+    //Delete patient
+    $(document).on('click', '#btn_delete_patient', function (e) {
+        e.preventDefault();
+        let patient_id = $('#hidden_update_patient_id').val();
+
+        if (patient_id == '') {
+            alert('Veillez choisir un patient avant');
+        } else {
+
+            if (confirm('Voulez-vous vraiment supprimer le patient ?')) {
+                $.ajax({
+                    url: path + "patient/delete_patient",
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                        patient_id: patient_id
+                    },
+                    success: function (data) {
+                        if (data.reponse == 'bien') {
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.success('Patient supprime');
+                        }
+                        if (data.reponse == 'pas_bien') {
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.warning('Echec de suppression');
+                        }
+                    },
+                    error: function (data) {
+                        alert('Error');
+                    }
+                });
+            }
+            
+        }
+
     });
 
 });

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let path = "http://localhost/hopitos/";
+    let path = "http://localhost:92/hopitos/";
 
     // INITIALISATION DES DATATABLES
 
