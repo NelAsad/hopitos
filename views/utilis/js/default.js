@@ -59,13 +59,13 @@ $(document).ready(function () {
                         formulaire_ajout_personnel.reset();
                         dataTable_personnel.ajax.reload();
                     } else {
-                        console.log(data);
-                        // swal.fire({
-                        //     title: 'Erreur!',
-                        //     text: 'Echec d\'enregistrement',
-                        //     type: 'error',
-                        //     confirmButtonText: 'Ok'
-                        // });
+                        // console.log(data);
+                        swal.fire({
+                            title: 'Erreur!',
+                            text: 'Echec d\'enregistrement',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        });
                     }
                 },
                 error: function (data) {
@@ -103,6 +103,62 @@ $(document).ready(function () {
                 alert('Error!!');
             }
         });
+    });
+    // Valider update personnel
+    $(document).on('click', '#update_user_btn', function (e) {
+        e.preventDefault();
+        var user_id = $('#hidden_update_userid').val();
+        var login = $('#login').val();
+        var password = $('#password').val();
+        var privilege = $('#privilege').val();
+        var etat_user = $('#etat_user').val();
+        var agent_user = $('#agent_user').val();
+
+        if (login == '' ) {
+            swal.fire({
+                title: 'Veillez remplir tout les champs',
+                text: '',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        } else {
+
+            $.ajax({
+                url: path + "utilis/update_user",
+                type: 'POST',
+                data: {
+                    user_id: user_id,
+                    login: login,
+                    password: password,
+                    privilege: privilege,
+                    etat_user: etat_user,
+                    agent_user: agent_user
+                },
+                success: function (data) {
+                    if (data == 'inserted') {
+                        swal.fire({
+                            title: 'User Modifié avec succès',
+                            text: '',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                        formulaire_ajout_personnel.reset();
+                        dataTable_personnel.ajax.reload();
+                    } else {
+                        console.log(data);
+                        swal.fire({
+                            title: 'Erreur!',
+                            text: 'Echec de modification',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
     });
 
 });

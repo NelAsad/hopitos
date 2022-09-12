@@ -107,5 +107,22 @@ class Utilis_model extends Model {
         return $result;
     }
 
+    // update agent
+    function update_user($user_id, $login, $password,$privilege, $etat, $agent_id){
+        $query = "UPDATE users SET login = :login, password = :password, privilege = :privilege, etat = :etat, agent_id = :agent_id WHERE users_id = :users_id";
+        $statement = $this->db->prepare($query);
+
+        $result = $statement->execute(array(
+            ':login' => $login,
+            ':password' => $password,
+            ':privilege' => $privilege,
+            ':etat' => $etat,
+            ':agent_id' => $agent_id,
+            ':users_id' => $user_id
+        ));
+
+        return $result;
+    }
+
 
 }

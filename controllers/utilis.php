@@ -65,6 +65,26 @@ class Utilis extends Controller {
             echo 'not_inserted';
         }
     }
+     /**
+     * update user dans la base
+     */
+    function update_user() {
+        $user_id = $_POST['user_id'];
+        $login = $_POST['login'];
+        $password = $_POST['password'];
+        $privilege = $_POST['privilege'];
+        $etat_user = $_POST['etat_user'];
+        $agent_user = $_POST['agent_user'];
+
+        //Insert user
+        $result = $this->model->update_user($user_id, $login, $password,$privilege, $etat_user, $agent_user);
+
+        if ($result) {
+            echo 'inserted';
+        } else {
+            echo 'not_inserted';
+        }
+    }
 
     // get user by id
     function get_user(){
