@@ -399,8 +399,6 @@ $(document).ready(function () {
             },
             success: function (exam) {
 
-                // console.log(exam);
-
                 let radio = $('#img_radiographie').attr('src');
                 $('#img_radiographie').attr('src', radio + exam.radiographie);
 

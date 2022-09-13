@@ -302,19 +302,24 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-6">
+                        <h5>Radiographie</h5>
                         <img id="img_radiographie" src="<?php echo URL; ?>public/images/exam/" alt="" class="img img-responsive">
                     </div>
                     <div class="col-xs-6">
-                        <img id="img_echographie" alt="" class="img-fluid">
+                        <h5>Echographie</h5>
+                        <img id="img_echographie" src="<?php echo URL; ?>public/images/exam/" alt="" class="img img-responsive">
                     </div>
                     <div class="col-xs-6">
-                        <img id="img_irm" class="img-fluid">
+                        <h5>IRM</h5>
+                        <img id="img_irm" src="<?php echo URL; ?>public/images/exam/" class="img img-responsive">
                     </div>
                     <div class="col-xs-6">
-                        <img id="img_endoscopie" alt="" class="img-fluid">
+                        <h5>Endoscopie</h5>
+                        <img id="img_endoscopie" src="<?php echo URL; ?>public/images/exam/" alt="" class="img img-responsive">
                     </div>
                     <div class="col-xs-6">
-                        <img id="img_scanner" alt="" class="img-fluid">
+                        <h5>Radiographie</h5>
+                        <img id="img_scanner" src="<?php echo URL; ?>public/images/exam/" alt="" class="img img-responsive">
                     </div>
                 </div>
             </div>
@@ -408,10 +413,10 @@
 <div class="ui modal" id="">
     <i class="close icon"></i>
     <div class="header">
-        
+
     </div>
     <div class="content">
-        
+
     </div>
     <div class="actions">
         <button class="ui negative button">
