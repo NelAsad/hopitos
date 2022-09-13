@@ -32,7 +32,7 @@
                                 <thead>
                                     <tr>
                                         <th>N° Examen</th>
-                                        <th>Demandeur</th>
+                                        <!-- <th>Demandeur</th> -->
                                         <th>Patient</th>
                                         <th>Numero de la fiche</th>
                                         <th>Heure de demande</th>
@@ -47,7 +47,7 @@
                                 <thead>
                                     <tr>
                                         <th>N° Examen</th>
-                                        <th>Demandeur</th>
+                                        <!-- <th>Demandeur</th> -->
                                         <th>Patient</th>
                                         <th>Numero de la fiche</th>
                                         <th>Heure de demande</th>
@@ -62,7 +62,7 @@
                                 <thead>
                                     <tr>
                                         <th>N° Examen</th>
-                                        <th>Demandeur</th>
+                                        <!-- <th>Demandeur</th> -->
                                         <th>Patient</th>
                                         <th>Numero de la fiche</th>
                                         <th>Heure de demande</th>
@@ -77,7 +77,7 @@
                                 <thead>
                                     <tr>
                                         <th>N° Examen</th>
-                                        <th>Demandeur</th>
+                                        <!-- <th>Demandeur</th> -->
                                         <th>Patient</th>
                                         <th>Numero de la fiche</th>
                                         <th>Heure de demande</th>
@@ -92,7 +92,7 @@
                                 <thead>
                                     <tr>
                                         <th>N° Examen</th>
-                                        <th>Demandeur</th>
+                                        <!-- <th>Demandeur</th> -->
                                         <th>Patient</th>
                                         <th>Numero de la fiche</th>
                                         <th>Heure de demande</th>
@@ -242,6 +242,92 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+
+<!-- modal inserer resultat imagerie -->
+<div class="modal fade" id="inserer_resultat_examen_image_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Inserer resultat imagerie</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo URL; ?>lobaratoire/done_add_resultat_labo" class="ui small form" id="form_inserer_image_exam" method="POST" enctype="multipart/form-data">
+                    <input class="form-control" type="hidden" id="hidden_image_exam_id" name="hidden_image_exam_id">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label for="radiographie">Radiographie</label>
+                            <input class="form-control" id="radiographie" name="radiographie" type="file">
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="echographie">Echographie</label>
+                            <input class="form-control" id="echographie" name="echographie" type="file">
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="irm">IRM</label>
+                            <input class="form-control" id="irm" name="irm" type="file">
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="endoscopie">Endoscopie</label>
+                            <input class="form-control" id="endoscopie" name="endoscopie" type="file">
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="scanner">Scanner</label>
+                            <input class="form-control" id="scanner" name="scanner" type="file">
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary" id="btn_done_insert_resultat_imagerie">Valider</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- modal voir resultat imagerie -->
+<div class="modal fade" id="voir_resultat_examen_image_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Resultat imagerie</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <img id="img_radiographie" src="<?php echo URL; ?>public/images/exam/" alt="" class="img img-responsive">
+                    </div>
+                    <div class="col-xs-6">
+                        <img id="img_echographie" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-xs-6">
+                        <img id="img_irm" class="img-fluid">
+                    </div>
+                    <div class="col-xs-6">
+                        <img id="img_endoscopie" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-xs-6">
+                        <img id="img_scanner" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 
 
 <!-- modal declasser examen -->

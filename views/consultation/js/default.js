@@ -361,7 +361,6 @@ $(document).ready(function () {
     $(document).on('click', '.consultation_supprimer_demande', function (e) {
         e.preventDefault();
         var fiche_id = $(this).attr('id');
-
         swal.fire({
             title: 'Voulez vous vraiment supprimer cette demande ?',
             text: 'Cette action est irreversible. une demande supprimee ne peut etre recuperee',
@@ -387,7 +386,6 @@ $(document).ready(function () {
                             toastr.options.hideMethod = 'fadeOut';
                             toastr.options.closeMethod = 'fadeOut';
                             toastr.success('Demande supprimer avec succes');
-
                             dataTable_etape2.ajax.reload();
                         } else if (data == false) {
                             toastr.options.progressBar = true;
@@ -500,6 +498,57 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    //DEMANDER DES EXAMENS
+    //ouvrir modal demande examens image
+    $(document).on('click', '.btn_consultation_demander_imagerie', function (e) {
+        e.preventDefault();
+
+        var fiche_id = $(this).attr('fiche_id');
+        var patient_id = $(this).attr('patient_id');
+
+        $('#fk_image_fiche_id').val(fiche_id);
+        $('#fk_image_patient_id').val(patient_id); // pas indispensable car l'examen est lie a la fiche qui a son tour est lie au patient
+       
+        $('#demander_examens_image_modal').modal('show');
+    });
+    //Valider demande examen image
+    $(document).on('click', '#btn_done_demande_image_exam', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: path + "consultation/demande_exam_image",
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#form_demande_image_exam').serialize(),
+            success: function (data) {
+                if (data == true) {
+                    toastr.options.progressBar = true;
+                    toastr.options.showMethod = 'slideDown';
+                    toastr.options.hideMethod = 'fadeOut';
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.success('Examens demandés avec succes');
+                } else {
+                    toastr.options.progressBar = true;
+                    toastr.options.showMethod = 'slideDown';
+                    toastr.options.hideMethod = 'fadeOut';
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.warning('Nous n\'avons pas pu lancer la demande.<br>Veillez contacter l\'administratreur');
+                }
+
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error!! ' + data);
+            }
+        });
+    });
+
+    
+
+
+
 
     /**
      * Auto-Actualise de datatables apres une minute

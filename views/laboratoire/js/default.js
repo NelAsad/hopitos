@@ -113,7 +113,7 @@ $(document).ready(function () {
 
     // INSERER LES RESULTATS DES EXAMENS
     //affiche le formulaire d'insertion examens
-    $(document).on('click', '.btn_show_inserer_exam_modal', function(e){
+    $(document).on('click', '.btn_show_inserer_exam_modal', function (e) {
         e.preventDefault();
         var exam_id = $(this).attr('id');
 
@@ -171,7 +171,7 @@ $(document).ready(function () {
     // valider l'insersion de resultats examens
     $(document).on('click', '#btn_done_inserer_exam', function (e) {
         e.preventDefault();
- 
+
         $.ajax({
             url: path + "laboratoire/done_resultat_exam",
             type: 'POST',
@@ -185,7 +185,7 @@ $(document).ready(function () {
                     toastr.options.hideMethod = 'fadeOut';
                     toastr.options.closeMethod = 'fadeOut';
                     toastr.success('Les resultats des examens ont bien ete envoyer au medecin consultant. Merci', 'Resultats inseres avec succes');
-                    
+
                     form_inserer_exam.reset();
                     dataTable_nouvelles_demandes.ajax.reload();
                     dataTable_demandes_satisf_du_jour.ajax.reload();
@@ -218,7 +218,7 @@ $(document).ready(function () {
 
     });
     // valider le declassement de la demande
-    $(document).on('click', '#btn_done_declasser_exam', function(e){
+    $(document).on('click', '#btn_done_declasser_exam', function (e) {
         e.preventDefault();
         let exam_id = $('#hidden_declasser_exam_id').val();
         let motif_declasse = $('#declasser_exam_motif').val();
@@ -238,7 +238,7 @@ $(document).ready(function () {
                     toastr.options.hideMethod = 'fadeOut';
                     toastr.options.closeMethod = 'fadeOut';
                     toastr.success('Demande d\'examen declassee avec succes');
-                    
+
                     dataTable_nouvelles_demandes.ajax.reload();
                     dataTable_demandes_declassees_today.ajax.reload();
                     dataTable_demandes_declassees_all.ajax.reload();
@@ -262,7 +262,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn_show_exam_modal', function (e) {
         e.preventDefault();
         let exam_id = $(this).attr('id');
-        
+
         //Appel Ajax
         $.ajax({
             url: path + "laboratoire/get_exam",
@@ -272,15 +272,15 @@ $(document).ready(function () {
                 exam_id: exam_id
             },
             success: function (exam) {
-                
+
                 let i = 0;
                 let resultat_str = '';
-                
+
                 for (const key in exam) {
                     if (exam.hasOwnProperty(key)) {
                         const element = exam[key];
 
-                        if (i>=8 && i < 44 && element != '') {
+                        if (i >= 8 && i < 44 && element != '') {
                             resultat_str += key + ' : ' + element + '<br>';
                         }
 
@@ -324,6 +324,108 @@ $(document).ready(function () {
         });
 
     });
+
+    //ouvrir modal insert examens image
+    $(document).on('click', '.btn_show_inserer_exam_image_modal', function (e) {
+        e.preventDefault();
+        var exam_id = $(this).attr('id');
+        $.ajax({
+            url: path + "laboratoire/get_exam",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                exam_id: exam_id
+            },
+            success: function (exam) {
+                if (exam.radiographie != 'x_dem') {
+                    $('#radiographie').prop('disabled', true);
+                }
+                if (exam.echographie != 'x_dem') {
+                    $('#echographie').prop('disabled', true);
+                }
+                if (exam.irm != 'x_dem') {
+                    $('#irm').prop('disabled', true);
+                }
+                if (exam.endoscopie != 'x_dem') {
+                    $('#endoscopie').prop('disabled', true);
+                }
+                if (exam.scanner != 'x_dem') {
+                    $('#scanner').prop('disabled', true);
+                }
+
+                $('#hidden_image_exam_id').val(exam_id);
+                $('#inserer_resultat_examen_image_modal').modal('show');
+            },
+            error: function (data) {
+                alert('Error!!');
+            }
+        });
+    });
+
+    // Done insert resultat imagerie
+    $(document).on('submit', '#form_inserer_image_exam', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: path + "laboratoire/done_add_resultat_labo",
+            type: 'POST',
+            dataType: 'JSON',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error!!');
+            }
+        });
+
+    });
+
+
+    // Show result examen
+    $(document).on('click', '.btn_show_resultat_exam_image_modal', function (e) {
+        e.preventDefault();
+        var exam_id = $(this).attr('id');
+        $.ajax({
+            url: path + "laboratoire/get_exam",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                exam_id: exam_id
+            },
+            success: function (exam) {
+
+                // console.log(exam);
+
+                let radio = $('#img_radiographie').attr('src');
+                $('#img_radiographie').attr('src', radio + exam.radiographie);
+
+                let echo = $('#img_echographie').attr('src');
+                $('#img_echographie').attr('src', echo + exam.echographie);
+
+                let irm = $('#img_irm').attr('src');
+                $('#img_irm').attr('src', irm + exam.irm);
+
+                let endo = $('#img_endoscopie').attr('src');
+                $('#img_endoscopie').attr('src',endo + exam.endoscopie);
+
+                let scan = $('#img_scanner').attr('src');
+                $('#img_scanner').attr('src', scan + exam.scanner);
+
+                $('#voir_resultat_examen_image_modal').modal('show');
+            },
+            error: function (data) {
+                alert('Error!!');
+            }
+        });
+    });
+
+
+
 
 
     /**

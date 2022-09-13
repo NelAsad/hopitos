@@ -150,6 +150,13 @@ class Consultation extends Controller {
             echo json_encode($result);
         }
     }
+    /**
+     * Demande des examens au images
+     */
+    function demande_exam_image(){
+        $result = $this->model->demande_exam_image($_POST);
+        echo json_encode($result);
+    }
 
     /**
      * Donne un examen avec tout les details

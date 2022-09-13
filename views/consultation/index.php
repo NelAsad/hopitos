@@ -475,7 +475,6 @@
     <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
-</div>
 
 
 <!-- Modal voir motif declassement -->
@@ -628,3 +627,61 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+
+<!-- Modal demander examens -->
+<div class="modal fade" id="demander_examens_image_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Demander des examens d'imagerie</h4>
+            </div>
+            <div class="modal-body">
+                <form class="ui form" id="form_demande_image_exam">
+
+                    <!-- <div class="row">
+                        <div class="col-xs-12">
+                            <label>Service</label>
+                            <input class="form-control" type="text" id="exam_service" name="exam_service"> -->
+                            <!-- les champs caches -->
+                            <input type="hidden" id="fk_image_fiche_id" name="fk_image_fiche_id">
+                            <input type="hidden" id="fk_image_patient_id" name="fk_image_patient_id">
+                        <!-- </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <label for="radiographie">radiographie</label>&nbsp;&nbsp;
+                            <input type="checkbox" id="radiographie" name="radiographie">
+                        </div>
+                        <div class="col-xs-2">
+                            <label for="echographie">Echographie</label>&nbsp;&nbsp;
+                            <input type="checkbox" id="echographie" name="echographie">
+                        </div>
+                        <div class="col-xs-2">
+                            <label for="irm">IRM</label>&nbsp;&nbsp;
+                            <input type="checkbox" id="irm" name="irm">
+                        </div>
+                        <div class="col-xs-2">
+                            <label for="endoscopie">Endoscopie</label>&nbsp;&nbsp;
+                            <input type="checkbox" id="endoscopie" name="endoscopie">
+                        </div>
+                        <div class="col-xs-2">
+                            <label for="scanner">Scanner</label>&nbsp;&nbsp;
+                            <input type="checkbox" id="scanner" name="scanner">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" id="btn_done_demande_image_exam"  data-dismiss="modal">Demander</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
