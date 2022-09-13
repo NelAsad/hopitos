@@ -46,7 +46,7 @@ class Utilis_model extends Model {
         $sub_array[] = $row["etat"];
         $sub_array[] = "
             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_update_user_modal' id='". $row["users_id"] ."' title='Mettre a jour'><i class='fa fa-edit'></i></a>
-            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_delete_personnel' id='". $row["users_id"] ."' title='Supprimer'><i class='fa fa-remove'></i></a>
+            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_delete_user' id='". $row["users_id"] ."' title='Supprimer'><i class='fa fa-remove'></i></a>
                     ";
         $data[] = $sub_array;
         }
@@ -124,5 +124,16 @@ class Utilis_model extends Model {
         return $result;
     }
 
+    //delete utilisateur
+    function delete_utilisateur($users_id){
+        $query = "DELETE FROM users WHERE users_id = :users_id ";
+        $statement = $this->db->prepare($query);
+
+        $result = $statement->execute(array(
+            ':users_id' => $users_id,
+        ));
+
+        return $result;
+    }
 
 }

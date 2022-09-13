@@ -161,4 +161,49 @@ $(document).ready(function () {
         }
     });
 
+    // Delete user
+    $(document).on('click', '.btn_delete_user', function (e) {
+        e.preventDefault();
+        let user_id = $(this).attr('id');
+
+        if (user_id == '') {
+            alert('Veillez choisir un utilisateur avant');
+        } else {
+
+            if (confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) {
+                $.ajax({
+                    url: path + "utilis/delete_user",
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                        user_id: user_id
+                    },
+                    success: function (data) {
+                        if (data.reponse == 'bien') {
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.success('Utilisateur supprimé');
+                            dataTable_personnel.ajax.reload();
+                        }
+                        if (data.reponse == 'pas_bien') {
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.warning('Echec de suppression');
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        alert('Error');
+                    }
+                });
+            }
+            
+        }
+
+    });
+
 });

@@ -94,5 +94,21 @@ class Utilis extends Controller {
         echo json_encode($result);
     }
 
+    //delete utilisateur
+    function delete_user(){
+        $user_id = $_POST['user_id'];
+        $std = new stdClass();
+
+        $result = $this->model->delete_utilisateur($user_id);
+
+        if ($result) {
+            $std->reponse = 'bien';
+        } else {
+            $std->reponse = 'pas_bien';
+        }
+        
+        echo json_encode($std);
+    }
+
 
 }

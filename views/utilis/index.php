@@ -43,9 +43,7 @@
                                           <label>Privilege</label>
                                           <select class="form-control" class="dropdown" id="privilege">
                                               <option value="1">Adminin</option>
-                                              <option value="2">Laborantin</option>
-                                              <option value="2">Consultant</option>
-                                              <option value="2">Reception</option>
+                                              <option value="0">User</option>
                                           </select>
                                       </div>
 
@@ -59,6 +57,7 @@
                                       <div class="col-xs-6">
                                           <label>Agent</label>
                                           <select class="form-control" class="dropdown" id="agent_user">
+                                                    <option value="0">Choisir un agent</option>
                                             <?php
                                             foreach ($this->agents as $agent) {
                                                 ?>
@@ -93,7 +92,7 @@
                                                   <th>Login</th>
                                                   <th>Privilege</th>
                                                   <th>etat</th>
-                                                  <th>Actions</th>
+                                                  <th width="10%">Actions</th>
                                               </tr>
                                           </thead>
                                       </table>

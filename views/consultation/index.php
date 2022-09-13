@@ -340,7 +340,7 @@
 
 <!-- Modal demander examens -->
 <div class="modal fade" id="demander_examens_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -365,25 +365,25 @@
                             <h4 class="ui dividing header">HEMATOLOGIE</h4>
                             <label for="hemato_Hbg">Hbg</label>
                             <input type="checkbox" id="hemato_Hbg" name="hemato_Hbg">
-                            <label for="hemato_GB">GB</label>
+                            &nbsp;<label for="hemato_GB">GB</label>
                             <input type="checkbox" id="hemato_GB" name="hemato_GB">
-                            <label for="hemato_VS">VS</label>
+                            &nbsp;<label for="hemato_VS">VS</label>
                             <input type="checkbox" id="hemato_VS" name="hemato_VS">
-                            <label for="hemato_FL_E">FL %E</label>
+                            &nbsp;<label for="hemato_FL_E">FL %E</label>
                             <input type="checkbox" id="hemato_FL_E" name="hemato_FL_E">
-                            <label for="hemato_FL_B">FL %B</label>
+                            &nbsp;<label for="hemato_FL_B">FL %B</label>
                             <input type="checkbox" id="hemato_FL_B" name="hemato_FL_B">
-                            <label for="hemato_FL_L">FL %L</label>
+                            &nbsp;<label for="hemato_FL_L">FL %L</label>
                             <input type="checkbox" id="hemato_FL_L" name="hemato_FL_L">
-                            <label for="hemato_FL_M">FL %M</label>
+                            &nbsp;<label for="hemato_FL_M">FL %M</label>
                             <input type="checkbox" id="hemato_FL_M" name="hemato_FL_M">
-                            <label for="hemato_TS">TS</label>
+                            &nbsp;<label for="hemato_TS">TS</label>
                             <input type="checkbox" id="hemato_TS" name="hemato_TS">
-                            <label for="hemato_TC">TC</label>
+                            &nbsp;<label for="hemato_TC">TC</label>
                             <input type="checkbox" id="hemato_TC" name="hemato_TC">
-                            <label for="hemato_GS">GS</label>
+                            &nbsp;<label for="hemato_GS">GS</label>
                             <input type="checkbox" id="hemato_GS" name="hemato_GS">
-                            <label for="hemato_HTC">HTC</label>
+                            &nbsp;<label for="hemato_HTC">HTC</label>
                             <input type="checkbox" id="hemato_HTC" name="hemato_HTC">
                         </div>
                         <div class="col-xs-4">
@@ -450,6 +450,12 @@
                             <input type="checkbox" id="is_HC" name="is_HC">
                             <label for="is_P120">P120</label>
                             <input type="checkbox" id="is_P120" name="is_P120">
+                        </div>
+                        <div class="col-xs-12">
+                            <hr>
+                            <label for="imagerie">Imagerie</label> &nbsp; &nbsp;
+                            <input type="checkbox" id="imagerie" name="imagerie">
+                            <hr>
                         </div>
                     </div>
 

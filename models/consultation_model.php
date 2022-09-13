@@ -274,13 +274,14 @@ class Consultation_model extends Model {
 
                 }
 
-                $query2 .= "autres_examens = :autres_examens WHERE fk_fiche_id = :fk_fiche_id ";
+                $query2 .= "autres_examens = :autres_examens, imagerie = :imagerie WHERE fk_fiche_id = :fk_fiche_id ";
 
                 $statement2 = $this->db->prepare($query2);
 
                 $result2 = $statement2->execute(array(
                     ':fk_fiche_id' => $demande_data['fk_fiche_id'],
-                    ':autres_examens' => $demande_data['autres_examens']
+                    ':autres_examens' => $demande_data['autres_examens'],
+                    ':imagerie' => $demande_data['imagerie']
                 ));
 
                 return $result2;

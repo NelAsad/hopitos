@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,186 +30,193 @@
   <link rel="stylesheet" href="<?php echo URL; ?>public/librairies/toastr/build/toastr.css">
 
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-    <!-- Style propre au module-->
-    <?php
-    if (isset($this->css)) {
-        foreach ($this->css as $css) {
-            echo '<link href="' . URL . 'views/' . $css . '" rel="stylesheet"/>';
-        }
+  <!-- Style propre au module-->
+  <?php
+  if (isset($this->css)) {
+    foreach ($this->css as $css) {
+      echo '<link href="' . URL . 'views/' . $css . '" rel="stylesheet"/>';
     }
-    ?>
+  }
+  ?>
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+  <div class="wrapper">
 
-  <header class="main-header">
+    <header class="main-header">
 
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>H</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>HOSPITALIA</b></span>
-    </a>
-
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
+      <!-- Logo -->
+      <a href="index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>H</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>HOSPITALIA</b></span>
       </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Nel'Asad Luboya</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                <p>
-                  Nel'Asad Luboya
-                  <small>Administrateur</small>
-                </p>
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-primary btn-flat">Profil</a>
-                </div>
-                <div class="pull-right">
-                  <a href="<?php echo URL;?>home/logout" class="btn btn-default btn-flat" style="background: red;">Deconnexion</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <!-- <li>
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                <span class="hidden-xs">Nel'Asad Luboya</span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
+                  <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                  <p>
+                    Nel'Asad Luboya
+                    <small>Administrateur</small>
+                  </p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="#" class="btn btn-primary btn-flat">Profil</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="<?php echo URL; ?>home/logout" class="btn btn-default btn-flat" style="background: red;">Deconnexion</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <!-- Control Sidebar Toggle Button -->
+            <!-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li> -->
-        </ul>
-      </div>
-
-    </nav>
-  </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Nel'Asad Luboya</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview menu-open">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo URL; ?>home"><i class="fa fa-pie-chart"></i> Dashboard</a></li>
           </ul>
-        </li>
-        
-        <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '2'): ?>
+        </div>
+
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          </div>
+          <div class="pull-left info">
+            <p>Nel'Asad Luboya</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          </div>
+        </div>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+          <li class="header">MAIN NAVIGATION</li>
+          <li class="active treeview menu-open">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo URL; ?>home"><i class="fa fa-pie-chart"></i> Dashboard</a></li>
+            </ul>
+          </li>
+
+          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '2') : ?>
             <li>
-                <a href="<?php echo URL; ?>patient">
-                    <i class="fa fa-users"></i>
-                    <span>Patients</span>
-                </a>
+              <a href="<?php echo URL; ?>patient">
+                <i class="fa fa-users"></i>
+                <span>Patients</span>
+              </a>
             </li>
-        <?php endif; ?>
-        
-        <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '5'): ?>
+          <?php endif; ?>
+
+          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '5') : ?>
             <li>
-                <a href="<?php echo URL; ?>payement">
-                    <i class="fa fa-users"></i>
-                    <span>Payements</span>
-                </a>
+              <a href="<?php echo URL; ?>payement">
+                <i class="fa fa-users"></i>
+                <span>Payements</span>
+              </a>
             </li>
-        <?php endif; ?>
-        
-        <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '3'): ?>
+          <?php endif; ?>
+
+          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '3') : ?>
             <li class="treeview">
-                <a href="<?php echo URL; ?>patient">
-                    <i class="fa fa-pie-chart"></i>
-                    <span>Consultation</span>
-                    <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo URL; ?>consultation"><i class="fa fa-stethoscope"></i> Consulter</a></li>
-                    <li><a href="<?php echo URL; ?>dossier"><i class="fa fa-folder-o"></i> Dossier medical</a></li>
-                </ul>
+              <a href="<?php echo URL; ?>patient">
+                <i class="fa fa-pie-chart"></i>
+                <span>Consultation</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo URL; ?>consultation"><i class="fa fa-stethoscope"></i> Consulter</a></li>
+                <li><a href="<?php echo URL; ?>dossier"><i class="fa fa-folder-o"></i> Dossier medical</a></li>
+              </ul>
             </li>
-        <?php endif; ?>
-        
-        <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4'): ?>
+          <?php endif; ?>
+
+          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4') : ?>
             <li>
-                <a href="<?php echo URL; ?>laboratoire">
-                    <i class="fa fa-heartbeat"></i>
-                    <span>Laboratoire</span>
-                </a>
+              <a href="<?php echo URL; ?>laboratoire">
+                <i class="fa fa-heartbeat"></i>
+                <span>Laboratoire</span>
+              </a>
             </li>
-        <?php endif; ?>
-        
-        <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4'): ?>
+          <?php endif; ?>
+
+          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4') : ?>
             <li>
-                <a href="<?php echo URL; ?>pharmacie">
-                    <i class="fa fa-medkit"></i>
-                    <span>Pharmacie</span>
-                </a>
+              <a href="<?php echo URL; ?>pharmacie">
+                <i class="fa fa-medkit"></i>
+                <span>Pharmacie</span>
+              </a>
             </li>
-        <?php endif; ?>
-        
-        <?php if (Session::get('privilege') == '1'): ?>
+          <?php endif; ?>
+
+          <?php if (Session::get('privilege') == '1') : ?>
             <li>
-                <a href="<?php echo URL; ?>users">
-                    <i class="fa fa-user-md"></i>
-                    <span>Personnel</span>
-                </a>
+              <a href="<?php echo URL; ?>users">
+                <i class="fa fa-user-md"></i>
+                <span>Personnel</span>
+              </a>
             </li>
-        <?php endif; ?>
-        
-        
-        <?php if (Session::get('privilege') == '1'): ?>
+          <?php endif; ?>
+
+
+          <?php if (Session::get('privilege') == '1') : ?>
             <li class="treeview">
-                <a href="<?php echo URL; ?>patient">
-                    <i class="fa fa-wrench"></i>
-                    <span>Administrateur</span>
-                    <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo URL; ?>users"><i class="fa fa-users"></i> Utilisateurs</a></li>
-                    <li><a href="<?php echo URL; ?>configs"><i class="fa fa-cogs"></i> Configurations</a></li>
-                    <li><a href="<?php echo URL; ?>stats"><i class="fa fa-area-chart"></i> Statistique</a></li>
-                </ul>
+              <a href="<?php echo URL; ?>patient">
+                <i class="fa fa-wrench"></i>
+                <span>Administrateur</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo URL; ?>utilis"><i class="fa fa-users"></i> Utilisateurs</a></li>
+                <li><a href="<?php echo URL; ?>configs"><i class="fa fa-cogs"></i> Configurations</a></li>
+                <li><a href="<?php echo URL; ?>stats"><i class="fa fa-area-chart"></i> Statistique</a></li>
+              </ul>
             </li>
-        <?php endif; ?>
-    
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+          <?php endif; ?>
+
+          <li>
+            <a href="<?php echo URL; ?>home/logout">
+              <i class="fa fa-power-off"></i>
+              <span>Deconnexion</span>
+            </a>
+          </li>
+
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
