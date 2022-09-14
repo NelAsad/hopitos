@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 12 sep. 2022 à 17:09
+-- Généré le :  mer. 14 sep. 2022 à 16:27
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -107,6 +107,27 @@ INSERT INTO `depense` (`depense_id`, `depense_motif`, `depense_montant`, `depens
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `entreprise`
+--
+
+DROP TABLE IF EXISTS `entreprise`;
+CREATE TABLE IF NOT EXISTS `entreprise` (
+  `id_entreprise` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_entreprise` varchar(225) NOT NULL,
+  PRIMARY KEY (`id_entreprise`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `entreprise`
+--
+
+INSERT INTO `entreprise` (`id_entreprise`, `nom_entreprise`) VALUES
+(1, 'Entreprise 1'),
+(2, 'Entreprise 2');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `examen`
 --
 
@@ -160,34 +181,53 @@ CREATE TABLE IF NOT EXISTS `examen` (
   `autres_examens_resultats` text,
   `exam_etape` varchar(10) NOT NULL DEFAULT '1',
   `motif_declasse` text,
+  `radiographie` varchar(225) DEFAULT NULL,
+  `echographie` varchar(225) DEFAULT NULL,
+  `irm` varchar(225) DEFAULT NULL,
+  `endoscopie` varchar(225) DEFAULT NULL,
+  `scanner` varchar(225) DEFAULT NULL,
+  `img_inserted` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`exam_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `examen`
 --
 
-INSERT INTO `examen` (`exam_id`, `fk_fiche_id`, `fk_patient_id`, `fk_demandeur_id`, `fk_laborantin_id`, `exam_date_demande`, `exam_date_reponse`, `exam_service`, `hemato_Hbg`, `hemato_GB`, `hemato_VS`, `hemato_FL_E`, `hemato_FL_B`, `hemato_FL_L`, `hemato_FL_M`, `hemato_TS`, `hemato_TC`, `hemato_GS`, `hemato_HTC`, `parasito_GE`, `parasito_GF`, `parasito_CATT`, `parasito_frais_mince`, `parasito_selles_exam_direct`, `parasito_urines_sediment`, `parasito_PVUF`, `parasito_ecr_element`, `parasito_bacterio_nature_produit`, `parasito_bacterio_gramme`, `parasito_bacterio_ziehl`, `bio_nature_produit`, `bio_glucose`, `bio_bilirubine`, `bio_albumine`, `bio_acetone`, `bio_PH`, `bio_nitrite`, `is_test_grossesse`, `is_widal_TO`, `is_TH`, `is_CATT`, `is_HBS`, `is_HC`, `is_P120`, `autres_examens`, `autres_examens_resultats`, `exam_etape`, `motif_declasse`) VALUES
-(23, 8, 3, 1, 1, '2020-05-29 18:26:48', '2020-05-28 18:50:08', 'consultation gÃ©nÃ©rale', 'x_dem', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', ''),
-(24, 7, 3, 1, 1, '2020-05-31 11:38:03', '2020-05-31 11:40:52', 'consultation all', '43', '11', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2', ''),
-(26, 9, 2, 1, 1, '2020-06-06 17:54:37', '2020-06-06 18:31:14', 'consultation all', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', 'je suis le boss et je refuse. c\'est tout :)'),
-(27, 9, 2, 1, 1, '2020-06-06 21:30:03', '2020-06-06 21:32:33', 'consultation', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', 'le motif est que ceci est un teste :)'),
-(28, 8, 3, 1, NULL, '2020-06-06 22:04:39', '0000-00-00 00:00:00', 'mmmm', 'x_dem', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', NULL),
-(29, 8, 3, 1, NULL, '2020-06-06 22:12:59', '0000-00-00 00:00:00', 'nnjh', 'x_dem', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', NULL),
-(30, 4, 2, 1, 1, '2020-06-08 15:39:04', '2020-06-08 15:39:37', 'extra..mdr', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'nn', 'nb', 'nj', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2', NULL),
-(31, 8, 3, 1, 1, '2020-06-08 16:25:28', '2020-06-08 16:34:07', 'vcd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '3', 'jamais na sala'),
-(32, 10, 5, 1, 1, '2020-06-09 12:40:15', '2020-06-09 12:43:16', 'ematho', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, 'x_dem', NULL, 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', 'pas fonde'),
-(33, 10, 5, 1, 1, '2020-06-09 12:44:31', '2020-06-09 12:45:57', 'ematho', '12', '11', '', '', '', '', '', '', '', '', '', 'K7', '', 'C33', '', '', '', '', '', '', '', '', '', '', '', '', '', '3.1', '7.1E', '', '', '', '', '', '', '', '', '', '2', NULL),
-(34, 9, 2, 1, 1, '2020-06-10 12:18:40', '2020-06-10 12:18:52', 'cons', 'x_dem', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '4', NULL),
-(35, 12, 5, 1, NULL, '2020-06-10 19:47:41', '0000-00-00 00:00:00', 'nvbd', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', NULL),
-(36, 12, 5, 1, 1, '2020-06-10 19:50:45', '2020-06-10 19:50:55', 'cndjs', 'xc', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2', NULL),
-(37, 11, 5, 1, 1, '2020-06-10 19:55:05', '2020-06-10 19:55:39', 'cmdlvk', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', '', '', '4', 'mldvmdlvnk'),
-(38, 11, 5, 1, 1, '2020-06-10 19:56:02', '2020-06-10 19:56:14', 'cnkdjd', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'cmlx', '', '', '2', NULL),
-(39, 14, 7, 1, 1, '2020-06-10 20:46:01', '2020-06-10 20:46:13', 'mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'mm', '', '', '', '', '', '', '', '2', NULL),
-(40, 9, 2, 1, 3, '2020-06-14 10:10:14', '2022-09-06 11:29:18', 'ncdjd', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '3', 'null\n'),
-(41, 15, 8, 2, 3, '2021-04-25 22:17:53', '2021-04-26 10:33:03', 'conscience service', '12', '12', '', '', '', '', '', '', '', '', '', '12', '12', '', '', '', '12', '', '', '', '', '', '', '', '', '', '', '', '12', '', '', '', '', '', '', '', 'voici les autres examens', 'les resultats des examans', '2', NULL),
-(42, 16, 85, 2, 3, '2022-09-06 11:21:13', '2022-09-06 11:28:23', 'Le service', '12', '12', '', '', '', '', '', '', '', '', '', '12', '', '', '', '', '12', '', '', '', '', '', '', '12', '', '', '', '12', '', '', '', '', '', '', '', '', 'ndjbdj autres examens', 'resultats autres vlkjfldndkllfdk', '2', NULL),
-(43, 13, 7, 1, NULL, '2022-09-12 09:56:37', NULL, 'Imagerie', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, '1', NULL);
+INSERT INTO `examen` (`exam_id`, `fk_fiche_id`, `fk_patient_id`, `fk_demandeur_id`, `fk_laborantin_id`, `exam_date_demande`, `exam_date_reponse`, `exam_service`, `hemato_Hbg`, `hemato_GB`, `hemato_VS`, `hemato_FL_E`, `hemato_FL_B`, `hemato_FL_L`, `hemato_FL_M`, `hemato_TS`, `hemato_TC`, `hemato_GS`, `hemato_HTC`, `parasito_GE`, `parasito_GF`, `parasito_CATT`, `parasito_frais_mince`, `parasito_selles_exam_direct`, `parasito_urines_sediment`, `parasito_PVUF`, `parasito_ecr_element`, `parasito_bacterio_nature_produit`, `parasito_bacterio_gramme`, `parasito_bacterio_ziehl`, `bio_nature_produit`, `bio_glucose`, `bio_bilirubine`, `bio_albumine`, `bio_acetone`, `bio_PH`, `bio_nitrite`, `is_test_grossesse`, `is_widal_TO`, `is_TH`, `is_CATT`, `is_HBS`, `is_HC`, `is_P120`, `autres_examens`, `autres_examens_resultats`, `exam_etape`, `motif_declasse`, `radiographie`, `echographie`, `irm`, `endoscopie`, `scanner`, `img_inserted`) VALUES
+(23, 8, 3, 1, 1, '2020-05-29 18:26:48', '2020-05-28 18:50:08', 'consultation gÃ©nÃ©rale', 'x_dem', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', '', NULL, NULL, NULL, NULL, NULL, 0),
+(24, 7, 3, 1, 1, '2020-05-31 11:38:03', '2020-05-31 11:40:52', 'consultation all', '43', '11', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2', '', NULL, NULL, NULL, NULL, NULL, 0),
+(26, 9, 2, 1, 1, '2020-06-06 17:54:37', '2020-06-06 18:31:14', 'consultation all', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', 'je suis le boss et je refuse. c\'est tout :)', NULL, NULL, NULL, NULL, NULL, 0),
+(27, 9, 2, 1, 1, '2020-06-06 21:30:03', '2020-06-06 21:32:33', 'consultation', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', 'le motif est que ceci est un teste :)', NULL, NULL, NULL, NULL, NULL, 0),
+(28, 8, 3, 1, NULL, '2020-06-06 22:04:39', '0000-00-00 00:00:00', 'mmmm', 'x_dem', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(29, 8, 3, 1, NULL, '2020-06-06 22:12:59', '0000-00-00 00:00:00', 'nnjh', 'x_dem', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(30, 4, 2, 1, 1, '2020-06-08 15:39:04', '2020-06-08 15:39:37', 'extra..mdr', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'nn', 'nb', 'nj', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(31, 8, 3, 1, 1, '2020-06-08 16:25:28', '2020-06-08 16:34:07', 'vcd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '3', 'jamais na sala', NULL, NULL, NULL, NULL, NULL, 0),
+(32, 10, 5, 1, 1, '2020-06-09 12:40:15', '2020-06-09 12:43:16', 'ematho', 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, 'x_dem', NULL, 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', NULL, NULL, NULL, 'x_dem', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', 'pas fonde', NULL, NULL, NULL, NULL, NULL, 0),
+(33, 10, 5, 1, 1, '2020-06-09 12:44:31', '2020-06-09 12:45:57', 'ematho', '12', '11', '', '', '', '', '', '', '', '', '', 'K7', '', 'C33', '', '', '', '', '', '', '', '', '', '', '', '', '', '3.1', '7.1E', '', '', '', '', '', '', '', '', '', '2', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(34, 9, 2, 1, 1, '2020-06-10 12:18:40', '2020-06-10 12:18:52', 'cons', 'x_dem', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '4', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(35, 12, 5, 1, NULL, '2020-06-10 19:47:41', '0000-00-00 00:00:00', 'nvbd', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '4', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(36, 12, 5, 1, 1, '2020-06-10 19:50:45', '2020-06-10 19:50:55', 'cndjs', 'xc', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(37, 11, 5, 1, 1, '2020-06-10 19:55:05', '2020-06-10 19:55:39', 'cmdlvk', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x_dem', '', '', '4', 'mldvmdlvnk', NULL, NULL, NULL, NULL, NULL, 0),
+(38, 11, 5, 1, 1, '2020-06-10 19:56:02', '2020-06-10 19:56:14', 'cnkdjd', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'cmlx', '', '', '2', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(39, 14, 7, 1, 1, '2020-06-10 20:46:01', '2020-06-10 20:46:13', 'mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'mm', '', '', '', '', '', '', '', '2', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(40, 9, 2, 1, 3, '2020-06-14 10:10:14', '2022-09-06 11:29:18', 'ncdjd', 'x_dem', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '3', 'null\n', NULL, NULL, NULL, NULL, NULL, 0),
+(41, 15, 8, 2, 3, '2021-04-25 22:17:53', '2021-04-26 10:33:03', 'conscience service', '12', '12', '', '', '', '', '', '', '', '', '', '12', '12', '', '', '', '12', '', '', '', '', '', '', '', '', '', '', '', '12', '', '', '', '', '', '', '', 'voici les autres examens', 'les resultats des examans', '2', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(42, 16, 85, 2, 3, '2022-09-06 11:21:13', '2022-09-06 11:28:23', 'Le service', '12', '12', '', '', '', '', '', '', '', '', '', '12', '', '', '', '', '12', '', '', '', '', '', '', '12', '', '', '', '12', '', '', '', '', '', '', '', '', 'ndjbdj autres examens', 'resultats autres vlkjfldndkllfdk', '2', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(48, 18, 90, 2, NULL, '2022-09-13 13:24:57', NULL, 'IMAGERIE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', NULL, 'cyber-3400789.jpg', NULL, 'light-bulb-4514505.jpg', NULL, 'lightbulb-1875247.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `exam_image`
+--
+
+DROP TABLE IF EXISTS `exam_image`;
+CREATE TABLE IF NOT EXISTS `exam_image` (
+  `id_image` int(11) NOT NULL,
+  `lien_image` varchar(200) NOT NULL,
+  `exam_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -212,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `fiche` (
   `pres_medicale` text,
   `fiche_fk_users_id` int(11) NOT NULL,
   PRIMARY KEY (`fiche_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `fiche`
@@ -235,7 +275,8 @@ INSERT INTO `fiche` (`fiche_id`, `fk_patient_id`, `poids`, `tension`, `temperatu
 (14, 7, 4, 4, '', '4', '4', '', 'is_widal_TO = mm \n <br>', '2020-06-10 20:45:34', '0000-00-00 00:00:00', '2', '', 1),
 (15, 8, 12, 12, '12', 'nckdjcndjkcndjkc\ncdnkcndjcnjkdc\ncndjcndskcjsdc', 'vnfkvnjkjvn\nvnfkvfkvndfjkv\nvdfkvnvjfkv\nvndfkvnjfvnjdf', 'mon traitement est la', '', '2021-04-25 22:09:35', '2021-04-26 10:36:31', '3', 'Les prescriptions sont la', 2),
 (16, 85, 75, 12, '35', 'histoire de la maladie', 'mon diag fdksfdkfkfjkjdsf', 'v,flvnfjnfjnfvnfnfj', 'hemato_Hbg = 12 <br>hemato_GB = 12 <br>parasito_GE = 12 <br>parasito_urines_sediment = 12 <br>bio_glucose = 12 <br>bio_PH = 12 <br><span>Resultats autres examens : </span><br>resultats autres vlkjfldndkllfdk', '2022-09-06 11:05:13', '2022-09-06 11:33:44', '3', 'vfvnvkjfv\nvfjnkjnvkj\nvfnvvnj', 2),
-(17, 8, 75, 12, '35', NULL, NULL, NULL, NULL, '2022-09-12 11:01:41', '2022-09-12 11:01:41', '1', NULL, 2);
+(17, 8, 75, 12, '35', NULL, NULL, NULL, NULL, '2022-09-12 11:01:41', '2022-09-12 11:01:41', '1', NULL, 2),
+(18, 90, 75, 12, '35', '132456', '123456', NULL, NULL, '2022-09-13 09:47:12', '2022-09-13 09:47:12', '2', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -246,15 +287,15 @@ INSERT INTO `fiche` (`fiche_id`, `fk_patient_id`, `poids`, `tension`, `temperatu
 DROP TABLE IF EXISTS `patient`;
 CREATE TABLE IF NOT EXISTS `patient` (
   `patient_id` int(11) NOT NULL AUTO_INCREMENT,
-  `patient_dossier_numero` varchar(50) NOT NULL,
-  `patient_fiche_numero` varchar(50) NOT NULL,
-  `patient_nom` varchar(100) NOT NULL,
-  `patient_postnom` varchar(100) NOT NULL,
-  `patient_prenom` varchar(100) NOT NULL,
-  `patient_date_naissance` date NOT NULL,
-  `patient_sexe` varchar(10) NOT NULL,
-  `patient_adresse` text NOT NULL,
-  `patient_statut` varchar(100) NOT NULL,
+  `patient_dossier_numero` varchar(50) DEFAULT NULL,
+  `patient_fiche_numero` varchar(50) DEFAULT NULL,
+  `patient_nom` varchar(100) DEFAULT NULL,
+  `patient_postnom` varchar(100) DEFAULT NULL,
+  `patient_prenom` varchar(100) DEFAULT NULL,
+  `patient_date_naissance` date DEFAULT NULL,
+  `patient_sexe` varchar(10) DEFAULT NULL,
+  `patient_adresse` text,
+  `patient_statut` varchar(100) DEFAULT NULL,
   `fk_patient_conv` int(11) DEFAULT NULL,
   `patient_affiliation` varchar(100) DEFAULT NULL,
   `patient_code_convention` varchar(100) DEFAULT NULL,
@@ -262,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `fk_users_id` int(11) NOT NULL,
   `patient_save_date` datetime NOT NULL,
   PRIMARY KEY (`patient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patient`
@@ -356,9 +397,11 @@ INSERT INTO `patient` (`patient_id`, `patient_dossier_numero`, `patient_fiche_nu
 (85, 'DM123', 'DMF123', 'Mubake', 'Walia', 'Jonathan', '2022-09-06', 'M', 'chez lui', 'familleConv', 0, '', '0', '', 4, '2022-09-06 10:25:10'),
 (86, 'AA1', 'AAF1', 'Asad', 'Luboya', 'ElysÃ©e', '1990-07-27', 'M', 'Av. Kikama N:2 C/Masina Q/Television', 'simple', 0, '', '', '', 1, '2020-05-15 10:33:43'),
 (87, 'ABB', 'ABB1', 'Omba', 'Awumba', 'Joel', '1998-03-20', 'M', 'Kianza n:2 Q/Boba C/Masina', 'simple', 0, '', '', '', 1, '2020-05-15 10:39:58'),
-(88, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', 'C473', 'Informaticienne', 1, '2020-05-15 14:44:56'),
+(88, 'ABB', 'ABB2', 'Musinga', 'Thana', 'Elsie', '2000-10-02', 'F', 'tunnel and digue', 'conventionne', 0, 'CNSS', '1', 'Informaticienne', 1, '2020-05-15 14:44:56'),
 (89, 'ADD', 'ADD9', 'Bokoto', 'Ikwa', 'Grace', '2001-08-24', 'F', 'prÃ©s de chez moi', 'simple', 0, '', '', '', 1, '2020-05-15 23:27:38'),
-(90, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23');
+(90, 'DD4', 'DD4F2', 'makanzu', 'kiang', 'caleb', '2002-03-08', 'M', 'bbbdhfjyjry', 'simple', 0, '', '', '', 1, '2020-06-09 12:34:23'),
+(91, NULL, NULL, 'aaaaaaaaa', 'aaaaaaaaa', 'aaaaaaaaa', '2022-09-14', 'M', 'aaaaaaaaa', 'familleConv', 88, NULL, NULL, NULL, 1, '2022-09-14 11:18:31'),
+(92, NULL, NULL, 'bbbbb', 'bbbbb', 'bbbbb', '2022-09-07', 'M', 'ccfdcdfd', 'familleConv', 88, NULL, NULL, NULL, 1, '2022-09-14 11:45:29');
 
 -- --------------------------------------------------------
 
@@ -379,7 +422,7 @@ CREATE TABLE IF NOT EXISTS `payement` (
   `fk_pay_exam_id` int(11) NOT NULL,
   `fk_pay_user_id` int(11) NOT NULL,
   PRIMARY KEY (`pay_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `payement`
@@ -392,9 +435,15 @@ INSERT INTO `payement` (`pay_id`, `pay_montant`, `num_facture`, `pay_date`, `pay
 (4, '17000', '26041912021', '2021-04-26 10:23:12', '2', '', 1, 0, 41, 1),
 (5, '10000', '06094502022', '2022-09-06 10:52:37', '1', '', 1, 85, 0, 1),
 (6, '19800', '06092552022', '2022-09-06 11:25:03', '2', '', 1, 0, 42, 1),
-(7, '10000', '07092532022', '2022-09-07 16:37:04', '1', '', 0, 90, 0, 1),
+(7, '10000', '07092532022', '2022-09-07 16:37:04', '1', '', 1, 90, 0, 1),
 (8, '6000', '12092472022', '2022-09-12 10:24:26', '2', '', 0, 0, 43, 1),
-(9, '10000', '12094472022', '2022-09-12 11:00:37', '1', '', 1, 8, 0, 1);
+(9, '10000', '12094472022', '2022-09-12 11:00:37', '1', '', 1, 8, 0, 1),
+(10, '10000', '13092702022', '2022-09-13 09:47:37', '1', '', 0, 90, 0, 1),
+(11, '10000', '14093322022', '2022-09-14 17:58:32', '1', '', 0, 74, 0, 1),
+(12, '10000', '14097072022', '2022-09-14 18:00:47', '1', '', 0, 76, 0, 1),
+(13, '10000', '14094172022', '2022-09-14 18:10:55', '1', '', 0, 77, 0, 1),
+(14, '10000', '14093912022', '2022-09-14 18:16:07', '1', '', 0, 56, 0, 1),
+(15, '10000', '14096872022', '2022-09-14 18:22:16', '1', '', 0, 58, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -499,19 +548,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `etat` varchar(50) NOT NULL,
   `agent_id` int(11) NOT NULL,
   PRIMARY KEY (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`users_id`, `login`, `password`, `privilege`, `etat`, `agent_id`) VALUES
-(1, 'nel7', 'nel', '1', 'actif', 0),
-(2, 'wise', 'wise', '3', 'actif', 0),
-(3, 'dan', 'dan', '4', 'actif', 0),
-(4, 'glory', 'glory', '2', 'actif', 0),
-(5, 'john', 'john', '2', 'inactif', 0),
-(6, 'nel7luboya@gmail.com', '1234', '1', 'actif', 2);
+(1, 'nel7', 'nel', '1', 'actif', 3),
+(2, 'wise', 'wise', '3', 'actif', 4),
+(3, 'dan', 'dan', '4', 'actif', 3),
+(4, 'glory', 'glory', '2', 'actif', 6),
+(6, 'nel7luboya@gmail.com', '1234', '1', 'actif', 2),
+(7, 'jonathan', '123456', '2', 'actif', 5);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
