@@ -128,7 +128,7 @@
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                 <button type="button" class="btn btn-primary" id="btn_done_payement_fiche">Valider le payement</button>
+                 <button type="button" class="btn btn-primary" id="btn_done_payement_fiche" data-dismiss="modal">Valider le payement</button>
              </div>
          </div>
          <!-- /.modal-content -->
@@ -146,7 +146,7 @@
                      <span aria-hidden="true">&times;</span></button>
                  <h4 class="modal-title">Valider le payement ?</h4>
              </div>
-             <div class="modal-body">
+             <div class="modal-body" id="preview_fiche_payement_content">
                  <h3><span id="patient_preview_payement_fiche"></span></h3>
                  <div class="table-responsive">
                      <table class="table table-striped">
@@ -167,7 +167,7 @@
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                 <button type="button" class="btn btn-primary" id="btn_done_payement_fiche">Valider le payement</button>
+                 <button type="button" class="btn btn-primary" id="btn_done_payement_fiche" data-dismiss="modal">Valider le payement</button>
              </div>
          </div>
          <!-- /.modal-content -->
@@ -185,7 +185,7 @@
                      <span aria-hidden="true">&times;</span></button>
                  <h4 class="modal-title">Valider le payement ?</h4>
              </div>
-             <div class="modal-body">
+             <div class="modal-body" id="preview_consultation_payement_content">
                  <h3><span id="patient_preview_payement_labo"></span></h3>
                  <h4>Motif : Frais de laboratoire</h4>
                  <div class="table-responsive">
@@ -214,7 +214,7 @@
          <!-- /.modal-content -->
          <div class="modal-footer">
              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-             <button type="button" class="btn btn-primary" id="btn_done_payement_labo">Valider le payement</button>
+             <button type="button" class="btn btn-primary" id="btn_done_payement_labo" data-dismiss="modal">Valider le payement</button>
          </div>
      </div>
      <!-- /.modal-dialog -->
@@ -224,7 +224,7 @@
  <!-- Modal preview autre payement -->
  <div class="modal fade" id="valider_autre_payement_modal">
      <div class="modal-dialog">
-         <div class="modal-content">
+         <div class="modal-content" id="preview_autre_payement_content">
              <h3><span id="patient_preview_autre_payement"></span></h3>
              <div class="table-responsive">
                  <table class="table table-striped">
@@ -246,8 +246,32 @@
          <!-- /.modal-content -->
          <div class="modal-footer">
              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-             <button type="button" class="btn btn-primary" id="btn_done_autre_payement">Valider le payement</button>
+             <button type="button" class="btn btn-primary" id="btn_done_autre_payement" data-dismiss="modal">Valider le payement</button>
          </div>
      </div>
      <!-- /.modal-dialog -->
+ </div>
+
+ <div id="recu_payement_fiche">
+     <div class="row">
+         
+     </div>
+     <div >
+         <div class="table-responsive">
+             <table class="table table-striped">
+                 <tbody>
+                     <tr>
+                         <td>Motif : </td>
+                         <td>Frais de fiche</td>
+                         <td></td>
+                     </tr>
+                     <tr>
+                         <td>Montant : </td>
+                         <td><span id="montant_recu_payement_fiche"></span> FC</td>
+                         <td></td>
+                     </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
  </div>

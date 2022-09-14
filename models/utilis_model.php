@@ -14,7 +14,7 @@ class Utilis_model extends Model {
         
         $query = '';
         $output = array();
-        $query .= "SELECT * FROM users ";
+        $query .= "SELECT * FROM users u LEFT OUTER JOIN personnel p ON u.agent_id = p.id_agent";
         
         if (isset($_POST["search"]["value"])) {
             $query .= 'WHERE users_id LIKE "%'.$_POST["search"]["value"].'%" ';
@@ -54,7 +54,7 @@ class Utilis_model extends Model {
         $results = array(
         "draw" => intval($_POST["draw"]),
         "recordsTotal" => $filtered_rows,
-        "recordsFiltered" => $this->get_total_all_records("SELECT * FROM users"),
+        "recordsFiltered" => $this->get_total_all_records("SELECT * FROM users u LEFT OUTER JOIN personnel p ON u.agent_id = p.id_agent"),
         "data" => $data
         );
 
@@ -81,7 +81,7 @@ class Utilis_model extends Model {
      * @return Array agent
      */
     public function get_user($user_id) {
-        $query = "SELECT * FROM users WHERE users_id = :user_id ";
+        $query = "SELECT * FROM users u LEFT OUTER JOIN personnel p ON u.agent_id = p.id_agent WHERE users_id = :user_id ";
         $statement = $this->db->prepare($query);
         $statement->execute(array(
             ':user_id' => $user_id

@@ -59,7 +59,7 @@ class Patient_model extends Model {
             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_patient_modal' id='". $row["patient_id"] ."' statut='". $row["patient_statut"] ."'  title='Voir les details'><i class='fa fa-eye'></i></a>
             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_update_patient_modal' id='". $row["patient_id"] ."' title='Mettre a jour'><i class='fa fa-edit'></i></a>
             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_add_famille_patient_modal ". $display_btn ." ' id='". $row["patient_id"] ."' title='Ajouter un membre de la famille'><i class='fa fa-user-plus'></i></a>
-            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_ouvrir_fiche_patient' id='". $row["patient_id"] ."' title='Ouvrir une fiche'><i class='fa fa-send'></i></a>
+            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_ouvrir_fiche_patient' id='". $row["patient_id"] ."' statut='". $row["patient_statut"] ."' title='Ouvrir une fiche'><i class='fa fa-send'></i></a>
                     ";
         $data[] = $sub_array;
         }

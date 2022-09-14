@@ -272,8 +272,8 @@
                                   <?php
                                     foreach ($this->medecins as $medecin) {
                                     ?>
-                                      <option value="<?php echo $medecin['users_id'] ?>"><?php echo $medecin['prenom'] . ' ' . $medecin['nom'] ?></option>
-                                  <?php
+                                      <option value="<?php echo $medecin['users_id'] ?>"><?php echo $medecin['prenom_agent'] . ' ' . $medecin['nom_agent'] ?></option>
+                                    <?php
                                     }
                                     ?>
                               </select>

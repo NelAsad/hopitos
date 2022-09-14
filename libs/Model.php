@@ -19,7 +19,7 @@ class Model {
      * Get user by privilege
      */
     function get_users_by_privilege($privilege){
-        $query = "SELECT * FROM users WHERE privilege = :privilege ";
+        $query = "SELECT * FROM users u LEFT OUTER JOIN personnel p ON u.agent_id = p.id_agent WHERE privilege = :privilege ";
 
         $statement = $this->db->prepare($query);
         $statement->execute(array(

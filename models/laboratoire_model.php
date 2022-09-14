@@ -80,7 +80,7 @@ class Laboratoire_model extends Model
                     case '1':
                         $action_btns = "
                             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_commencer_exam_appeler_patient'  nom='" . $row["patient_nom"] . "' postnom='" . $row["patient_postnom"] . "' prenom='" . $row["patient_prenom"] . "'  patient_id='" . $row["patient_id"] . "' exam_id='" . $row["exam_id"] . "' title='Appeler le patient'><i class='fa fa-microphone'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_inserer_exam_modal' id='" . $row["exam_id"] . "' title='Inserer les resultats'><i class='fa fa-edit'></i></a>
+                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_inserer_exam_modal' id='" . $row["exam_id"] . "' statut='" . $row["patient_statut"] . "' title='Inserer les resultats'><i class='fa fa-edit'></i></a>
                             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_inserer_exam_image_modal' id='" . $row["exam_id"] . "' title='Inserer les resultats imagerie'><i class='fa fa-heartbeat'></i></a>
                             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_resultat_exam_image_modal' id='" . $row["exam_id"] . "' title='Voir resultat imagerie'><i class='fa fa-eye'></i></a>
                             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_declasser_demande' id='" . $row["exam_id"] . "' title='Declasser la demande'><i class='fa fa-remove'></i></a>

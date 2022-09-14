@@ -229,6 +229,10 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.reponse == 'bien') {
+
+                    $('#montant_recu_payement_fiche').html(montant_frais_fiche);
+                    $("#recu_payement_fiche").printThis();
+
                     toastr.options.progressBar = true;
                     toastr.options.showMethod = 'slideDown';
                     toastr.options.hideMethod = 'fadeOut';

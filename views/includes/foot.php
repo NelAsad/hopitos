@@ -45,6 +45,8 @@
 <!-- Tinymce -->
 <script src="<?php echo URL; ?>public/librairies/tinymce/jquery.tinymce.min.js"></script>
 <script src="<?php echo URL; ?>public/librairies/tinymce/tinymce.min.js"></script>
+<!-- PrintThis -->
+<script src="<?php echo URL; ?>public/librairies/printthis/printThis.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="<?php echo URL; ?>public/js/main.js"></script>
 

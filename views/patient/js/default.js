@@ -193,10 +193,6 @@ $(document).ready(function () {
             },
             success: function (patient) {
 
-                if (patient.patient_statut == '') {
-                    
-                }
-
                 $('#hidden_update_patient_id').val(patient.patient_id);
                 $('#new_patient_prenom').val(patient.patient_prenom);
                 $('#new_patient_nom').val(patient.patient_nom);
@@ -300,34 +296,40 @@ $(document).ready(function () {
     //OUVRIR UNE FICHE
     //Afficher modal ouvrir fiche
     $(document).on('click', '.btn_ouvrir_fiche_patient', function (e) {
-
-        // alert('im here');
-
         e.preventDefault();
+
         let patient_id = $(this).attr('id');
+        let patient_statut = $(this).attr('statut');
         $('#ouvrir_fiche_fk_patient_id').val(patient_id);
-        $.ajax({
-            url: path + "patient/get_patient_frais_fiche_actif",
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                patient_id: patient_id
-            },
-            success: function (pay_actifs) {
-                if (pay_actifs.length > 0 && pay_actifs[0].utilise == 0) {
-                    $('#ouvrir_fiche_modal').modal('show');
-                } else {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.warning('Priere d\'aller payer a la caisse avant l\'ouverture de la fiche');
+
+        if (patient_statut == 'simple') {
+            $.ajax({
+                url: path + "patient/get_patient_frais_fiche_actif",
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    patient_id: patient_id
+                },
+                success: function (pay_actifs) {
+                    if (pay_actifs.length > 0 && pay_actifs[0].utilise == 0) {
+                        $('#ouvrir_fiche_modal').modal('show');
+                    } else {
+                        toastr.options.progressBar = true;
+                        toastr.options.showMethod = 'slideDown';
+                        toastr.options.hideMethod = 'fadeOut';
+                        toastr.options.closeMethod = 'fadeOut';
+                        toastr.warning('Priere d\'aller payer a la caisse avant l\'ouverture de la fiche');
+                    }
+                },
+                error: function (data) {
+                    alert('Error');
                 }
-            },
-            error: function (data) {
-                alert('Error');
-            }
-        });
+            });
+        } else {
+            $('#ouvrir_fiche_modal').modal('show');
+        }
+
+        
     });
     //Donne ouverture fiche
     $(document).on('click', '#btn_done_ouverture_fiche', function (e) {

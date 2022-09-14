@@ -126,8 +126,42 @@ $(document).ready(function () {
             },
             success: function (pay_actifs) {
 
-                if (pay_actifs.length > 0 && pay_actifs[0].utilise == 0) {
+                if (patient_statut == 'simple') {
+                    if (pay_actifs.length > 0 && pay_actifs[0].utilise == 0) {
 
+                        //j'affiche tout les champs
+                        afficher_tout_les_champs();
+
+                        //Appel Ajax
+                        $.ajax({
+                            url: path + "laboratoire/get_exam",
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: {
+                                exam_id: exam_id
+                            },
+                            success: function (exam) {
+                                //je cahe les champs qu'il faut caher
+                                cahe_champ_moins_important(exam);
+
+                                $('#laboratoire_autres_examens_liste').html(exam.autres_examens);
+                                $('#exam_show_service').html(exam.exam_service);
+                                $('#hidden_exam_id').val(exam.exam_id);
+                                $('#inserer_examens_modal').modal('show');
+                            },
+                            error: function (data) {
+                                alert('Error!!');
+                            }
+                        });
+
+                    } else {
+                        toastr.options.progressBar = true;
+                        toastr.options.showMethod = 'slideDown';
+                        toastr.options.hideMethod = 'fadeOut';
+                        toastr.options.closeMethod = 'fadeOut';
+                        toastr.warning('Priere d\'aller payer a la caisse avant d\'etre examine');
+                    }
+                } else {
                     //j'affiche tout les champs
                     afficher_tout_les_champs();
 
@@ -152,14 +186,9 @@ $(document).ready(function () {
                             alert('Error!!');
                         }
                     });
-
-                } else {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.warning('Priere d\'aller payer a la caisse avant d\'etre examine');
                 }
+
+
 
             },
             error: function (data) {
@@ -409,7 +438,7 @@ $(document).ready(function () {
                 $('#img_irm').attr('src', irm + exam.irm);
 
                 let endo = $('#img_endoscopie').attr('src');
-                $('#img_endoscopie').attr('src',endo + exam.endoscopie);
+                $('#img_endoscopie').attr('src', endo + exam.endoscopie);
 
                 let scan = $('#img_scanner').attr('src');
                 $('#img_scanner').attr('src', scan + exam.scanner);
