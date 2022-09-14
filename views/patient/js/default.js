@@ -114,6 +114,31 @@ $(document).ready(function () {
     $(document).on('click', '.btn_show_patient_modal', function (e) {
         e.preventDefault();
         var patient_id = $(this).attr('id');
+        var patient_statut = $(this).attr('statut');
+        $('#membre_famille_content').hide();
+
+        if (patient_statut == 'conventionne') {
+            $.ajax({
+                url: path + "patient/get_membres_famille_patient",
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    patient_id: patient_id
+                },
+                success: function (membres) {
+    
+                    membres.forEach(membre => {
+                        $('#table_membres_famille_body').append('<tr><td>' + membre.patient_nom + '</td><td>' + membre.patient_postnom + '</td><td>' + membre.patient_prenom + '</td><td>' + membre.patient_sexe + '</td></tr>')
+                    });
+    
+                    $('#membre_famille_content').show();
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert('Error');
+                }
+            });
+        }
 
         $.ajax({
             url: path + "patient/get_patient",
@@ -155,7 +180,7 @@ $(document).ready(function () {
 
     //UPDATE UN USER
     //Remplir les champs pour l'update
-    $(document).on('click', '.btn_update_patient_modal', function(e){
+    $(document).on('click', '.btn_update_patient_modal', function (e) {
         e.preventDefault();
         var patient_id = $(this).attr('id');
 
@@ -167,6 +192,11 @@ $(document).ready(function () {
                 patient_id: patient_id
             },
             success: function (patient) {
+
+                if (patient.patient_statut == '') {
+                    
+                }
+
                 $('#hidden_update_patient_id').val(patient.patient_id);
                 $('#new_patient_prenom').val(patient.patient_prenom);
                 $('#new_patient_nom').val(patient.patient_nom);
@@ -176,7 +206,7 @@ $(document).ready(function () {
                 $('#new_patient_adresse').val(patient.patient_adresse);
                 $('#new_patient_statut').val(patient.patient_statut);
                 $('#new_patient_dossier_num').val(patient.patient_dossier_numero);
-                $('#new_patient_fiche_num').val(patient.patient_fiche_numero);
+                $('#new_patient_fiche_num').val(patient.patient_id);
                 $('#new_patient_titulaire_id').val(patient.fk_patient_conv);// le personne liee a l'hopital
                 $('#new_patient_affiliation').val(patient.patient_affiliation);
                 $('#new_patient_code_conv').val(patient.patient_code_convention);
@@ -302,7 +332,7 @@ $(document).ready(function () {
     //Donne ouverture fiche
     $(document).on('click', '#btn_done_ouverture_fiche', function (e) {
         e.preventDefault();
-        
+
         let patient_id = $('#ouvrir_fiche_fk_patient_id').val();
         let poids = $('#ouvrir_fiche_poids').val();
         let tension = $('#ouvrir_fiche_tension').val();
@@ -383,8 +413,123 @@ $(document).ready(function () {
                     }
                 });
             }
-            
+
         }
+
+    });
+
+    // Ajouter membre famille
+    // voir modal
+    $(document).on('click', '.btn_add_famille_patient_modal', function (e) {
+        e.preventDefault();
+        let patient_id = $(this).attr('id');
+        $('#hidden_famille_patient_id').val(patient_id);
+
+        $.ajax({
+            url: path + "patient/get_patient",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                patient_id: patient_id
+            },
+            success: function (patient) {
+                $('#famille_patient_adresse').val(patient.patient_adresse);
+                $('#add_famille_membre_modal').modal('show');
+            },
+            error: function (data) {
+                alert('Error!!');
+            }
+        });
+    });
+    // Done 
+    $(document).on('click', '#btn_done_add_membre_famille', function (e) {
+        e.preventDefault();
+
+        var patient_id = $('#hidden_famille_patient_id').val();
+        var new_patient_prenom = $('#famille_patient_prenom').val();
+        var new_patient_nom = $('#famille_patient_nom').val();
+        var new_patient_postnom = $('#famille_patient_postnom').val();
+        var new_patient_date_naissance = $('#famille_patient_date_naissance').val();
+        var new_patient_sexe = $('#famille_patient_sexe').val();
+        var new_patient_adresse = $('#famille_patient_adresse').val();
+
+        if (new_patient_prenom == '' || new_patient_nom == '' || new_patient_postnom == '') {
+            swal.fire({
+                title: 'Champs vide',
+                text: 'Veillez remplir tout les champs obligatoires',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        } else {
+
+            $.ajax({
+                url: path + "patient/add_famille_patient",
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    patient_id: patient_id,
+                    new_patient_prenom: new_patient_prenom,
+                    new_patient_nom: new_patient_nom,
+                    new_patient_postnom: new_patient_postnom,
+                    new_patient_date_naissance: new_patient_date_naissance,
+                    new_patient_sexe: new_patient_sexe,
+                    new_patient_adresse: new_patient_adresse
+                },
+                success: function (data) {
+                    if (data.reponse == 'bien') {
+
+                        $('#add_famille_membre_modal').modal('hide');
+
+                        toastr.options.progressBar = true;
+                        toastr.options.showMethod = 'slideDown';
+                        toastr.options.hideMethod = 'fadeOut';
+                        toastr.options.closeMethod = 'fadeOut';
+                        toastr.success('Membre de la famille ajouté avec succès');
+
+                        form_add_new_patient.reset();
+                        dataTable_patient.ajax.reload();
+                    }
+                    if (data.reponse == 'pas_bien') {
+                        toastr.options.progressBar = true;
+                        toastr.options.showMethod = 'slideDown';
+                        toastr.options.hideMethod = 'fadeOut';
+                        toastr.options.closeMethod = 'fadeOut';
+                        toastr.warning('Echec d\'enregistrement');
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert('Error');
+                }
+            });
+        }
+    });
+
+
+    // voir membres famille modal
+    $(document).on('click', '.btn_voir_famille_patient_modal', function (e) {
+        e.preventDefault();
+        let patient_id = $(this).attr('id');
+        $.ajax({
+            url: path + "patient/get_membres_famille_patient",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                patient_id: patient_id
+            },
+            success: function (membres) {
+
+                membres.forEach(membre => {
+                    $('#table_membres_famille_body').append('<tr><td>' + membre.patient_nom + '</td><td>' + membre.patient_postnom + '</td><td>' + membre.patient_prenom + '</td><td>' + membre.patient_sexe + '</td></tr>')
+                });
+
+                $('#voir_famille_membre_modal').modal('show');
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error');
+            }
+        });
 
     });
 

@@ -41,6 +41,12 @@ class Patient_model extends Model {
         $filtered_rows = $sth->rowCount();
 
         foreach ($result as $row){
+
+        $display_btn = '';
+        if ($row["patient_statut"] != 'conventionne') {
+            $display_btn = 'hidden';
+        }
+
         $sub_array = array();
         $sub_array[] = $row["patient_id"];
         $sub_array[] = $row["patient_prenom"];
@@ -50,8 +56,9 @@ class Patient_model extends Model {
         $sub_array[] = $row["patient_statut"];
         $sub_array[] = $row["patient_date_naissance"];
         $sub_array[] = "
-            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_patient_modal' id='". $row["patient_id"] ."' title='Voir les details'><i class='fa fa-eye'></i></a>
+            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_patient_modal' id='". $row["patient_id"] ."' statut='". $row["patient_statut"] ."'  title='Voir les details'><i class='fa fa-eye'></i></a>
             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_update_patient_modal' id='". $row["patient_id"] ."' title='Mettre a jour'><i class='fa fa-edit'></i></a>
+            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_add_famille_patient_modal ". $display_btn ." ' id='". $row["patient_id"] ."' title='Ajouter un membre de la famille'><i class='fa fa-user-plus'></i></a>
             <a style='cursor: pointer;' class='btn btn-default btn-xs btn_ouvrir_fiche_patient' id='". $row["patient_id"] ."' title='Ouvrir une fiche'><i class='fa fa-send'></i></a>
                     ";
         $data[] = $sub_array;
@@ -67,8 +74,6 @@ class Patient_model extends Model {
         echo json_encode($results);
 
     }
-
-
 
     /**
      * Ajout_une_nouveau_patient
@@ -98,13 +103,35 @@ class Patient_model extends Model {
     }
 
     /**
+     * Ajout nouveau patient
+     */
+    public function add_famille_patient($prenom,$nom,$postnom,$date_naissance,$sexe,$adresse,$titulaire_id,$users_id) {
+        $query = "INSERT INTO patient (patient_prenom,patient_nom,patient_postnom,patient_date_naissance,patient_sexe,patient_adresse,patient_statut,fk_patient_conv,fk_users_id,patient_save_date) VALUES (:patient_prenom,:patient_nom,:patient_postnom,:patient_date_naissance,:patient_sexe,:patient_adresse,:patient_statut,:fk_patient_conv,:fk_users_id,NOW()) ";
+        $statement = $this->db->prepare($query);
+
+        $result = $statement->execute(array(
+            ':patient_prenom' => $prenom,
+            ':patient_nom' => $nom,
+            ':patient_postnom' => $postnom,
+            ':patient_date_naissance' => $date_naissance,
+            ':patient_sexe' => $sexe,
+            ':patient_adresse' => $adresse,
+            ':patient_statut' => 'familleConv',
+            ':fk_patient_conv' => $titulaire_id,
+            ':fk_users_id' => $users_id
+        ));
+
+        return $result;
+    }
+
+    /**
      * Update_patient
      */
     public function update_patient($patient_id, $prenom, $nom,$postnom,$date_naissance, $sexe, $adresse,$statut,$dossier_num,$fiche_num,$titulaire_id,$affiliation,$code_conv,$occupation,$users_id) {
         $query = "UPDATE patient SET patient_dossier_numero = :patient_dossier_numero, patient_fiche_numero = :patient_fiche_numero,
         patient_prenom = :patient_prenom, patient_nom = :patient_nom, patient_postnom = :patient_postnom,
         patient_date_naissance = :patient_date_naissance, patient_sexe = :patient_sexe, patient_adresse = :patient_adresse,
-        patient_statut = :patient_statut, fk_patient_conv = :fk_patient_conv,patient_affiliation = :patient_affiliation,
+        patient_statut = :patient_statut, fk_patient_conv = :fk_patient_conv, patient_affiliation = :patient_affiliation,
         patient_code_convention = :patient_code_convention, patient_occupation = :patient_occupation, fk_users_id = :fk_users_id,
         patient_save_date = NOW() WHERE patient_id = :patient_id ";
         $statement = $this->db->prepare($query);
@@ -228,6 +255,28 @@ class Patient_model extends Model {
         $statement->closeCursor();
         return $patient;
     }
+
+    // get membre famille
+    public function get_membres_famille_patient($patient_id){
+        $query = "SELECT * FROM patient WHERE fk_patient_conv = :patient_id AND patient_statut = 'familleConv' ";
+        $statement = $this->db->prepare($query);
+        $statement->execute(array(':patient_id' => $patient_id));
+        $membres = $statement->fetchAll();
+        $statement->closeCursor();
+        return $membres;
+    }
+
+    // get entreprise
+    public function get_entreprise(){
+        $query = "SELECT * FROM entreprise ";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $entreprises = $statement->fetchAll();
+        $statement->closeCursor();
+        return $entreprises;
+    }
+
+
 
     /**
      * Renvoie les payement fiche actifs d'un patient

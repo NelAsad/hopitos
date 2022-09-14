@@ -17,7 +17,7 @@ $file_content = "
 		<p style='font-weight: bold;'>CONSULTATION</p>
 		<p>Num#: ".$this->fiche['fiche_id']."</p>
 		<p>Date: ".$this->fiche['fiche_cloture_date']."</p>
-		<p>Consultant: ".$this->fiche['prenom']." ".$this->fiche['nom']."</p>
+
 	</div>
 </div>
 

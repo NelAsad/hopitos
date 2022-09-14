@@ -36,6 +36,7 @@ class Patient extends Controller {
     function index() {
 
         $this->view->medecins = $this->model->get_users_by_privilege(3);
+        $this->view->entreprises = $this->model->get_entreprise();
 
         $this->view->render('patient/index');
     }
@@ -72,6 +73,37 @@ class Patient extends Controller {
 
         //Insert patient
         $result = $this->model->insert_patient($prenom, $nom,$postnom,$date_naissance, $sexe, $adresse,$statut,$dossier_num,$fiche_num,$titulaire_id,$affiliation,$code_conv,$occupation,$users_id);
+
+        if ($result) {
+            $std->reponse = 'bien';
+        } else {
+            $std->reponse = 'pas_bien';
+        }
+        echo json_encode($std);
+        
+    }
+
+
+    /**
+     * Ajout d'un nouveau membre de la famille
+     */
+    function add_famille_patient(){
+        
+        $users_id = Session::get('user_id');
+        
+        $prenom = $_POST['new_patient_prenom'];
+        $nom = $_POST['new_patient_nom'];
+        $postnom = $_POST['new_patient_postnom'];
+        $date_naissance = $_POST['new_patient_date_naissance'];
+        $sexe = $_POST['new_patient_sexe'];
+        $adresse = $_POST['new_patient_adresse'];
+
+        $titulaire_id = $_POST['patient_id'];
+
+        $std = new stdClass();
+
+        //Insert membre
+        $result = $this->model->add_famille_patient($prenom,$nom,$postnom,$date_naissance,$sexe,$adresse,$titulaire_id,$users_id);
 
         if ($result) {
             $std->reponse = 'bien';
@@ -129,6 +161,18 @@ class Patient extends Controller {
         $patient = $this->model->get_patient($patient_id);
 
         echo json_encode($patient);
+    }
+
+    /**
+     * Donne membres famille patient
+     */
+    function get_membres_famille_patient(){
+        $patient_id = $_POST['patient_id'];
+
+        //return all members
+        $membres = $this->model->get_membres_famille_patient($patient_id);
+
+        echo json_encode($membres);
     }
 
     /**
