@@ -7,10 +7,10 @@ $file_content = "
 <div>
 	<div style='display: inline-block;' >
 		<div style='margin-top: 35px; margin-left: 10px;'>
-			<img src='".$_SERVER['DOCUMENT_ROOT']."/hopitos/public/images/logo3.jpg' style='max-width: 100px;' />
+			<img src='".$_SERVER['DOCUMENT_ROOT']."/hopitos/public/images/logo4.png' style='max-width: 100px;' />
 		</div>
 		<div style='margin-top: 10px; margin-botton: 10px; margin-left: 10px;'>
-			<span style='font-weight: bold;'>HOSPITALIA</span>
+			<span style='font-weight: bold;'>MEDICAL CITY</span>
 		</div>  
 	</div>
 	<div style='display: inline-block; float: right; margin:0px'>

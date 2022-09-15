@@ -252,17 +252,39 @@
      <!-- /.modal-dialog -->
  </div>
 
- <div id="recu_payement_fiche">
-     <div class="row">
-         
+<!-- RECU -->
+ <div id="recu_payement_fiche" >
+     <div class="row" style="margin-bottom: 20px;">
+         <div class="col-xs-4">
+             <img src="<?php echo URL; ?>public/images/logo4.png" alt="" class="img img-responsive">
+         </div>
+         <div class="col-xs-8 text-center" style="padding-top: 10px;">
+             <span>Medical City</span> <br>
+             <span>ADH</span> <br>
+             <span>Les urgences 24h/7</span>
+         </div>
      </div>
-     <div >
+     <hr>
+     <div align="center" style="margin-bottom: 20px; margin-bottom: 20px;">
+         RECU DE PAYEMENT
+     </div>
+     <hr>
+     <div align="center" style="margin-bottom: 20px; margin-bottom: 20px;">
+         <span id="recu_patient_identite"></span>
+     </div>
+     <div align="center">-----------------------------</div>
+     <div>
          <div class="table-responsive">
              <table class="table table-striped">
                  <tbody>
                      <tr>
+                         <td>Date : </td>
+                         <td><span id="recu_payement_fiche_date"></span></td>
+                         <td></td>
+                     </tr>
+                     <tr>
                          <td>Motif : </td>
-                         <td>Frais de fiche</td>
+                         <td><span id="recu_motif_payement"></span></td>
                          <td></td>
                      </tr>
                      <tr>
@@ -273,5 +295,8 @@
                  </tbody>
              </table>
          </div>
+     </div>
+     <div style="background-color: #fff;" align="center">
+         <div id="recu_fiche_barcode"></div>
      </div>
  </div>

@@ -113,7 +113,7 @@
 </div>
 
 <!-- Modal inserer resultat examen -->
-<div class="modal fade" id="inserer_examens_modal">
+<div class="modal fade" id="inserer_examens_modal" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -245,8 +245,8 @@
 
 
 <!-- modal inserer resultat imagerie -->
-<div class="modal fade" id="inserer_resultat_examen_image_modal">
-    <div class="modal-dialog">
+<div class="modal fade" id="inserer_resultat_examen_image_modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -291,8 +291,8 @@
 </div>
 
 <!-- modal voir resultat imagerie -->
-<div class="modal fade" id="voir_resultat_examen_image_modal">
-    <div class="modal-dialog">
+<div class="modal fade" id="voir_resultat_examen_image_modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -337,7 +337,7 @@
 
 <!-- modal declasser examen -->
 <div class="modal fade" id="declasser_demande_examen_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -367,7 +367,7 @@
 
 <!-- Modal voir les resultats apres insertion -->
 <div class="modal fade" id="voir_exam_apres_insertion_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -408,19 +408,102 @@
 </div>
 
 
+<!-- Modal_voir_consultation -->
+<div class="modal fade" id="voir_consultation_modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Informations sur la consultation</h4>
+            </div>
+            <div class="modal-body">
+                <table class="ui small table">
+                    <tbody>
+                        <!-- <tr>
+                            <td>Num consultation</td>
+                            <td>
+                                <span id="show_consulation_fiche_id"></span>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td>Num fiche</td>
+                            <td>
+                                <span id="show_consulation_patient_fiche_numero"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nom</td>
+                            <td>
+                                <span id="show_consulation_patient_nom"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Post-Nom</td>
+                            <td>
+                                <span id="show_consulation_patient_postnom"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Prenom</td>
+                            <td>
+                                <span id="show_consulation_patient_prenom"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Poids</td>
+                            <td>
+                                <span id="show_consulation_patient_poids"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tension</td>
+                            <td>
+                                <span id="show_consulation_patient_tension"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Heure d'ouverture</td>
+                            <td>
+                                <span id="show_consulation_date_ouverture"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Heure de cloture</td>
+                            <td>
+                                <span id="show_consulation_date_cloture"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
+                <hr>
 
-<div class="ui modal" id="">
-    <i class="close icon"></i>
-    <div class="header">
+                <div>
+                    <input type="hidden" id="hidden_voir_consultation_fiche_id">
 
+                    <span>Anamnèse</span>
+                    <div class="callout callout-default shwo_fiche_box" id="voir_consultation_syptomes"></div>
+
+                    <span>Diagnostic</span>
+                    <div id="voir_consultation_diagnostic" class="callout callout-default shwo_fiche_box"></div>
+
+                    <span>Resultats Labo</span>
+                    <div id="voir_consultation_resultat_labo" class="callout callout-default shwo_fiche_box"></div>
+
+                    <span>Traitement</span>
+                    <div id="voir_consultation_traitement" class="callout callout-default shwo_fiche_box"></div>
+
+                    <span>Prescription</span>
+                    <div id="voir_consultation_precription" class="callout callout-default shwo_fiche_box"></div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
     </div>
-    <div class="content">
-
-    </div>
-    <div class="actions">
-        <button class="ui negative button">
-            Fermer
-        </button>
-    </div>
+    <!-- /.modal-dialog -->
 </div>

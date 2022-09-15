@@ -104,7 +104,7 @@
 </div>
 
 <!-- modal commencer consultation -->
-<div class="modal fade" id="commencer_consultation_modal">
+<div class="modal fade" id="commencer_consultation_modal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -195,7 +195,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="btn_done_commencer_consultation">Valider</button>
+                <button type="button" class="btn btn-primary" id="btn_done_commencer_consultation" data-dismiss="modal">Valider</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -204,7 +204,7 @@
 </div>
 
 <!-- Modal_completer_consultation -->
-<div class="modal fade" id="completer_consultation_modal">
+<div class="modal fade" id="completer_consultation_modal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -229,7 +229,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="btn_done_completer_consultation">Valider</button>
+                <button type="button" class="btn btn-primary" id="btn_done_completer_consultation" data-dismiss="modal">Valider</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -238,7 +238,7 @@
 </div>
 
 <!-- Modal_voir_consultation -->
-<div class="modal fade" id="voir_consultation_modal">
+<div class="modal fade" id="voir_consultation_modal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -339,7 +339,7 @@
 
 
 <!-- Modal demander examens -->
-<div class="modal fade" id="demander_examens_modal">
+<div class="modal fade" id="demander_examens_modal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -352,8 +352,8 @@
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <label>Service</label>
-                            <input class="form-control" type="text" id="exam_service" name="exam_service">
+                            <!-- <label>Service</label> -->
+                            <input hidden class="form-control" type="text" id="exam_service" name="exam_service" value="0">
                             <!-- les champs caches -->
                             <input type="hidden" id="fk_fiche_id" name="fk_fiche_id">
                             <input type="hidden" id="fk_patient_id" name="fk_patient_id">
@@ -451,12 +451,7 @@
                             <label for="is_P120">P120</label>
                             <input type="checkbox" id="is_P120" name="is_P120">
                         </div>
-                        <div class="col-xs-12">
-                            <hr>
-                            <label for="imagerie">Imagerie</label> &nbsp; &nbsp;
-                            <input type="checkbox" id="imagerie" name="imagerie">
-                            <hr>
-                        </div>
+                        
                     </div>
 
                     <div class="field">
@@ -466,10 +461,10 @@
 
                 </form>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-primary" id="btn_done_demande_exam">Demander</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="btn_done_demande_exam" data-dismiss="modal">Demander</button>
+            </div>
         </div>
     </div>
     <!-- /.modal-content -->
@@ -478,7 +473,7 @@
 
 
 <!-- Modal voir motif declassement -->
-<div class="modal fade" id="voir_motif_declassement_modal">
+<div class="modal fade" id="voir_motif_declassement_modal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -500,7 +495,7 @@
 
 
 <!-- modal pour voir le resultats des examnes  -->
-<div class="modal fade" id="voir_resultat_labo_modal">
+<div class="modal fade" id="voir_resultat_labo_modal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -620,7 +615,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="btn_inserer_resultat_a_la_fiche">Ajouter a la fiche</button>
+                <button type="button" class="btn btn-primary" id="btn_inserer_resultat_a_la_fiche" data-dismiss="modal">Ajouter a la fiche</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -630,7 +625,7 @@
 
 
 <!-- Modal demander examens -->
-<div class="modal fade" id="demander_examens_image_modal">
+<div class="modal fade" id="demander_examens_image_modal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

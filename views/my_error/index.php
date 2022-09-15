@@ -1,20 +1,20 @@
-<!-- 
-/**
- * Copyright (c) 2019, Innovate For Future Tech.
- * Powered by Elysée Asad Luboya
- * Soft-Mat
- * 
- * @package   Soft-Mat
- * @author    Dread Luiz Kiamputu & Elysée Asad Luboya (email:nel7luboya@gmail.com, Tél:+243 819664909)
- * @copyright Copyright (c) 2019, Innovate For Future Tech.  (http://innovateforfuture.com)
- * @since     Version 1.3.0
- */
- -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      ERROR
+    </h1>
+    <!-- <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Dashboard</li>
+    </ol> -->
+  </section>
 
-<div style="margin-left:220px; margin-right:1%;">
-    <div class="ui segment blue" style="margin-top:10px;">
-        <p align="center">
-            La page demanée est soit inexistante ou a été deplacée
-        </p>
-    </div>
+  <!-- Main content -->
+  <section class="content">
+    
+  </section>
+  <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->

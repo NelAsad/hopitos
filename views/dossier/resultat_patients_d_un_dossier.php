@@ -13,17 +13,12 @@
     </section>
 
     <section class="content">
-        <div class="callout callout-info">
-            <h4>Reminder!</h4>
-            Instructions for how to use modals are available on the
-            <a href="http://getbootstrap.com/javascript/#modals">Bootstrap documentation</a>
-        </div>
 
         <div class="row">
             <div class="col-xs-12">
             <div class="box box-default">
                 <div class="box-header with-border">
-                <h3 class="box-title">Modal Examples</h3>
+                <!-- <h3 class="box-title">Modal Examples</h3> -->
                 </div>
                 <div class="box-body">
                     <table id="table_fiches_dossier_by_patient_id" class="table">

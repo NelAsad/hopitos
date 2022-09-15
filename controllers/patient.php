@@ -64,10 +64,17 @@ class Patient extends Controller {
         $statut = $_POST['new_patient_statut'];
         $dossier_num = $_POST['new_patient_dossier_num'];
         $fiche_num = $_POST['new_patient_fiche_num'];
-        $titulaire_id = $_POST['new_patient_titulaire_id'];
-        $affiliation = $_POST['new_patient_affiliation'];
-        $code_conv = $_POST['new_patient_code_conv'];
-        $occupation = $_POST['new_patient_occupation'];
+
+        if (isset($_POST['new_patient_titulaire_id'])) {
+            $titulaire_id = $_POST['new_patient_titulaire_id'];
+        }else{
+            $titulaire_id = 0;
+        }
+
+        
+        $affiliation = 0;
+        $code_conv = 0;
+        $occupation =0;
 
         $std = new stdClass();
 

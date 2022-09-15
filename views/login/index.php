@@ -20,14 +20,16 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page" style="background-image: url('http://localhost/hopitos/public/templates/login/images/fond11.jpg'); background-size:cover;">
-<div class="login-box">
+<!-- <body class="hold-transition login-page" style="background: #e7e7e7;"> -->
+<body class="hold-transition login-page" style="background: #2f2772;">
+<div class="login-box" >
   <div class="login-logo">
-    <a href="<?php echo URL; ?>public/design/vendors/index2.html"><b>HOSPITALIA</b></a>
+    <img src="<?php echo URL; ?>public/images/logo4.png" alt="" width="80">
+    <a href="#" style="color: #fff;"><b>MEDICAL CITY</b></a>
   </div>
   <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Connectez-vous pour commencer</p>
+  <div class="login-box-body" style="height: 330px; padding-left: 40px; padding-right: 40px;">
+    <p class="login-box-msg" style="margin-bottom: 25px; font-size: 20px; padding-bottom: 5px;">BIENVENUE!</p>
 
     <?php
       if (isset($this->notification)) {
@@ -54,16 +56,16 @@
 
     <form action="<?php echo URL; ?>login/connect" method="POST">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="login" value="<?php if(isset($this->login)) echo $this->login; ?>" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <input style="height: 50px;" type="text" class="form-control" name="login" value="<?php if(isset($this->login)) echo $this->login; ?>" placeholder="Nom d'utilisateur">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="password" placeholder="Mot de passe">
+        <input style="height: 50px;" type="password" class="form-control" name="password" placeholder="Mot de passe">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+        <div class="col-xs-12" style="margin-top: 25px;">
+          <button style="height: 50px; padding-top: 13px; font-size: 17px;" type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
         </div>
         <!-- /.col -->
       </div>
@@ -71,6 +73,7 @@
 
   </div>
   <!-- /.login-box-body -->
+  <div style="color: #fff; position: fixed; bottom: 50px; margin-left: 50px;"><p>Designed By Braintis Technology. (c) 2022</p></div>
 </div>
 <!-- /.login-box -->
 

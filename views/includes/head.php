@@ -48,11 +48,11 @@
     <header class="main-header">
 
       <!-- Logo -->
-      <a href="index2.html" class="logo">
+      <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>H</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>HOSPITALIA</b></span>
+        <span class="logo-lg"><b>MEDICAL CITY</b></span>
       </a>
 
       <!-- Header Navbar: style can be found in header.less -->
@@ -117,21 +117,18 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="header">MAIN NAVIGATION</li>
-          <li class="active treeview menu-open">
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="<?php echo URL; ?>home"><i class="fa fa-pie-chart"></i> Dashboard</a></li>
-            </ul>
-          </li>
+          <li class="header"></li>
+          
+
+          <li class="<?php if(NAVBAR_LINK=='home') echo 'active '; ?>">
+              <a href="<?php echo URL; ?>home">
+                <i class="fa fa-users"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
 
           <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '2') : ?>
-            <li>
+            <li class="<?php if(NAVBAR_LINK=='patient') echo 'active '; ?>">
               <a href="<?php echo URL; ?>patient">
                 <i class="fa fa-users"></i>
                 <span>Patients</span>
@@ -140,7 +137,7 @@
           <?php endif; ?>
 
           <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '5') : ?>
-            <li>
+            <li class="<?php if(NAVBAR_LINK=='payement') echo 'active '; ?>">
               <a href="<?php echo URL; ?>payement">
                 <i class="fa fa-users"></i>
                 <span>Payements</span>
@@ -149,8 +146,8 @@
           <?php endif; ?>
 
           <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '3') : ?>
-            <li class="treeview">
-              <a href="<?php echo URL; ?>patient">
+            <li class="treeview <?php if(NAVBAR_LINK=='consultation') echo 'active '; ?>">
+              <a href="#">
                 <i class="fa fa-pie-chart"></i>
                 <span>Consultation</span>
                 <span class="pull-right-container">
@@ -165,7 +162,7 @@
           <?php endif; ?>
 
           <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4') : ?>
-            <li>
+            <li class="<?php if(NAVBAR_LINK=='laboratoire') echo 'active '; ?>">
               <a href="<?php echo URL; ?>laboratoire">
                 <i class="fa fa-heartbeat"></i>
                 <span>Laboratoire</span>
@@ -174,7 +171,7 @@
           <?php endif; ?>
 
           <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4') : ?>
-            <li>
+            <li class="<?php if(NAVBAR_LINK=='pharmacie') echo 'active '; ?>">
               <a href="<?php echo URL; ?>pharmacie">
                 <i class="fa fa-medkit"></i>
                 <span>Pharmacie</span>
@@ -183,7 +180,7 @@
           <?php endif; ?>
 
           <?php if (Session::get('privilege') == '1') : ?>
-            <li>
+            <li class="<?php if(NAVBAR_LINK=='users') echo 'active '; ?>">
               <a href="<?php echo URL; ?>users">
                 <i class="fa fa-user-md"></i>
                 <span>Personnel</span>
@@ -204,7 +201,7 @@
               <ul class="treeview-menu">
                 <li><a href="<?php echo URL; ?>utilis"><i class="fa fa-users"></i> Utilisateurs</a></li>
                 <li><a href="<?php echo URL; ?>configs"><i class="fa fa-cogs"></i> Configurations</a></li>
-                <li><a href="<?php echo URL; ?>stats"><i class="fa fa-area-chart"></i> Statistique</a></li>
+                <!-- <li><a href="<?php echo URL; ?>stats"><i class="fa fa-area-chart"></i> Statistique</a></li> -->
               </ul>
             </li>
           <?php endif; ?>

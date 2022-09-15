@@ -1,3 +1,5 @@
+<?php if (Session::get('privilege') == '1') : ?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -42,9 +44,9 @@
       <!-- /.col -->
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <span class="info-box-icon bg-warning"><i class="fa fa-stethoscope"></i></span>
+          <span class="info-box-icon bg-warning"><i class="fa fa-credit-card"></i></span>
           <div class="info-box-content">
-            <span class="info-box-text">Examens</span>
+            <span class="info-box-text">Recettes</span>
             <span class="info-box-number"><?php echo $this->examens['total']; ?></span>
           </div>
           <!-- /.info-box-content -->
@@ -56,7 +58,7 @@
         <div class="info-box">
           <span class="info-box-icon bg-green"><i class="ion ion-ios-people-outline"></i></span>
           <div class="info-box-content">
-            <span class="info-box-text">Personel</span>
+            <span class="info-box-text">Personnel</span>
             <span class="info-box-number"><?php echo $this->personnel['total']; ?></span>
           </div>
           <!-- /.info-box-content -->
@@ -75,7 +77,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Recettes</h3>
+            <h3 class="box-title">Activités</h3>
 
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -97,22 +99,8 @@
           <!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-              <div class="col-md-8">
-                <p class="text-center">
-                  <strong>Consultations: 1 Jan, 2022 - 30 Jul, 2022</strong>
-                </p>
-
-                <div class="chart">
-                  <!-- Sales Chart Canvas -->
-                  <canvas id="salesChart" style="height: 180px;"></canvas>
-                </div>
-                <!-- /.chart-responsive -->
-              </div>
               <!-- /.col -->
-              <div class="col-md-4">
-                <p class="text-center">
-                  <strong>Stats</strong>
-                </p>
+              <div class="col-md-12">
 
                 <div class="progress-group">
                   <span class="progress-text">Patients</span>
@@ -166,3 +154,32 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<?php endif; ?>
+<?php if (Session::get('privilege') != '1') : ?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      WELCOME
+      <small></small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">HOME</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<?php endif; ?>
+
+

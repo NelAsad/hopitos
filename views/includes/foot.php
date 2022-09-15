@@ -2,7 +2,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.13
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    <strong>Copyright &copy; 2022 <a href="https://#">B. Tech</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -47,6 +47,10 @@
 <script src="<?php echo URL; ?>public/librairies/tinymce/tinymce.min.js"></script>
 <!-- PrintThis -->
 <script src="<?php echo URL; ?>public/librairies/printthis/printThis.js"></script>
+<!-- JqueryBarcode -->
+<script src="<?php echo URL; ?>public/librairies/jquerybarcode/jquery/jquery-barcode.js"></script>
+<!-- Barcode -->
+<script src="<?php echo URL; ?>public/js/barcode.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="<?php echo URL; ?>public/js/main.js"></script>
 

@@ -50,12 +50,9 @@ $(document).ready(function () {
         var new_patient_statut = $('#new_patient_statut').val();
         var new_patient_dossier_num = $('#new_patient_dossier_num').val();
         var new_patient_fiche_num = $('#new_patient_fiche_num').val();
-        var new_patient_titulaire_id = $('#new_patient_titulaire_id').val();
-        var new_patient_affiliation = $('#new_patient_affiliation').val();
         var new_patient_code_conv = $('#new_patient_code_conv').val();
-        var new_patient_occupation = $('#new_patient_occupation').val();
 
-        if (new_patient_prenom == '' || new_patient_nom == '' || new_patient_postnom == '' || new_patient_dossier_num == '' || new_patient_fiche_num == '' || new_patient_date_naissance == '' || new_patient_adresse == '') {
+        if (new_patient_prenom == '' || new_patient_nom == '' || new_patient_postnom == '' || new_patient_date_naissance == '' || new_patient_adresse == '') {
             swal.fire({
                 title: 'Champs vide',
                 text: 'Veillez remplir tout les champs obligatoires',
@@ -78,10 +75,7 @@ $(document).ready(function () {
                     new_patient_statut: new_patient_statut,
                     new_patient_dossier_num: new_patient_dossier_num,
                     new_patient_fiche_num: new_patient_fiche_num,
-                    new_patient_titulaire_id: new_patient_titulaire_id,
-                    new_patient_affiliation: new_patient_affiliation,
-                    new_patient_code_conv: new_patient_code_conv,
-                    new_patient_occupation: new_patient_occupation
+                    new_patient_code_conv: new_patient_code_conv
                 },
                 success: function (data) {
                     if (data.reponse == 'bien') {
@@ -290,7 +284,6 @@ $(document).ready(function () {
             });
         }
     });
-
 
 
     //OUVRIR UNE FICHE

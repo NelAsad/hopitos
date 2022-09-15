@@ -65,7 +65,7 @@ $(document).ready(function () {
                     confirmButtonText: 'Ok'
                 });
             } else {
-                
+
                 $.ajax({
                     url: path + "payement/get_patient",
                     type: 'POST',
@@ -160,7 +160,7 @@ $(document).ready(function () {
                             error: function (data) {
                                 alert('Error');
                             }
-                        });   
+                        });
                     }
                 },
                 error: function (data) {
@@ -168,7 +168,7 @@ $(document).ready(function () {
                     alert('Error kanda fort');
                 }
             });
-        } else if (new_payement_motif == 3){
+        } else if (new_payement_motif == 3) {
             if (new_payement_patient_id == '' || new_payement_montant_autre_payement == '' || new_payement_motif_autre_payement == '') {
                 swal.fire({
                     title: 'Champs vide',
@@ -230,17 +230,51 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.reponse == 'bien') {
 
-                    $('#montant_recu_payement_fiche').html(montant_frais_fiche);
-                    $("#recu_payement_fiche").printThis();
+                    $.ajax({
+                        url: path + "patient/get_patient",
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            patient_id: new_payement_patient_id
+                        },
+                        success: function (patient) {
 
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.success('Paiement effectué avec succès');
+                            var settings = {
+                                bgColor: '#FFFFFF', // background color
+                                color: '#000000', // barcode color
+                                barWidth: '2', // canvas width
+                                barHeight: '70', // canvas height
+                                moduleSize: '5',
+                            };
+                            $("#recu_fiche_barcode").barcode(
+                                "1234567890128",// Value barcode (dependent on the type of barcode)
+                                "ean13", // type (string)
+                                settings
+                            );
+                            $('#recu_patient_identite').html(patient.patient_nom + ' ' + patient.patient_nom + ' ' + patient.patient_prenom);
+                            $('#recu_payement_fiche_date').html(new Date().toLocaleString());
+                            $('#montant_recu_payement_fiche').html(montant_frais_fiche);
+                            $('#recu_motif_payement').html('Frais de fiche');
 
-                    form_add_payement.reset();
-                    dataTable_payements.ajax.reload();
+                            $("#recu_payement_fiche").printThis();
+
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.success('Paiement effectué avec succès');
+
+                            form_add_payement.reset();
+                            dataTable_payements.ajax.reload();
+
+                            // $('#patient_update_modal').modal('show');
+                        },
+                        error: function (data) {
+                            alert('Error!!');
+                        }
+                    });
+
+
                 }
                 if (data.reponse == 'pas_bien') {
                     toastr.options.progressBar = true;
@@ -289,14 +323,51 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.reponse == 'bien') {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.success('Paiement effectué avec succès');
 
-                    form_add_payement.reset();
-                    dataTable_payements.ajax.reload();
+                    $.ajax({
+                        url: path + "patient/get_patient",
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            patient_id: new_payement_patient_id
+                        },
+                        success: function (patient) {
+
+                            var settings = {
+                                bgColor: '#FFFFFF', // background color
+                                color: '#000000', // barcode color
+                                barWidth: '2', // canvas width
+                                barHeight: '70', // canvas height
+                                moduleSize: '5',
+                            };
+                            $("#recu_fiche_barcode").barcode(
+                                "1234567890128",// Value barcode (dependent on the type of barcode)
+                                "ean13", // type (string)
+                                settings
+                            );
+                            $('#recu_patient_identite').html(patient.patient_nom + ' ' + patient.patient_nom + ' ' + patient.patient_prenom);
+                            $('#recu_payement_fiche_date').html(new Date().toLocaleString());
+                            $('#montant_recu_payement_fiche').html(montant_frais_labo);
+                            $('#recu_motif_payement').html('Frais de laboratoire');
+
+                            $("#recu_payement_fiche").printThis();
+
+                            toastr.options.progressBar = true;
+                            toastr.options.showMethod = 'slideDown';
+                            toastr.options.hideMethod = 'fadeOut';
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.success('Paiement effectué avec succès');
+
+                            form_add_payement.reset();
+                            dataTable_payements.ajax.reload();
+
+                            // $('#patient_update_modal').modal('show');
+                        },
+                        error: function (data) {
+                            alert('Error!!');
+                        }
+                    });
+
                 }
                 if (data.reponse == 'pas_bien') {
                     toastr.options.progressBar = true;

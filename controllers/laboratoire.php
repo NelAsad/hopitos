@@ -91,6 +91,18 @@ class Laboratoire extends Controller
     }
 
     /**
+     * Donne une fiche avec tout les details
+     */
+    function get_fiche(){
+        $fiche_id = $_POST['fiche_id'];
+
+        //return all of this fiche
+        $fiche = $this->model->get_fiche($fiche_id);
+
+        echo json_encode($fiche);
+    }
+
+    /**
      * Declasse demande d'examen
      */
     function declasser_exam()
