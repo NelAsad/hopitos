@@ -74,6 +74,24 @@ class Payement extends Controller {
 
         echo json_encode($patient);
     }
+    /**
+     * Donne un payement fiche
+     */
+    function get_payement(){
+        $pay_id = $_POST['pay_id'];
+        $payement = $this->model->get_payement($pay_id);
+
+        echo json_encode($payement);
+    }
+    /**
+     * Donne un payement labo
+     */
+    function get_payement_labo(){
+        $pay_id = $_POST['pay_id'];
+        $payement = $this->model->get_payement_labo($pay_id);
+
+        echo json_encode($payement);
+    }
 
     /**
      * Donne les montants pour les differentes examens

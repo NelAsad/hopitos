@@ -1,0 +1,9 @@
+#recu_payement_fiche{
+    display:none;
+}
+
+@media print{
+    #recu_payement_fiche{
+        display:block;
+    }
+}

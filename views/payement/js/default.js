@@ -123,7 +123,7 @@ $(document).ready(function () {
                         });
                     } else {
                         $('#patient_preview_payement_labo').html(exams.patient_prenom + ' ' + exams.patient_nom + ' ' + exams.patient_postnom);
-
+                        $('#done_examen_labo_patient_id').val(exams.patient_id);
                         for (const key in exams) {
                             if (exams.hasOwnProperty(key)) {
                                 const value = exams[key];
@@ -251,7 +251,7 @@ $(document).ready(function () {
                                 "ean13", // type (string)
                                 settings
                             );
-                            $('#recu_patient_identite').html(patient.patient_nom + ' ' + patient.patient_nom + ' ' + patient.patient_prenom);
+                            $('#recu_patient_identite').html(patient.patient_id + ' - ' + patient.patient_nom + ' ' + patient.patient_nom + ' ' + patient.patient_prenom);
                             $('#recu_payement_fiche_date').html(new Date().toLocaleString());
                             $('#montant_recu_payement_fiche').html(montant_frais_fiche);
                             $('#recu_motif_payement').html('Frais de fiche');
@@ -266,7 +266,6 @@ $(document).ready(function () {
 
                             form_add_payement.reset();
                             dataTable_payements.ajax.reload();
-
                             // $('#patient_update_modal').modal('show');
                         },
                         error: function (data) {
@@ -308,6 +307,7 @@ $(document).ready(function () {
 
         let new_payement_motif = $('#new_payement_motif').val();
         let new_payement_patient_id = 0;
+        let recu_payement_patient_id = $('#done_examen_labo_patient_id').val();
         let new_payement_demande_id = $('#new_payement_demande_id').val();
         let montant_frais_labo = parseFloat($('#total_avec_autres_payement').html());
 
@@ -329,7 +329,7 @@ $(document).ready(function () {
                         type: 'POST',
                         dataType: 'JSON',
                         data: {
-                            patient_id: new_payement_patient_id
+                            patient_id: recu_payement_patient_id
                         },
                         success: function (patient) {
 
@@ -345,7 +345,7 @@ $(document).ready(function () {
                                 "ean13", // type (string)
                                 settings
                             );
-                            $('#recu_patient_identite').html(patient.patient_nom + ' ' + patient.patient_nom + ' ' + patient.patient_prenom);
+                            $('#recu_patient_identite').html(patient.patient_id + ' - ' + patient.patient_nom + ' ' + patient.patient_nom + ' ' + patient.patient_prenom);
                             $('#recu_payement_fiche_date').html(new Date().toLocaleString());
                             $('#montant_recu_payement_fiche').html(montant_frais_labo);
                             $('#recu_motif_payement').html('Frais de laboratoire');
@@ -427,5 +427,81 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Imprimer le payement
+    $(document).on('click', '.btn_imprimer_recu', function (e) {
+        e.preventDefault();
+        var pay_id = $(this).attr('id');
+        var pay_motif = $(this).attr('motif');
+
+        if (pay_motif == 1) {
+            $.ajax({
+                url: path + "payement/get_payement",
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    pay_id: pay_id
+                },
+                success: function (data) {
+                    var settings = {
+                        bgColor: '#FFFFFF', // background color
+                        color: '#000000', // barcode color
+                        barWidth: '2', // canvas width
+                        barHeight: '70', // canvas height
+                        moduleSize: '5',
+                    };
+                    $("#recu_fiche_barcode").barcode(
+                        data.num_facture,// Value barcode (dependent on the type of barcode)
+                        "code11", // type (string)
+                        settings
+                    );
+                    $('#recu_patient_identite').html(data.patient_id + ' - ' + data.patient_nom + ' ' + data.patient_nom + ' ' + data.patient_prenom);
+                    $('#recu_payement_fiche_date').html(data.pay_date);
+                    $('#montant_recu_payement_fiche').html(data.pay_montant);
+                    $('#recu_motif_payement').html((data.pay_motif == 1) ? 'Frais de fiche' : 'Frais de laboratoire');
+
+                    $("#recu_payement_fiche").printThis();
+                },
+                error: function (data) {
+                    alert('Error');
+                }
+            });
+        } else {
+            $.ajax({
+                url: path + "payement/get_payement_labo",
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    pay_id: pay_id
+                },
+                success: function (data) {
+                    var settings = {
+                        bgColor: '#FFFFFF', // background color
+                        color: '#000000', // barcode color
+                        barWidth: '2', // canvas width
+                        barHeight: '70', // canvas height
+                        moduleSize: '5',
+                    };
+                    $("#recu_fiche_barcode").barcode(
+                        data.num_facture,// Value barcode (dependent on the type of barcode)
+                        "code11", // type (string)
+                        settings
+                    );
+                    $('#recu_patient_identite').html(data.patient_id + ' - ' + data.patient_nom + ' ' + data.patient_nom + ' ' + data.patient_prenom);
+                    $('#recu_payement_fiche_date').html(data.pay_date);
+                    $('#montant_recu_payement_fiche').html(data.pay_montant);
+                    $('#recu_motif_payement').html((data.pay_motif == 1) ? 'Frais de fiche' : 'Frais de laboratoire');
+    
+                    $("#recu_payement_fiche").printThis();
+                },
+                error: function (data) {
+                    alert('Error');
+                }
+            });
+        }
+
+
+    });
+
 
 });

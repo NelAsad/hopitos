@@ -353,7 +353,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <!-- <label>Service</label> -->
-                            <input hidden class="form-control" type="text" id="exam_service" name="exam_service" value="0">
+                            <input hidden class="form-control" type="text" id="exam_service" name="exam_service" value="EXAMEN LABO">
                             <!-- les champs caches -->
                             <input type="hidden" id="fk_fiche_id" name="fk_fiche_id">
                             <input type="hidden" id="fk_patient_id" name="fk_patient_id">

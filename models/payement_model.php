@@ -45,12 +45,15 @@ class Payement_model extends Model {
         foreach ($result as $row){
         $sub_array = array();
         $sub_array[] = $row["pay_id"];
-        $sub_array[] = $row["pay_motif"];
+        $sub_array[] = ($row["pay_motif"] == 1) ? 'Frais de fiche' : 'Frais de laboratoire';
         $sub_array[] = $row["pay_montant"];
         $sub_array[] = $row["pay_date"];
         $sub_array[] = $row["num_facture"];
         $sub_array[] = $row["fk_pay_patient_id"];
-        $sub_array[] = $row["fk_pay_user_id"];
+        // $sub_array[] = $row["fk_pay_user_id"];
+        $sub_array[] = "
+            <a style='cursor: pointer;' class='btn_imprimer_recu' id='". $row["pay_id"] ."' motif='". $row["pay_motif"] ."' title='Imprimer le recu'><i class='fa fa-print'></i></a>
+                       ";
         $data[] = $sub_array;
         }
 
@@ -148,6 +151,26 @@ class Payement_model extends Model {
         $query = "SELECT * FROM patient WHERE patient_id = :patient_id";
         $statement = $this->db->prepare($query);
         $statement->execute(array(':patient_id' => $patient_id));
+        $patient = $statement->fetch();
+        $statement->closeCursor();
+        return $patient;
+    }
+
+    // Get one payement
+    function get_payement($pay_id){
+        $query = "SELECT * FROM payement p LEFT OUTER JOIN patient pa ON p.fk_pay_patient_id = pa.patient_id LEFT OUTER JOIN examen e ON p.fk_pay_exam_id = e.exam_id LEFT OUTER JOIN users u ON p.fk_pay_user_id = u.users_id WHERE pay_id = :pay_id ";
+        $statement = $this->db->prepare($query);
+        $statement->execute(array(':pay_id' => $pay_id));
+        $patient = $statement->fetch();
+        $statement->closeCursor();
+        return $patient;
+    }
+
+    // get payement for laboratoire
+    function get_payement_labo($pay_id){
+        $query = "SELECT * FROM payement p LEFT OUTER JOIN examen e ON p.fk_pay_exam_id = e.exam_id LEFT OUTER JOIN patient pa ON e.fk_patient_id = pa.patient_id LEFT OUTER JOIN users u ON p.fk_pay_user_id = u.users_id WHERE pay_id = :pay_id ";
+        $statement = $this->db->prepare($query);
+        $statement->execute(array(':pay_id' => $pay_id));
         $patient = $statement->fetch();
         $statement->closeCursor();
         return $patient;

@@ -34,7 +34,8 @@
                                          <th>Date</th>
                                          <th>Facture</th>
                                          <th>ID</th>
-                                         <th>Caissier</th>
+                                         <!-- <th>Caissier</th> -->
+                                         <th>Actions</th>
                                      </tr>
                                  </thead>
                              </table>
@@ -186,6 +187,7 @@
                  <h4 class="modal-title">Valider le payement ?</h4>
              </div>
              <div class="modal-body" id="preview_consultation_payement_content">
+                <input type="hidden" id="done_examen_labo_patient_id">
                  <h3><span id="patient_preview_payement_labo"></span></h3>
                  <h4>Motif : Frais de laboratoire</h4>
                  <div class="table-responsive">
