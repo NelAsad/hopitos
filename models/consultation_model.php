@@ -220,8 +220,7 @@ class Consultation_model extends Model
      */
     public function get_fiche($fiche_id)
     {
-
-        $query = "SELECT * FROM fiche f LEFT OUTER JOIN patient p ON f.fk_patient_id = p.patient_id LEFT OUTER JOIN users u ON f.fiche_fk_users_id = u.users_id WHERE fiche_id = :fiche_id ";
+        $query = "SELECT * FROM fiche f LEFT OUTER JOIN patient p ON f.fk_patient_id = p.patient_id LEFT OUTER JOIN users u ON f.fiche_fk_users_id = u.users_id LEFT OUTER JOIN personnel pers ON u.agent_id = pers.id_agent  WHERE fiche_id = :fiche_id ";
 
         $statement = $this->db->prepare($query);
         $statement->execute(array(

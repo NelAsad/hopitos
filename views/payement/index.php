@@ -261,7 +261,7 @@
              <img src="<?php echo URL; ?>public/images/logo4.png" alt="" class="img img-responsive">
          </div>
          <div class="col-xs-8 text-center" style="padding-top: 10px;">
-             <span>Medical City</span> <br>
+             <span>MEDICAL CITY ADH</span> <br>
              <span>ADH</span> <br>
              <span>Les urgences 24h/7</span>
          </div>

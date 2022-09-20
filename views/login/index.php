@@ -25,7 +25,7 @@
 <div class="login-box" >
   <div class="login-logo">
     <img src="<?php echo URL; ?>public/images/logo4.png" alt="" width="80">
-    <a href="#" style="color: #fff;"><b>MEDICAL CITY</b></a>
+    <a href="#" style="color: #fff;"><b>MEDICAL CITY ADH</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body" style="height: 330px; padding-left: 40px; padding-right: 40px;">

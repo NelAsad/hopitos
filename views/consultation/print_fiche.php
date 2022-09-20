@@ -10,7 +10,7 @@ $file_content = "
 			<img src='".$_SERVER['DOCUMENT_ROOT']."/hopitos/public/images/logo4.png' style='max-width: 100px;' />
 		</div>
 		<div style='margin-top: 10px; margin-botton: 10px; margin-left: 10px;'>
-			<span style='font-weight: bold;'>MEDICAL CITY</span>
+			<span style='font-weight: bold;'>MEDICAL CITY ADH</span>
 		</div>  
 	</div>
 	<div style='display: inline-block; float: right; margin:0px'>
@@ -24,11 +24,24 @@ $file_content = "
 <div>
 	<hr>
 	<div>
-		<p style='font-weight: bold;'>Identite du patient</p>
-		<span>Prenom: ".$this->fiche['patient_prenom']."</span> <br>
-		<span>Nom: ".$this->fiche['patient_nom']."</span> <br>
-		<span>Post-nom: ".$this->fiche['patient_postnom']."</span> <br>
-		<span>Poids: ".$this->fiche['poids']." Kg</span>
+		<p style='font-weight: bold;'>Identité du patient</p>
+		<table style='border: 1px solid black;' width='100%'>
+			<tr>
+				<td width='400px'>
+					<span>Prenom: ".$this->fiche['patient_prenom']."</span> <br>
+					<span>Nom: ".$this->fiche['patient_nom']."</span> <br>
+					<span>Post-nom: ".$this->fiche['patient_postnom']."</span> <br>
+					<span>Sexe: ".$this->fiche['patient_sexe']."</span> <br>
+				</td>
+				<td >
+					<span>Naissance: ".$this->fiche['patient_date_naissance']."</span> <br>
+					<span>Poids: ".$this->fiche['poids']." Kg</span> <br>
+					<span>Tension: ".$this->fiche['tension']."</span> <br>
+					<span>Temperature: ".$this->fiche['temperature']." </span>
+				</td>
+			</tr>
+		</table>
+		
 	</div>
 	
 		<p style='font-weight: bold;'>Anamnèse</p>
