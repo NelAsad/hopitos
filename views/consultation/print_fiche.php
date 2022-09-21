@@ -4,9 +4,9 @@ $file_content = "
 
 <div style='width: 100%; margin: auto;' > 
 
-<div>
+<div style=>
 	<div style='display: inline-block;' >
-		<div style='margin-top: 35px; margin-left: 10px;'>
+		<div style='margin-top: 35px; margin-left: 35px;'>
 			<img src='".$_SERVER['DOCUMENT_ROOT']."/hopitos/public/images/logo4.png' style='max-width: 100px;' />
 		</div>
 		<div style='margin-top: 10px; margin-botton: 10px; margin-left: 10px;'>
@@ -24,17 +24,25 @@ $file_content = "
 <div>
 	<hr>
 	<div>
-		<p style='font-weight: bold;'>Identité du patient</p>
+		<!--<p style='font-weight: bold;'></p>-->
 		<table style='border: 1px solid black;' width='100%'>
+			<tr>
+				<td width='400px'>
+					<span style='font-weight: bold;'>Identité du patient</span> <br>
+				</td>
+				<td >
+					<span style='font-weight: bold;'>Signes vitaux</span> <br>
+				</td>
+			</tr>
 			<tr>
 				<td width='400px'>
 					<span>Prenom: ".$this->fiche['patient_prenom']."</span> <br>
 					<span>Nom: ".$this->fiche['patient_nom']."</span> <br>
 					<span>Post-nom: ".$this->fiche['patient_postnom']."</span> <br>
 					<span>Sexe: ".$this->fiche['patient_sexe']."</span> <br>
+					<span>Naissance: ".$this->fiche['patient_date_naissance']."</span> <br>
 				</td>
 				<td >
-					<span>Naissance: ".$this->fiche['patient_date_naissance']."</span> <br>
 					<span>Poids: ".$this->fiche['poids']." Kg</span> <br>
 					<span>Tension: ".$this->fiche['tension']."</span> <br>
 					<span>Temperature: ".$this->fiche['temperature']." </span>
@@ -43,34 +51,50 @@ $file_content = "
 		</table>
 		
 	</div>
-	
-		<p style='font-weight: bold;'>Anamnèse</p>
-		<p>
-			".$this->fiche['symptomes']."
-		</p>
-	
-		<p style='font-weight: bold;'>Diagnostic</p>
-		<p>
-			".$this->fiche['diagnostic']."
-		</p>
+	<br>
+	<br>
+	<br>
+	<div>
+		<table style='border-collapse: collapse;' width='100%'>
+			<tr bgcolor='#ddd' style='border: 1px solid black; line-height: 34px;'>
+				<th style='border: 1px solid black; padding: 10px 10px 10px 10px;' width='400px'>
+					Désignation
+				</th>
+				<th style='border: 1px solid black; padding: 10px 10px 10px 10px;'>
+					Observation
+				</th>
+			</tr>
+			<tr style='border: 1px solid black;'>
+				<td style='border: 1px solid black; padding: 10px 10px 10px 10px;'>
+					Consultation : <br> <br>
+					".$this->fiche['symptomes']."
+				</td>
+				<td style='border: 1px solid black; padding: 10px 10px 10px 10px;' rowspan='2'>
+					Résultats examens : <br>
+					".$this->fiche['resultat_labo']." <br><br>
 
-		<p style='font-weight: bold;'>Resultat Labo</p>
-		<p>
-			".$this->fiche['resultat_labo']."
-		</p>
+					Traitement : <br>
+					".$this->fiche['traitement']." <br><br>
 
-		<p style='font-weight: bold;'>Traitement</p>
-		<p>
-			".$this->fiche['traitement']."
-		</p>
-	
-		<p style='font-weight: bold;'>Prescription</p>
-		<p>
-			".$this->fiche['pres_medicale']."
-		</p>
+					Prescriptions : <br>
+					".$this->fiche['pres_medicale']."
+
+				</td>
+			</tr>
+			<tr style='border: 1px solid black;'>
+				<td style='border: 1px solid black; padding: 10px 10px 10px 10px;' width='400px'>
+					Diagnostic  : <br> <br>
+					".$this->fiche['diagnostic']."
+				</td>
+			</tr>
+		</table>
+	</div>
 	
 </div>   
-<hr>
+<br>
+<br>
+<br>
+
 <div style='float: right;'>
 	<span> Kinshasa le ".date('d').'/'.date('m').'/'.date('Y')." </span> <br>
 	<span> ".Session::get('prenom')." ".Session::get('nom')."</span>
@@ -78,7 +102,6 @@ $file_content = "
 
 
 ";
-
 
     use Dompdf\Dompdf;
 

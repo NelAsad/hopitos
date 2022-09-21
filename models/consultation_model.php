@@ -150,7 +150,6 @@ class Consultation_model extends Model
                 }
             }
 
-
             $sub_array = array();
             $sub_array[] = $row["fiche_id"];
             $sub_array[] = $row["patient_fiche_numero"];
@@ -169,7 +168,6 @@ class Consultation_model extends Model
             $query_to_get_all = "SELECT * FROM fiche f LEFT OUTER JOIN patient p ON f.fk_patient_id = p.patient_id";
         }
 
-
         $results = array(
             "draw" => intval($_POST["draw"]),
             "recordsTotal" => $filtered_rows,
@@ -185,7 +183,6 @@ class Consultation_model extends Model
      */
     public function commencer_consultation($fiche_id, $symptomes, $diagnostic)
     {
-
         $query = "UPDATE fiche SET symptomes = :symptomes, diagnostic = :diagnostic, fiche_etape = '2'  WHERE fiche_id = :fiche_id";
         $statement = $this->db->prepare($query);
         $result = $statement->execute(array(
