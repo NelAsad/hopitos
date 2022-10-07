@@ -21,8 +21,7 @@ class Patient extends Controller {
             //si tout va bien
             Session::set('connect_valide', true);
         }
-
-
+        
         /**
          * insertion des js et css particulier pour ce module
          */
@@ -36,7 +35,6 @@ class Patient extends Controller {
     function index() {
 
         $this->view->medecins = $this->model->get_users_by_privilege(3);
-        $this->view->entreprises = $this->model->get_entreprise();
 
         $this->view->render('patient/index');
     }
@@ -48,153 +46,6 @@ class Patient extends Controller {
         $this->model->xhr_patient_DataTable();
     }
 
-    /**
-     * Ajout d'un nouveau patient
-     */
-    function add_new_patient(){
-        
-        $users_id = Session::get('user_id');
-        
-        $prenom = $_POST['new_patient_prenom'];
-        $nom = $_POST['new_patient_nom'];
-        $postnom = $_POST['new_patient_postnom'];
-        $date_naissance = $_POST['new_patient_date_naissance'];
-        $sexe = $_POST['new_patient_sexe'];
-        $adresse = $_POST['new_patient_adresse'];
-        $statut = $_POST['new_patient_statut'];
-        $dossier_num = $_POST['new_patient_dossier_num'];
-        $fiche_num = $_POST['new_patient_fiche_num'];
-
-        if (isset($_POST['new_patient_titulaire_id'])) {
-            $titulaire_id = $_POST['new_patient_titulaire_id'];
-        }else{
-            $titulaire_id = 0;
-        }
-
-        
-        $affiliation = 0;
-        $code_conv = 0;
-        $occupation =0;
-
-        $std = new stdClass();
-
-        //Insert patient
-        $result = $this->model->insert_patient($prenom, $nom,$postnom,$date_naissance, $sexe, $adresse,$statut,$dossier_num,$fiche_num,$titulaire_id,$affiliation,$code_conv,$occupation,$users_id);
-
-        if ($result) {
-            $std->reponse = 'bien';
-        } else {
-            $std->reponse = 'pas_bien';
-        }
-        echo json_encode($std);
-        
-    }
-
-
-    /**
-     * Ajout d'un nouveau membre de la famille
-     */
-    function add_famille_patient(){
-        
-        $users_id = Session::get('user_id');
-        
-        $prenom = $_POST['new_patient_prenom'];
-        $nom = $_POST['new_patient_nom'];
-        $postnom = $_POST['new_patient_postnom'];
-        $date_naissance = $_POST['new_patient_date_naissance'];
-        $sexe = $_POST['new_patient_sexe'];
-        $adresse = $_POST['new_patient_adresse'];
-
-        $titulaire_id = $_POST['patient_id'];
-
-        $std = new stdClass();
-
-        //Insert membre
-        $result = $this->model->add_famille_patient($prenom,$nom,$postnom,$date_naissance,$sexe,$adresse,$titulaire_id,$users_id);
-
-        if ($result) {
-            $std->reponse = 'bien';
-        } else {
-            $std->reponse = 'pas_bien';
-        }
-        echo json_encode($std);
-        
-    }
-
-    /**
-     * Update d'un patient
-     */
-    function update_patient(){
-        
-        $users_id = Session::get('user_id');
-        
-        $patient_id = $_POST['new_patient_id'];
-        $prenom = $_POST['new_patient_prenom'];
-        $nom = $_POST['new_patient_nom'];
-        $postnom = $_POST['new_patient_postnom'];
-        $date_naissance = $_POST['new_patient_date_naissance'];
-        $sexe = $_POST['new_patient_sexe'];
-        $adresse = $_POST['new_patient_adresse'];
-        $statut = $_POST['new_patient_statut'];
-        $dossier_num = $_POST['new_patient_dossier_num'];
-        $fiche_num = $_POST['new_patient_fiche_num'];
-        $titulaire_id = $_POST['new_patient_titulaire_id'];
-        $affiliation = $_POST['new_patient_affiliation'];
-        $code_conv = $_POST['new_patient_code_conv'];
-        $occupation = $_POST['new_patient_occupation'];
-
-        $std = new stdClass();
-
-        //Update patient
-        $result = $this->model->update_patient($patient_id, $prenom, $nom,$postnom,$date_naissance, $sexe, $adresse,$statut,$dossier_num,$fiche_num,$titulaire_id,$affiliation,$code_conv,$occupation,$users_id);
-
-        if ($result) {
-            $std->reponse = 'bien';
-        } else {
-            $std->reponse = 'pas_bien';
-        }
-        echo json_encode($std);
-        
-    }
-
-
-    /**
-     * Donne un patient avec tout les details
-     */
-    function get_patient(){
-        $patient_id = $_POST['patient_id'];
-
-        //return all of this patient
-        $patient = $this->model->get_patient($patient_id);
-
-        echo json_encode($patient);
-    }
-
-    /**
-     * Donne membres famille patient
-     */
-    function get_membres_famille_patient(){
-        $patient_id = $_POST['patient_id'];
-
-        //return all members
-        $membres = $this->model->get_membres_famille_patient($patient_id);
-
-        echo json_encode($membres);
-    }
-
-    /**
-     * Donne les frais de payement actifs pour un patient
-     */
-    function get_patient_frais_fiche_actif(){
-        $patient_id = $_POST['patient_id'];
-        $pay_motif = 1;
-        
-        //
-        $result = $this->model->get_patient_frais_fiche_actif($patient_id,$pay_motif);
-        
-        echo json_encode($result);
-
-    }
     
 
     /**
@@ -205,36 +56,23 @@ class Patient extends Controller {
         $poids = $_POST['poids'];
         $tension = $_POST['tension'];
         $temperature = $_POST['temperature'];
-        $medecin_consultant_id = $_POST['medecin_consultant_id'];
+        $fk_agent = $_POST['medecin_consultant_id'];
 
         $std = new stdClass();
 
-        $result = $this->model->ouvrir_fiche($patient_id,$poids,$tension,$temperature,$medecin_consultant_id);
+        $fk_signe_vitaux = $this->model->insert_signe_vitaux($poids,$tension,$temperature);
+        $fk_visite = $this->model->insert_visite($patient_id);
+        $result = $this->model->insert_visite_signe_vitaux($fk_signe_vitaux, $fk_visite);
+        $result = $this->model->insert_transfert_visite($fk_agent, $fk_visite);
 
         if ($result) {
             $std->reponse = 'bien';
         } else {
             $std->reponse = 'pas_bien';
         }
-        
-        echo json_encode($std);
 
-    }
-
-    //delete patient
-    function delete_patient(){
-        $patient_id = $_POST['patient_id'];
-        $std = new stdClass();
-
-        $result = $this->model->delete_patient($patient_id);
-
-        if ($result) {
-            $std->reponse = 'bien';
-        } else {
-            $std->reponse = 'pas_bien';
-        }
-        
         echo json_encode($std);
     }
+
 
 }

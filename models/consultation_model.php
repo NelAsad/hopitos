@@ -12,38 +12,11 @@ class Consultation_model extends Model
      * Renvoie la liste des fiches pour la datatable
      * @return array fiche
      */
-    function xhr_consultation_DataTable($etape = null, $date_des_fiches = null, $users_id = null)
+    function xhr_consultation_DataTable($etape = null)
     {
-
         $query = '';
         $output = array();
-        $query .= 'SELECT * FROM fiche f LEFT OUTER JOIN patient p ON f.fk_patient_id = p.patient_id ';
-
-        if ($etape != null) {
-            $query .= 'WHERE fiche_etape = ' . $etape . ' ';
-
-            if (isset($_POST["search"]["value"])) {
-                $query .= 'AND ';
-                $query .= '( fiche_id LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR patient_nom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR patient_prenom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR patient_postnom LIKE "%' . $_POST["search"]["value"] . '%" )';
-            }
-        } else {
-            if (isset($_POST["search"]["value"])) {
-                $query .= 'WHERE fiche_id LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR patient_nom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR patient_prenom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR patient_postnom LIKE "%' . $_POST["search"]["value"] . '%" ';
-            }
-        }
-
-        if ($date_des_fiches != null) {
-            $query .= ' AND fiche_cloture_date LIKE "%' . $date_des_fiches . '%" ';
-        }
-        if ($users_id != null) {
-            $query .= ' AND fiche_fk_users_id = ' . $users_id . ' ';
-        }
+        $query .= 'SELECT * FROM transfert_visite tr LEFT OUTER JOIN visite vst ON tr.fk_visite = vst.pk_visite LEFT OUTER JOIN patient pt ON vst.fk_patient = pt.patient_id LEFT OUTER JOIN visite_signe_vitaux vsv ON vst.pk_visite = vsv.pk_visite_signe_vitaux LEFT OUTER JOIN signe_vitaux sv ON vsv.fk_signe_vitaux = sv.pk_signe_vitaux ';
 
         if (isset($_POST["order"])) {
             $query .= 'ORDER BY ' . $_POST['order']['0']['column'] . ' ' . $_POST['order']['0']['dir'] . ' ';
@@ -62,93 +35,7 @@ class Consultation_model extends Model
         $data = array();
         $filtered_rows = $sth->rowCount();
 
-
         foreach ($result as $row) {
-
-            //check le nombre de demande d'examens pour chaque fiche
-            $query = "SELECT exam_id,exam_etape FROM examen WHERE exam_etape != '4' AND fk_fiche_id = " . (int) $row["fiche_id"];
-            $demandes = $this->db->query($query)->fetchAll(); // hum logiquement, j'ai prevu une demande.. pas plusieurs
-
-            $nbre_demandes = sizeof($demandes); // le nombre de demandes, mais en general un
-
-            if ($nbre_demandes > 0) { // je m'assure que le tab n'est pas vide
-                $exam_etape = $demandes[0]['exam_etape']; // je recupere l'etape de la demande (etat)
-                $exam_ident = "Demande : " . $demandes[0]['exam_id']; // je recupere l'id de l'exam pour la caisse
-                $exam_fk_patient_id = "Patient : " . $demandes[0]['exam_etape']; // je recupere l'id du patient pour la caisse
-            } else {
-                $exam_etape = '1'; // car par default une demande a pour 'exam_etape' = 1
-                $exam_ident = "";
-            }
-
-
-            //je defini la couleur en fonction de l'etat de la demande (satisfaite, declassee, pas encore traitee)
-            //et les actions sur la demande
-            switch ($exam_etape) {
-                case '2':
-                    $action_sur_la_demande = "
-                        <a class='btn btn-primary btn-xs consultation_voir_resultat_labo' id='" . $row["fiche_id"] . "' title='Voir les resultats'><i class='fa fa-eye'></i></a>
-                        <a class='btn btn-primary btn-xs consultation_supprimer_demande' id='" . $row["fiche_id"] . "' title='Supprimer la demande'><i class='fa fa-file'></i></a>
-                    ";
-                    $icon_color = "green";
-                    $infobulle_etat_demande = "Demande satisfaite";
-                    break;
-
-                case '3':
-                    $action_sur_la_demande = "
-                        <a class='btn btn-primary btn-xs consultation_voir_motif_declassement' id='" . $row["fiche_id"] . "' title='Voir le motif du declassement'><i class='fa fa-eye'></i></a>
-                        <a class='btn btn-primary btn-xs consultation_supprimer_demande' id='" . $row["fiche_id"] . "' title='Supprimer la demande'><i class='fa fa-remove'></i></a>
-                    ";
-                    $icon_color = "red";
-                    $infobulle_etat_demande = "Demande declasee";
-                    break;
-
-                default:
-                    $action_sur_la_demande = "
-                        <a class='btn btn-primary btn-xs consultation_supprimer_demande' id='" . $row["fiche_id"] . "' title='Supprimer la demande'><i class='fa fa-remove'></i></a>
-                        <span>" . $exam_ident . "</span>
-                    ";
-                    $icon_color = "";
-                    $infobulle_etat_demande = "Demande pas encore traitee";
-                    break;
-            }
-
-            //les boutons d'action
-            if ($etape != null) {
-                switch ($etape) {
-                    case '1':
-                        $action_btns = "
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_show_consultation_modal' id='" . $row["fiche_id"] . "' title='Voir les details'><i class='fa fa-eye'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_commencer_consultation_patient_modal' id='" . $row["fiche_id"] . "' title='commencer la consultation'><i class='fa fa-edit'></i></a>
-                            
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_commencer_consultation_appeler_patient' nom='" . $row["patient_nom"] . "' postnom='" . $row["patient_postnom"] . "' prenom='" . $row["patient_prenom"] . "'  patient_id='" . $row["patient_id"] . "' id='" . $row["fiche_id"] . "' title='Appeler le patient'> <i class='fa fa-microphone'></i> </a>
-                        ";
-                        break;
-
-                    case '2':
-                        $action_btns = "
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_show_consultation_modal' id='" . $row["fiche_id"] . "' title='Voir les details de la fiche'><i class='fa fa-eye'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_consultation_demander_examens' fiche_id='" . $row["fiche_id"] . "' patient_id='" . $row["patient_id"] . "' title='Demander des examens au labo'><i class='fa fa-send'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_consultation_demander_imagerie' fiche_id='" . $row["fiche_id"] . "' patient_id='" . $row["patient_id"] . "' title='Demander des examens imagerie'><i class='fa fa-heartbeat'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_commencer_consultation_appeler_patient' nom='" . $row["patient_nom"] . "' postnom='" . $row["patient_postnom"] . "' prenom='" . $row["patient_prenom"] . "'  patient_id='" . $row["patient_id"] . "' id='" . $row["fiche_id"] . "' title='Appeler le patient'> <i class='fa fa-microphone'></i> </a>
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_completer_consultation_patient_modal' id='" . $row["fiche_id"] . "' title='completer la fiche'><i class='fa fa-refresh'></i></a>
-                            <a class='btn btn-primary btn-xs' title='" . $infobulle_etat_demande . "'><i class='fa fa-file " . $icon_color . "'></i>" . $nbre_demandes . "</a>
-                            " . $action_sur_la_demande . "
-                        ";
-                        break;
-
-                    case '3':
-                        $action_btns = "
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_show_consultation_modal' id='" . $row["fiche_id"] . "' title='Voir les details'><i class='fa fa-eye'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-primary btn-xs btn_imprimer_fiche' id='" . $row["fiche_id"] . "' title='Imprimer'><i class='fa fa-print'></i></a>
-                            <a class='btn btn-primary btn-xs' title='" . $infobulle_etat_demande . "'><i class='fa fa-file " . $icon_color . " '></i>" . $nbre_demandes . "</a>
-                        ";
-                        break;
-
-                    default:
-                        # code...
-                        break;
-                }
-            }
 
             $sub_array = array();
             $sub_array[] = $row["fiche_id"];
@@ -158,7 +45,6 @@ class Consultation_model extends Model
             $sub_array[] = $row["patient_prenom"];
             $sub_array[] = $row["patient_sexe"];
             $sub_array[] = $row["fiche_ouverture_date"];
-            $sub_array[] = $action_btns;
             $data[] = $sub_array;
         }
 

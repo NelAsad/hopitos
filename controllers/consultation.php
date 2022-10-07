@@ -42,26 +42,26 @@ class Consultation extends Controller {
      * Donne les donnes initiales pour la consultation etape1 (DataTables)
      */
     function consultation_etape1_datatable(){
-        $this->model->xhr_consultation_DataTable('1',null, Session::get('user_id'));
+        $this->model->xhr_consultation_DataTable('1');
     }
     /**
      * Donne les donnes initiales pour la consultation etape2 (DataTables)
      */
     function consultation_etape2_datatable(){
-        $this->model->xhr_consultation_DataTable('2',null,Session::get('user_id'));
+        $this->model->xhr_consultation_DataTable('2');
     }
     /**
      * Donne les donnes initiales pour la consultation etape3 (DataTables) // les consultations terminees du jour
      */
     function consultation_etape3_datatable(){
         $today_date = date("Y-m-d", time());
-        $this->model->xhr_consultation_DataTable('3',$today_date,Session::get('user_id'));
+        $this->model->xhr_consultation_DataTable('3');
     }
     /**
      * Donne les donnes initiales pour la consultation (toutes les fiches) (DataTables) //consultats terminees pour toutes dates
      */
     function consultation_toutes_les_fiches_datatable(){
-        $this->model->xhr_consultation_DataTable('3',null,Session::get('user_id'));
+        $this->model->xhr_consultation_DataTable('3');
     }
 
 
