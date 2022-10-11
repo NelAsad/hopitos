@@ -22,7 +22,6 @@ class Consultation extends Controller {
             Session::set('connect_valide', true);
         }
 
-
         /**
          * insertion des js et css particulier pour ce module
          */
@@ -44,25 +43,6 @@ class Consultation extends Controller {
     function consultation_etape1_datatable(){
         $this->model->xhr_consultation_DataTable('1');
     }
-    /**
-     * Donne les donnes initiales pour la consultation etape2 (DataTables)
-     */
-    function consultation_etape2_datatable(){
-        $this->model->xhr_consultation_DataTable('2');
-    }
-    /**
-     * Donne les donnes initiales pour la consultation etape3 (DataTables) // les consultations terminees du jour
-     */
-    function consultation_etape3_datatable(){
-        $today_date = date("Y-m-d", time());
-        $this->model->xhr_consultation_DataTable('3');
-    }
-    /**
-     * Donne les donnes initiales pour la consultation (toutes les fiches) (DataTables) //consultats terminees pour toutes dates
-     */
-    function consultation_toutes_les_fiches_datatable(){
-        $this->model->xhr_consultation_DataTable('3');
-    }
 
 
     /**
@@ -70,14 +50,14 @@ class Consultation extends Controller {
      */
     function commencer_consultation(){
 
-        $fiche_id = $_POST['fiche_id'];
+        $transfert_id = $_POST['transfert_id'];
         $symptomes = $_POST['symptomes'];
         $diagnostic = $_POST['diagnostic'];
 
         $std = new stdClass();
 
         //result_boolean
-        $result = $this->model->commencer_consultation($fiche_id,$symptomes,$diagnostic);
+        $result = $this->model->commencer_consultation($transfert_id,$symptomes,$diagnostic);
 
         if ($result) {
             $std->reponse = 'bien';
@@ -95,14 +75,14 @@ class Consultation extends Controller {
      */
     function completer_consultation(){
 
-        $fiche_id = $_POST['fiche_id'];
+        $transfert_id = $_POST['transfert_id'];
         $traitement = $_POST['traitement'];
         $prescription = $_POST['prescription'];
 
         $std = new stdClass();
 
         //result_boolean
-        $result = $this->model->completer_consultation($fiche_id,$traitement,$prescription);
+        $result = $this->model->completer_consultation($transfert_id,$traitement,$prescription);
 
         if ($result) {
             $std->reponse = 'bien';
@@ -114,42 +94,28 @@ class Consultation extends Controller {
     }
 
     /**
-     * Donne une fiche avec tout les details
+     * Donne tous les actes
      */
-    function get_fiche(){
-        $fiche_id = $_POST['fiche_id'];
-
+    function get_actes(){
         //return all of this fiche
-        $fiche = $this->model->get_fiche($fiche_id);
-
-        echo json_encode($fiche);
-    }
-
-    /**
-     * Imprimer la fiche
-     */
-    function print_fiche(){
-
-        $fiche_id = $_GET['ident_asadienne'];
-
-        //return all of this fiche
-        $this->view->fiche = $this->model->get_fiche($fiche_id);
-
-        $this->view->render('consultation/print_fiche',true);
-
+        $actes = $this->model->get_actes();
+        echo json_encode($actes);
     }
 
     /**
      * Demande des examens au labo
      */
-    function demander_exam(){
-        if (sizeof($_POST) < 4) {
-            echo json_encode('aucun_choix');
-        } else {
-            $result = $this->model->demander_examen($_POST);
-            echo json_encode($result);
+    function demande_examen(){
+        $diagnostic_id = $_POST['diagnostic_id'];
+        $actes = $_POST['actes'];
+
+        foreach ($actes as $acte) {
+            $result = $this->model->insert_demande_labo($diagnostic_id, $acte);
         }
+
+        echo json_encode(true);
     }
+
     /**
      * Demande des examens au images
      */
@@ -159,14 +125,13 @@ class Consultation extends Controller {
     }
 
     /**
-     * Donne un examen avec tout les details
+     * les diagnostic d'un transfert
      */
-    function get_exam(){
-        $fiche_id = $_POST['fiche_id'];
-        $exam_etape = $_POST['exam_etape'];
+    function get_transfert_diagnostics(){
+        $transfert_id = $_POST['transfert_id'];
         //return all of this exam
-        $exam = $this->model->get_exam($fiche_id,$exam_etape);
-        echo json_encode($exam);
+        $diagnostics = $this->model->get_transfert_diagnostics($transfert_id);
+        echo json_encode($diagnostics);
     }
 
     /**

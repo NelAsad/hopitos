@@ -60,8 +60,8 @@ class Patient extends Controller {
 
         $std = new stdClass();
 
-        $fk_signe_vitaux = $this->model->insert_signe_vitaux($poids,$tension,$temperature);
         $fk_visite = $this->model->insert_visite($patient_id);
+        $fk_signe_vitaux = $this->model->insert_signe_vitaux($poids,$tension,$temperature);
         $result = $this->model->insert_visite_signe_vitaux($fk_signe_vitaux, $fk_visite);
         $result = $this->model->insert_transfert_visite($fk_agent, $fk_visite);
 

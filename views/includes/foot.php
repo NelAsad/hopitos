@@ -10,6 +10,7 @@
 <!-- ./wrapper -->
 
 <script type="text/javascript" src="<?php echo URL; ?>public/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo URL; ?>public/js/popper.min.js"></script>
 <script type="text/javascript" src="<?php echo URL; ?>public/js/custom.js"></script>
 
 <script type="text/javascript" src="<?php echo URL; ?>public/js/bootstrap3-typeahead.min.js"></script>
