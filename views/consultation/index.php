@@ -117,14 +117,76 @@
                 <h4 class="modal-title">Diagnostic</h4>
             </div>
             <div class="modal-body">
-
                 <input type="hidden" id="hidden_diagnostic_transfert_id" name="hidden_diagnostic_transfert_id">
                 <div id="body_modal_diagnostic">
-                    
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<!-- Modal prescription -->
+<div class="modal fade" id="do_prescription_modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Prescription</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hidden_prescription_diagnostic_id" name="hidden_prescription_diagnostic_id">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="prescription_medicament">Medicament <span style="color: red;">*</span></label>
+                            <input class="form-control" type="text" id="prescription_medicament" name="prescription_medicament">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="prescription_posologie">Posologie <span style="color: red;">*</span></label>
+                            <input class="form-control" type="text" id="prescription_posologie" name="prescription_posologie">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="prescription_dosage">Dosage <span style="color: red;">*</span></label>
+                            <input class="form-control" type="text" id="prescription_dosage" name="prescription_dosage">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button class="btn btn-primary form-control" id="ajouter_prescription">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div id="body_modal_prescription">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Medicament</th>
+                                <th>Posologie</th>
+                                <th>Dosage</th>
+                                <th style="width: 40px">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="body_table_prescription">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="btn_valider_prescription" data-dismiss="modal">Demander</button>
             </div>
         </div>
         <!-- /.modal-content -->

@@ -3,9 +3,8 @@ $(document).ready(function () {
 
     let path = "http://localhost/hopitos/";
 
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
+    let tab_prescription = [];
+
 
     // INITIALISATION DES DATATABLES
 
@@ -112,9 +111,9 @@ $(document).ready(function () {
                             <div id="collapse${acte.pk_diagnostic}" class="collapse" aria-labelledby="heading${acte.pk_diagnostic}" data-parent="#accordion">
                                 <div class="card-body">
                                     <a style='cursor: pointer;' data-bs-toggle="modal" data-bs-target="#demander_examens_modal" data-bs-dismiss="modal" class='btn btn-primary btn-xs btn_demander_examen_modal col-md-3' id='${acte.pk_diagnostic}' title='Demander examens'><i class='fa fa-send'></i> Demander examens</a>
-                                    <a style='cursor: pointer;' class='btn btn-warning btn-xs btn_voir_diagnostic_examens col-md-3' id='${acte.pk_diagnostic}' title='Demander examens'><i class='fa fa-eye'></i> Voir examens</a>
-                                    <a style='cursor: pointer;' data-bs-toggle="modal" data-bs-target="#demander_examens_modal" data-bs-dismiss="modal" class='btn btn-primary btn-xs btn_prescrire_modal col-md-3' id='${acte.pk_diagnostic}' title='Demander examens'><i class='fa fa-medkit'></i> Prescrire</a>
-                                    <a style='cursor: pointer;' class='btn btn-warning btn-xs btn_voir_prescription_modal col-md-3' id='${acte.pk_diagnostic}' title='Demander examens'><i class='fa fa-eye'></i> Voir Prescriptions</a>
+                                    <a style='cursor: pointer;' class='btn btn-warning btn-xs btn_voir_diagnostic_examens col-md-3' id='${acte.pk_diagnostic}' title='Voir examens'><i class='fa fa-eye'></i> Voir examens</a>
+                                    <a style='cursor: pointer;' data-bs-toggle="modal" data-bs-target="#demander_examens_modal" data-bs-dismiss="modal" class='btn btn-primary btn-xs btn_prescrire_modal col-md-3' id='${acte.pk_diagnostic}' title='Prescrire'><i class='fa fa-medkit'></i> Prescrire</a>
+                                    <a style='cursor: pointer;' class='btn btn-warning btn-xs btn_voir_prescription_modal col-md-3' id='${acte.pk_diagnostic}' title='Voir Prescriptions'><i class='fa fa-eye'></i> Voir Prescriptions</a>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +137,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn_demander_examen_modal', function (e) {
         e.preventDefault();
         var transfert_id = $(this).attr('id');
-        $('#voir_diagnostic_modal').modal('hide');
+        // $('#voir_diagnostic_modal').modal('hide');
 
         $.ajax({
             url: path + "consultation/get_actes",
@@ -177,7 +176,7 @@ $(document).ready(function () {
         $(':checkbox:checked').each(function (i) {
             actes[i] = $(this).attr("id");
         });
-        console.log(actes);
+        
         $.ajax({
             url: path + "consultation/demande_examen",
             type: 'POST',
@@ -194,6 +193,79 @@ $(document).ready(function () {
     });
 
 
+    // PRESCRIPTION
+    // Open modal prescription
+    $(document).on('click', '.btn_prescrire_modal', function (e) {
+        e.preventDefault();
+        let diagnostic_id = $(this).attr('id');
+        $('#hidden_prescription_diagnostic_id').val(diagnostic_id);
+        $('#do_prescription_modal').modal('show');
+    });
+    $(document).on('click', '#ajouter_prescription', function (e) {
+        let prescription_medicament = $('#prescription_medicament').val();
+        let prescription_posologie = $('#prescription_posologie').val();
+        let prescription_dosage = $('#prescription_dosage').val();
+        let tab_prescription_body = ``;
+
+        tab_prescription.push([prescription_medicament, prescription_posologie, prescription_dosage]);
+        // tab_keys_prescription.push(element.produit_id);
+
+        tab_prescription.forEach((prod, index) => {
+            tab_prescription_body += `
+                <tr>
+                    <td>${prod[0]}</td>
+                    <td>${prod[1]}</td>
+                    <td>${prod[2]}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-xs btn_remove_medicament" id="${index}"><i class="fa fa-times"></i></button>
+                    </td>
+                </tr>
+            `;
+        });
+        $('#body_table_prescription').html(tab_prescription_body);
+    });
+    // Supprimer element de la liste des produits à sortir
+    $(document).on('click', '.btn_remove_medicament', function (e) {
+        e.preventDefault();
+        let row_index = $(this).attr('id');
+        let tab_prescription_body = ``;
+        tab_prescription.splice(row_index, 1);
+        tab_prescription.forEach((prod, index) => {
+            tab_prescription_body += `
+                <tr>
+                    <td>${prod[0]}</td>
+                    <td>${prod[1]}</td>
+                    <td>${prod[2]}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-xs btn_remove_medicament" id="${index}"><i class="fa fa-times"></i></button>
+                    </td>
+                </tr>
+            `;
+        });
+        $('#body_table_prescription').html(tab_prescription_body);
+    });
+    // valider demande examens
+    $(document).on('click', '#btn_valider_prescription', function (e) {
+        e.preventDefault();
+        let prescription_diagnostic_id = $('#hidden_prescription_diagnostic_id').val();
+        
+        $.ajax({
+            url: path + "consultation/diagnostic_prescrire",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                prescription_diagnostic_id,
+                tab_prescription
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error!!');
+            }
+        });
+    });
 
 
 });

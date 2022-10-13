@@ -140,5 +140,21 @@ class Consultation_model extends Model
 
         return $result;
     }
+    /**
+     * Prescription
+     */
+    public function isnert_diagnostic_prescrire($med, $posologie, $dosage, $prescription_diagnostic_id)
+    {
+        $query = "INSERT INTO prescription (medicament, dosage, posologie, fk_diagnostic) VALUES (:medicament, :dosage, :posologie, :fk_diagnostic)";
+        $statement = $this->db->prepare($query);
+        $result = $statement->execute(array(
+            ':medicament' => $med,
+            ':dosage' => $dosage,
+            ':posologie' => $posologie,
+            ':fk_diagnostic' => (int) $prescription_diagnostic_id
+        ));
+
+        return $result;
+    }
 
 }

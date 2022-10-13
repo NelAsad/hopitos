@@ -135,40 +135,18 @@ class Consultation extends Controller {
     }
 
     /**
-     * Supprimer une demande
+     * diagnostic_prescrire
      */
-    function supprimer_demande_exam(){
-        $fiche_id = $_POST['fiche_id'];
+    function diagnostic_prescrire(){
+        $prescription_diagnostic_id = $_POST['prescription_diagnostic_id'];
+        $tab_prescription = $_POST['tab_prescription'];
 
-        $result = $this->model->supprimer_demande_exam($fiche_id);
-        echo json_encode($result);
-
-    }
-
-    /**
-     * Ajouter les resultats du labo a la fiche
-     */
-    function ajouter_resultats_a_la_fiche(){
-
-        $resultats_en_string = "";
-        $fiche_id = $_POST['hidden_back_fiche_id'];
-
-        foreach ($_POST as $key => $value) {
-            //pour eviter de prendre l'id
-            if ($key == "hidden_back_fiche_id" || $key == "back_autres_examens") {
-                //$resultats_en_string .= $key." = 'x_dem' ";
-            }else{
-                if ($value != "") {
-                    $resultats_en_string .= $key." = ".$value." <br>";
-                }
-            }
+        foreach ($tab_prescription as $row) {
+            $result = $this->model->isnert_diagnostic_prescrire($row[0], $row[1], $row[2], $prescription_diagnostic_id);
         }
 
-        $resultats_en_string .= "<span>Resultats autres examens : </span><br>". $_POST['back_autres_examens'];
-
-        $result = $this->model->ajouter_resultats_a_la_fiche($fiche_id, $resultats_en_string);
-        echo json_encode($result);
-
+        echo json_encode(true);
     }
+
 
 }
