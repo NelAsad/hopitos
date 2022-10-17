@@ -116,6 +116,26 @@ class Consultation extends Controller {
         echo json_encode(true);
     }
 
+    // Voir les examens demandes
+    function diagnostic_examen_demandes(){
+        $examens = $this->model->diagnostic_examen_demandes($_POST['diagnostic_id']);
+        echo json_encode($examens);
+    }
+
+    // Voir les examens demandes
+    function diagnostic_prescription(){
+        $prescriptions = $this->model->diagnostic_prescription($_POST['diagnostic_id']);
+        echo json_encode($prescriptions);
+    }
+
+
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////
+
+
     /**
      * Demande des examens au images
      */
@@ -125,13 +145,13 @@ class Consultation extends Controller {
     }
 
     /**
-     * les diagnostic d'un transfert
+     * get un diagnostic
      */
-    function get_transfert_diagnostics(){
-        $transfert_id = $_POST['transfert_id'];
-        //return all of this exam
-        $diagnostics = $this->model->get_transfert_diagnostics($transfert_id);
-        echo json_encode($diagnostics);
+    function get_diagnostic(){
+        $diagnostic_id = $_POST['diagnostic_id'];
+        //comment
+        $diagnostic = $this->model->get_diagnostic($diagnostic_id);
+        echo json_encode($diagnostic);
     }
 
     /**

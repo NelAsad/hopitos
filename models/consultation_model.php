@@ -31,11 +31,22 @@ class Consultation_model extends Model
         $sth = $this->db->prepare($query);
         $sth->execute();
         $result =  $sth->fetchAll();
-
+        $sth->closeCursor();
         $data = array();
         $filtered_rows = $sth->rowCount();
 
         foreach ($result as $row) {
+
+            $actions = "";
+
+            $query1 = "SELECT * FROM diagnostic WHERE fk_transfert = :fk_transfert ";
+            $statement = $this->db->prepare($query1);
+            $statement->execute(array(
+                ':fk_transfert' => (int) $row["pk_transfert_visite"]
+            ));
+            $diagnostics = $statement->fetchAll();
+            $statement->closeCursor();
+            // return $diagnostics;
 
             $sub_array = array();
             $sub_array[] = $row["pk_transfert_visite"];
@@ -45,10 +56,26 @@ class Consultation_model extends Model
             $sub_array[] = $row["patient_prenom"];
             $sub_array[] = $row["patient_sexe"];
             $sub_array[] = $row["debut_visite"];
-            $sub_array[] = "
+            $actions .= "
                 <a style='cursor: pointer;' class='btn btn-default btn-xs btn_commencer_consultation_patient_modal' id='". $row["pk_transfert_visite"] ."' title='Commencer la consultation'><i class='fa fa-edit'></i></a>
-                <a style='cursor: pointer;' class='btn btn-default btn-xs btn_voir_diagnostic_transfert' id='". $row["pk_transfert_visite"] ."' title='Voir le diagnostic'><i class='fa fa-stethoscope'></i></a>
+                <div class='btn-group'>
+                    <button type='button' class='btn btn-default btn-xs dropdown-toggle dropdown-toggle-split' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                        <i class='fa fa-stethoscope'></i>
+                        <span class='sr-only'>Toggle Dropdown</span>
+                    </button>
+                <div class='dropdown-menu'>
             ";
+            foreach ($diagnostics as $diagnostic) {
+                $actions .= "
+                    <a class='dropdown-item show_diagnostic_section' id='".$diagnostic['pk_diagnostic']."'>".$diagnostic['note_diagnostic']."</a>
+                    <div class='dropdown-divider'></div>
+                ";
+            }
+            $actions .= "
+                    </div>
+                </div>
+            ";
+            $sub_array[] = $actions;
             $data[] = $sub_array;
         }
 
@@ -111,20 +138,56 @@ class Consultation_model extends Model
     }
 
     /**
-     * Diagnostics 
+     * Diagnostic
      */
-    public function get_transfert_diagnostics($transfert_id)
+    public function get_diagnostic($diagnostic_id)
     {
-        $query = "SELECT * FROM diagnostic WHERE fk_transfert = :fk_transfert ";
+        $query = "SELECT * FROM diagnostic WHERE pk_diagnostic = :pk_diagnostic ";
 
         $statement = $this->db->prepare($query);
         $statement->execute(array(
-            ':fk_transfert' => (int) $transfert_id
+            ':pk_diagnostic' => (int) $diagnostic_id
         ));
-        $actes = $statement->fetchAll();
+        $diagnostic = $statement->fetch();
         $statement->closeCursor();
-        return $actes;
+        return $diagnostic;
     }
+
+    /**
+     * Diagnostic examens demandés
+     */
+    public function diagnostic_examen_demandes($diagnostic_id)
+    {
+        $query = "SELECT * FROM demande_labo dl LEFT OUTER JOIN actes ac ON dl.fk_acte = ac.pk_acte WHERE fk_diagnostic = :fk_diagnostic ";
+
+        $statement = $this->db->prepare($query);
+        $statement->execute(array(
+            ':fk_diagnostic' => (int) $diagnostic_id
+        ));
+        $examens = $statement->fetchAll();
+        $statement->closeCursor();
+        return $examens;
+    }
+
+    /**
+     * Diagnostic prescriptions
+     */
+    public function diagnostic_prescription($diagnostic_id)
+    {
+        $query = "SELECT * FROM prescription WHERE fk_diagnostic = :fk_diagnostic ";
+
+        $statement = $this->db->prepare($query);
+        $statement->execute(array(
+            ':fk_diagnostic' => (int) $diagnostic_id
+        ));
+        $prescriptions = $statement->fetchAll();
+        $statement->closeCursor();
+        return $prescriptions;
+    }
+
+
+
+
 
     /**
      * Demande examen

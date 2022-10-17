@@ -33,12 +33,10 @@ class Home extends Controller {
      * Affiche l'accueil du module
      */
     function index() {
-
         $this->view->patients = $this->model->get_patient();
         $this->view->fiches = $this->model->get_fiches();
         $this->view->examens = $this->model->get_exam();
         $this->view->personnel = $this->model->get_personnel();
-
         $this->view->render('home/index');
     }
 

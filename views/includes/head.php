@@ -1,36 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HOSPITALIA</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo URL; ?>public/css/dataTables.bootstrap.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+  <title>MEDICAL CITY </title>
+
+  <!-- Bootstrap -->
+  <link href="<?php echo URL; ?>public/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo URL; ?>public/design/vendors/dist/css/skins/_all-skins.min.css">
-
+  <link href="<?php echo URL; ?>public/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="<?php echo URL; ?>public/vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- iCheck -->
+  <link href="<?php echo URL; ?>public/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+  <!-- Datatables -->
+  <link href="<?php echo URL; ?>public/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo URL; ?>public/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo URL; ?>public/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo URL; ?>public/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo URL; ?>public/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap-progressbar -->
+  <link href="<?php echo URL; ?>public/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+  <!-- JQVMap -->
+  <link href="<?php echo URL; ?>public/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+  <!-- bootstrap-daterangepicker -->
+  <link href="<?php echo URL; ?>public/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link href="<?php echo URL; ?>public/vendors/animate.css/animate.min.css" rel="stylesheet">
   <!-- Custom Theme Style -->
-  <link rel="stylesheet" type="text/css" media="screen" href="<?php echo URL; ?>public/css/main.css" />
-  <!-- Sweet alert CSS-->
-  <link rel="stylesheet" href="<?php echo URL; ?>public/librairies/sweetalert/Resources/Public/Assets/sweetalert2.min.css">
-  <!-- Toastr CSS -->
-  <link rel="stylesheet" href="<?php echo URL; ?>public/librairies/toastr/build/toastr.css">
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link href="<?php echo URL; ?>public/build/css/custom.min.css" rel="stylesheet">
 
   <!-- Style propre au module-->
   <?php
@@ -42,178 +46,75 @@
   ?>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
-  <div class="wrapper">
-
-    <header class="main-header">
-
-      <!-- Logo -->
-      <a href="#" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>H</b></span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>MEDICAL CITY ADH</b></span>
-      </a>
-
-      <!-- Header Navbar: style can be found in header.less -->
-      <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-          <span class="sr-only">Toggle navigation</span>
-        </a>
-        <!-- Navbar Right Menu -->
-        <div class="navbar-custom-menu">
-          <ul class="nav navbar-nav">
-            <!-- User Account: style can be found in dropdown.less -->
-            <li class="dropdown user user-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                <span class="hidden-xs">Nel'Asad Luboya</span>
-              </a>
-              <ul class="dropdown-menu">
-                <!-- User image -->
-                <li class="user-header">
-                  <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                  <p>
-                    Nel'Asad Luboya
-                    <small>Administrateur</small>
-                  </p>
-                </li>
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                  <div class="pull-left">
-                    <a href="#" class="btn btn-primary btn-flat">Profil</a>
-                  </div>
-                  <div class="pull-right">
-                    <a href="<?php echo URL; ?>home/logout" class="btn btn-default btn-flat" style="background: red;">Deconnexion</a>
-                  </div>
-                </li>
-              </ul>
-            </li>
-            <!-- Control Sidebar Toggle Button -->
-            <!-- <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li> -->
-          </ul>
-        </div>
-
-      </nav>
-    </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
-      <!-- sidebar: style can be found in sidebar.less -->
-      <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-          <div class="pull-left image">
-            <img src="<?php echo URL; ?>public/design/vendors/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="index.html" class="site_title"> <span>MEDICAL CITY ADH</span></a>
           </div>
-          <div class="pull-left info">
-            <p>Nel'Asad Luboya</p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+
+          <div class="clearfix"></div>
+
+          <!-- menu profile quick info -->
+          <div class="profile clearfix">
+            <div class="profile_info">
+              <span>Welcome,</span>
+              <h2>JONATAHN MUBAKE</h2>
+            </div>
           </div>
-        </div>
-        <!-- /.search form -->
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu" data-widget="tree">
-          <li class="header"></li>
-          
+          <!-- /menu profile quick info -->
+          <br />
 
-          <li class="<?php if(NAVBAR_LINK=='home') echo 'active '; ?>">
-              <a href="<?php echo URL; ?>home">
-                <i class="fa fa-users"></i>
-                <span>Dashboard</span>
-              </a>
-            </li>
-
-          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '2') : ?>
-            <li class="<?php if(NAVBAR_LINK=='patient') echo 'active '; ?>">
-              <a href="<?php echo URL; ?>patient">
-                <i class="fa fa-users"></i>
-                <span>Patients</span>
-              </a>
-            </li>
-          <?php endif; ?>
-
-          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '5') : ?>
-            <li class="<?php if(NAVBAR_LINK=='payement') echo 'active '; ?>">
-              <a href="<?php echo URL; ?>payement">
-                <i class="fa fa-users"></i>
-                <span>Payements</span>
-              </a>
-            </li>
-          <?php endif; ?>
-
-          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '3') : ?>
-            <li class="treeview <?php if(NAVBAR_LINK=='consultation') echo 'active '; ?>">
-              <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>Consultation</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo URL; ?>consultation"><i class="fa fa-stethoscope"></i> Consulter</a></li>
-                <li><a href="<?php echo URL; ?>dossier"><i class="fa fa-folder-o"></i> Dossier medical</a></li>
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+              <h3>General</h3>
+              <ul class="nav side-menu">
+                <li><a href="<?php echo URL; ?>home"><i class="fa fa-bar-chart"></i> Dashboard </a></li>
+                <li><a href="<?php echo URL; ?>patient"><i class="fa fa-users"></i> Patients </a></li>
+                <li><a href="<?php echo URL; ?>payement"><i class="fa fa-credit-card"></i> Payements </a></li>
+                <li><a href="<?php echo URL; ?>consultation"><i class="fa fa-stethoscope"></i> Consulter </a></li>
+                <li><a href="<?php echo URL; ?>dossier"><i class="fa fa-folder-open"></i> Dossier medical </a></li>
+                <li><a href="<?php echo URL; ?>laboratoire"><i class="fa fa-medkit"></i> Laboratoire </a></li>
+                <li><a href="<?php echo URL; ?>pharmacie"><i class="fa fa-hospital-o"></i> Pharmacie </a></li>
+                <li><a href="<?php echo URL; ?>users"><i class="fa fa-slideshare"></i> Personnel </a></li>
+                <li><a href="<?php echo URL; ?>utilis"><i class="fa fa-users"></i> Utilisateurs </a></li>
+                <li><a href="<?php echo URL; ?>configs"><i class="fa fa-gears"></i> Configurations </a></li>
               </ul>
-            </li>
-          <?php endif; ?>
+            </div>
+          </div>
+          <!-- /sidebar menu -->
 
-          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4') : ?>
-            <li class="<?php if(NAVBAR_LINK=='laboratoire') echo 'active '; ?>">
-              <a href="<?php echo URL; ?>laboratoire">
-                <i class="fa fa-heartbeat"></i>
-                <span>Laboratoire</span>
-              </a>
-            </li>
-          <?php endif; ?>
-
-          <?php if (Session::get('privilege') == '1' || Session::get('privilege') == '4') : ?>
-            <li class="<?php if(NAVBAR_LINK=='pharmacie') echo 'active '; ?>">
-              <a href="<?php echo URL; ?>pharmacie">
-                <i class="fa fa-medkit"></i>
-                <span>Pharmacie</span>
-              </a>
-            </li>
-          <?php endif; ?>
-
-          <?php if (Session::get('privilege') == '1') : ?>
-            <li class="<?php if(NAVBAR_LINK=='users') echo 'active '; ?>">
-              <a href="<?php echo URL; ?>users">
-                <i class="fa fa-user-md"></i>
-                <span>Personnel</span>
-              </a>
-            </li>
-          <?php endif; ?>
-
-
-          <?php if (Session::get('privilege') == '1') : ?>
-            <li class="treeview">
-              <a href="<?php echo URL; ?>patient">
-                <i class="fa fa-wrench"></i>
-                <span>Administrateur</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo URL; ?>utilis"><i class="fa fa-users"></i> Utilisateurs</a></li>
-                <li><a href="<?php echo URL; ?>configs"><i class="fa fa-cogs"></i> Configurations</a></li>
-                <!-- <li><a href="<?php echo URL; ?>stats"><i class="fa fa-area-chart"></i> Statistique</a></li> -->
-              </ul>
-            </li>
-          <?php endif; ?>
-
-          <li>
-            <a href="<?php echo URL; ?>home/logout">
-              <i class="fa fa-power-off"></i>
-              <span>Deconnexion</span>
+          <!-- /menu footer buttons -->
+          <div class="sidebar-footer hidden-small">
+            <a data-toggle="DECONNEXION" data-placement="top" title="Logout" href="login.html">
+              <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
-          </li>
+          </div>
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
 
-        </ul>
-      </section>
-      <!-- /.sidebar -->
-    </aside>
+      <!-- top navigation -->
+      <div class="top_nav">
+        <div class="nav_menu">
+          <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+          </div>
+          <nav class="nav navbar-nav">
+            <ul class=" navbar-right">
+              <li class="nav-item dropdown open" style="padding-left: 15px;">
+                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                  JONATAHN MUBAKE
+                </a>
+                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Deconnexion</a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- /top navigation -->

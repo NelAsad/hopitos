@@ -1,144 +1,176 @@
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Consultation
-        </h1>
-    </section>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3><small>CONSULTATION</small></h3>
+            </div>
+            <div class="clearfix"></div>
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Custom Tabs -->
-                <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab_1" data-toggle="tab">Fiches ouvertes</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab_1">
-                            <table id="table_fiche_juste_ouvertes" class="table">
-                                <thead>
-                                    <tr>
-                                        <th>N° Consultation</th>
-                                        <th>Fiche</th>
-                                        <th>Nom</th>
-                                        <th>Post-Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Sexe</th>
-                                        <th>Date d'ouverture</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                            </table>
+            <div class="row" style="display: block;">
+
+                <div class="col-md-12 col-sm-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><small>Fiches ouvertes</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="table-responsive">
+                                <table id="table_fiche_juste_ouvertes" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>N° Consultation</th>
+                                            <th>Fiche</th>
+                                            <th>Nom</th>
+                                            <th>Post-Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Sexe</th>
+                                            <th>Date d'ouverture</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.tab-content -->
                 </div>
-                <!-- nav-tabs-custom -->
+
+                <div class="col-md-12 col-sm-12" id="show_diagnostic_section">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Diagnostic</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li><a class="close_link_by_asad"><i class="fa fa-close"></i></a>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <input type="hidden" id="hidden_diagnostic_show_id">
+                            <ul class="list-unstyled timeline">
+                                <li>
+                                    <div class="block">
+                                        <div class="tags">
+                                            <a href="" class="tag">
+                                                <span>Anamnèse</span>
+                                            </a>
+                                        </div>
+                                        <div class="block_content">
+                                            <p class="excerpt" id="show_diagnostic_anamnese">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="block">
+                                        <div class="tags">
+                                            <a href="" class="tag">
+                                                <span>Diagnostic</span>
+                                            </a>
+                                        </div>
+                                        <div class="block_content">
+                                            <p class="excerpt" id="show_diagnostic_note_diagnostic">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button type="button" class="btn btn-secondary diagnostic_btn_demande_examen">Demander examens au labo</button>
+                            <button type="button" class="btn btn-secondary diagnostic_btn_prescrire">Prescrire des medicaments</button>
+                            <button type="button" class="btn btn-secondary diagnostic_voir_demande_examen">Voir examens demandés</button>
+                            <button type="button" class="btn btn-secondary diagnostic_voir_resultats_demande_examen">Voir les resultats labo</button>
+                            <button type="button" class="btn btn-secondary diagnostic_voir_prescrire">Voir les prescriptions</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <!-- /.col -->
-    </section>
-</div>
+        </div>
+    </div>
+    <!-- /page content -->
 </div>
 
-<!-- modal commencer consultation -->
-<div class="modal fade" id="commencer_consultation_modal" data-backdrop="static" data-keyboard="false">
+<!-- Commencer consultation -->
+<div id="commencer_consultation_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Consultation</h4>
+                <h4 class="modal-title" id="myModalLabel">Consultation</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="border-left: solid black 1px;">
-                        <form class="ui mini form" id="form_commencer_consultation">
+                    <div class="col-xs-12 col-md-12">
+                        <form id="form_commencer_consultation">
                             <input type="hidden" id="hidden_commencer_consultation_transfert_id">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <label>Anamnèse</label>
-                                    <textarea style="resize: none;" class="form-control" rows="7" id="commencer_consultation_symptomes"></textarea>
-                                </div>
-                                <div class="col-xs-12">
-                                    <label>Diagnostic</label>
-                                    <textarea style="resize: none;" class="form-control" rows="7" id="commencer_consultation_diagnostic" placeholder="Diagnostic"></textarea>
-                                </div>
-                            </div>
+                            <label for="message">Consultation</label>
+                            <textarea id="commencer_consultation_symptomes" required="required" rows="5" class="form-control mb-4" name="message"></textarea>
+
+                            <label for="message">Diagnostic</label>
+                            <textarea id="commencer_consultation_diagnostic" required="required" rows="5" class="form-control" name="message"></textarea>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="btn_done_commencer_consultation" data-dismiss="modal">Valider</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="btn_done_commencer_consultation">Valider</button>
             </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 
-<!-- Modal demander examens -->
-<div class="modal fade" id="demander_examens_modal" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Demander des examens</h4>
-            </div>
-            <div class="modal-body">
-                <form class="ui form" id="form_demande_exam">
-                    <input type="hidden" id="hidden_demande_transfert_id" name="hidden_demande_transfert_id">
-                    <div class="row" id="list_demande_examen"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="btn_done_demande_exam" data-dismiss="modal">Demander</button>
-            </div>
         </div>
     </div>
-    <!-- /.modal-content -->
 </div>
-<!-- /.modal-dialog -->
 
-
-<!-- Modal voir diagnostic -->
-<div class="modal fade" id="voir_diagnostic_modal" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
+<!-- Demander examen -->
+<div id="demander_examens_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Diagnostic</h4>
+                <h4 class="modal-title" id="myModalLabel">Demander des examens</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="hidden_diagnostic_transfert_id" name="hidden_diagnostic_transfert_id">
-                <div id="body_modal_diagnostic">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+
+                        <form class="ui form" id="form_demande_exam">
+                            <input type="hidden" id="hidden_demande_diagnostic_id" name="hidden_demande_diagnostic_id">
+                            <ul class="to_do" id="list_demande_examen">
+
+                            </ul>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="btn_done_demande_exam">Demander</button>
             </div>
+
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
-
-<!-- Modal prescription -->
-<div class="modal fade" id="do_prescription_modal" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
+<!-- Presciption -->
+<div id="do_prescription_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Prescription</h4>
+                <h4 class="modal-title" id="myModalLabel">Prescription</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="hidden_prescription_diagnostic_id" name="hidden_prescription_diagnostic_id">
@@ -183,13 +215,74 @@
                         </tbody>
                     </table>
                 </div>
+
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="btn_valider_prescription" data-dismiss="modal">Demander</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="btn_valider_prescription">Demander</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Voir les examens demandés -->
+<div id="voir_demande_examens_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">les examens demandés</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="to_do" id="body_modal_voir_diagnostic_examens_demandes">
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
+</div>
+
+<!-- Voir les prescriptions -->
+<div id="voir_prescription_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Prescriptions</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Medicament</th>
+                          <th>Posologie</th>
+                          <th>Dosage</th>
+                        </tr>
+                      </thead>
+                      <tbody id="body_modal_voir_prescriptions">
+                        
+                      </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Imprimer</button>
+            </div>
+        </div>
+    </div>
 </div>

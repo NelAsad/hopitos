@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     let path = "http://localhost/hopitos/";
-
+    $('#show_diagnostic_section').hide();
     let tab_prescription = [];
 
 
@@ -77,52 +77,31 @@ $(document).ready(function () {
     });
 
     // Voir diagnostics du transfert
-    $(document).on('click', '.btn_voir_diagnostic_transfert', function (e) {
+    $(document).on('click', '.close_link_by_asad', function (e) {
+        $('#show_diagnostic_section').hide();
+    });
+    $(document).on('click', '.show_diagnostic_section', function (e) {
         e.preventDefault();
-        let transfert_id = $(this).attr('id');
+        let diagnostic_id = $(this).attr('id');
 
         $.ajax({
-            url: path + "consultation/get_transfert_diagnostics",
+            url: path + "consultation/get_diagnostic",
             type: 'POST',
             dataType: 'JSON',
-            data: { transfert_id },
+            data: { diagnostic_id },
             success: function (data) {
-                console.log(data);
-                let list_diagnostics = ``;
+                // console.log(data);
+                $('#hidden_diagnostic_transfert_id').val(data.pk_diagnostic);
+                $('#show_diagnostic_anamnese').html(data.note_plainte);
+                $('#show_diagnostic_note_diagnostic').html(data.note_diagnostic);
 
-                data.forEach(acte => {
-                    list_diagnostics += `
+                $('.diagnostic_btn_demande_examen').attr("id", data.pk_diagnostic);
+                $('.diagnostic_btn_prescrire').attr("id", data.pk_diagnostic);
+                $('.diagnostic_voir_demande_examen').attr("id", data.pk_diagnostic);
+                $('.diagnostic_voir_resultats_demande_examen').attr("id", data.pk_diagnostic);
+                $('.diagnostic_voir_prescrire').attr("id", data.pk_diagnostic);
 
-                        <div class="card">
-                            <div class="card-header" id="heading${acte.pk_diagnostic}">
-                                <h5 class="mb-0">
-                                    <ul class="todo-list ui-sortable">
-                                        <li>
-                                            <span class="text">
-                                                <button style="text-decoration: none;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${acte.pk_diagnostic}" aria-expanded="false" aria-controls="collapse${acte.pk_diagnostic}">
-                                                    ${acte.note_diagnostic}
-                                                </button>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                    
-                                </h5>
-                            </div>
-                            <div id="collapse${acte.pk_diagnostic}" class="collapse" aria-labelledby="heading${acte.pk_diagnostic}" data-parent="#accordion">
-                                <div class="card-body">
-                                    <a style='cursor: pointer;' data-bs-toggle="modal" data-bs-target="#demander_examens_modal" data-bs-dismiss="modal" class='btn btn-primary btn-xs btn_demander_examen_modal col-md-3' id='${acte.pk_diagnostic}' title='Demander examens'><i class='fa fa-send'></i> Demander examens</a>
-                                    <a style='cursor: pointer;' class='btn btn-warning btn-xs btn_voir_diagnostic_examens col-md-3' id='${acte.pk_diagnostic}' title='Voir examens'><i class='fa fa-eye'></i> Voir examens</a>
-                                    <a style='cursor: pointer;' data-bs-toggle="modal" data-bs-target="#demander_examens_modal" data-bs-dismiss="modal" class='btn btn-primary btn-xs btn_prescrire_modal col-md-3' id='${acte.pk_diagnostic}' title='Prescrire'><i class='fa fa-medkit'></i> Prescrire</a>
-                                    <a style='cursor: pointer;' class='btn btn-warning btn-xs btn_voir_prescription_modal col-md-3' id='${acte.pk_diagnostic}' title='Voir Prescriptions'><i class='fa fa-eye'></i> Voir Prescriptions</a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                $('#hidden_diagnostic_transfert_id').val(transfert_id);
-                $('#body_modal_diagnostic').html(list_diagnostics);
-                $('#voir_diagnostic_modal').modal('show');
+                $('#show_diagnostic_section').show();
             },
             error: function (data) {
                 console.log(data);
@@ -134,11 +113,9 @@ $(document).ready(function () {
 
     //DEMANDER DES EXAMENS
     //ouvrir modal demande examens
-    $(document).on('click', '.btn_demander_examen_modal', function (e) {
+    $(document).on('click', '.diagnostic_btn_demande_examen', function (e) {
         e.preventDefault();
-        var transfert_id = $(this).attr('id');
-        // $('#voir_diagnostic_modal').modal('hide');
-
+        let transfert_id = $(this).attr('id');
         $.ajax({
             url: path + "consultation/get_actes",
             type: 'POST',
@@ -146,15 +123,16 @@ $(document).ready(function () {
             data: {},
             success: function (data) {
                 console.log(data);
-                $('#hidden_demande_transfert_id').val(transfert_id);
+                $('#hidden_demande_diagnostic_id').val(transfert_id);
                 let list_examen = ``;
 
                 data.forEach(acte => {
                     list_examen += `
-                        <div class="col-xs-12">
-                            <label for="${acte.pk_acte}">${acte.nom_acte}</label>
-                            <input type="checkbox" id="${acte.pk_acte}" name="${acte.pk_acte}">
-                        </div>
+                        <li>
+                            <p>
+                                <input type="checkbox" class="flat" id="${acte.pk_acte}" name="${acte.pk_acte}"> ${acte.nom_acte}
+                            </p>
+                        </li>
                     `;
                 });
 
@@ -171,7 +149,7 @@ $(document).ready(function () {
     // valider demande examens
     $(document).on('click', '#btn_done_demande_exam', function (e) {
         e.preventDefault();
-        let diagnostic_id = $('#hidden_demande_transfert_id').val();
+        let diagnostic_id = $('#hidden_demande_diagnostic_id').val();
         let actes = [];
         $(':checkbox:checked').each(function (i) {
             actes[i] = $(this).attr("id");
@@ -195,7 +173,7 @@ $(document).ready(function () {
 
     // PRESCRIPTION
     // Open modal prescription
-    $(document).on('click', '.btn_prescrire_modal', function (e) {
+    $(document).on('click', '.diagnostic_btn_prescrire', function (e) {
         e.preventDefault();
         let diagnostic_id = $(this).attr('id');
         $('#hidden_prescription_diagnostic_id').val(diagnostic_id);
@@ -259,6 +237,79 @@ $(document).ready(function () {
             },
             success: function (data) {
                 console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error!!');
+            }
+        });
+    });
+
+
+    // Voir examens demandés
+    $(document).on('click', '.diagnostic_voir_demande_examen', function (e) {
+        e.preventDefault();
+        let diagnostic_id = $(this).attr('id');
+        
+        $.ajax({
+            url: path + "consultation/diagnostic_examen_demandes",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                diagnostic_id
+            },
+            success: function (data) {
+                console.log(data);
+                let body_modal_voir_examens_demandes = ``;
+
+                data.forEach(exam => {
+                    body_modal_voir_examens_demandes += `
+                        <li>
+                            <p>
+                                <input type="checkbox" class="flat" disabled> ${exam.nom_acte}
+                            </p>
+                        </li>
+                    `;
+                });
+
+                $('#body_modal_voir_diagnostic_examens_demandes').html(body_modal_voir_examens_demandes);
+                $('#voir_demande_examens_modal').modal('show');
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error!!');
+            }
+        });
+    });
+
+    // Voir prescription
+    $(document).on('click', '.diagnostic_voir_prescrire', function (e) {
+        e.preventDefault();
+        let diagnostic_id = $(this).attr('id');
+        
+        $.ajax({
+            url: path + "consultation/diagnostic_prescription",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                diagnostic_id
+            },
+            success: function (data) {
+                console.log(data);
+                let body_modal_voir_prescriptions = ``;
+
+                data.forEach(prescription => {
+                    body_modal_voir_prescriptions += `
+                        <tr>
+                            <td>${prescription.medicament}</td>
+                            <td>${prescription.posologie}</td>
+                            <td>${prescription.dosage}</td>
+                        </tr>
+                    `;
+                });
+
+                $('#body_modal_voir_prescriptions').html(body_modal_voir_prescriptions);
+                $('#voir_prescription_modal').modal('show');
             },
             error: function (data) {
                 console.log(data);
