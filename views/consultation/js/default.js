@@ -2,6 +2,29 @@
 $(document).ready(function () {
 
     let path = "http://localhost/hopitos/";
+
+    $('textarea.tiny').tinymce({
+        height: 200,
+        menubar: false,
+        plugins: [
+           'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+           'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+           'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+        ],
+        toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
+      });
+
+    // function pour la notification
+    function notification(titre, text, type, seconde) {
+        new PNotify({
+            title: titre,
+            text: text,
+            type: type,
+            delay: seconde*1000,
+            styling: 'bootstrap3'
+        });
+    }
+
     $('#show_diagnostic_section').hide();
     let tab_prescription = [];
 
@@ -51,25 +74,17 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.reponse == 'bien') {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.success('les premieres informations ont ete bien enregistrees', 'Consultation demarrer avec succes');
-
+                    $('#commencer_consultation_modal').modal('hide');
+                    notification('Succès', 'les premieres informations ont ete bien enregistrees', 'success', 2);
                     form_commencer_consultation.reset();
                     dataTable_etape1.ajax.reload();
-                    dataTable_etape2.ajax.reload();
                 }
                 if (data.reponse == 'pas_bien') {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.warning('Echec d\'ouverture de la consultation');
+                    notification('Echec', 'Echec d\'ouverture de la consultation', 'error', 2);
                 }
             },
             error: function (data) {
+                console.log(data);
                 alert('Error!!');
             }
         });
@@ -113,7 +128,7 @@ $(document).ready(function () {
 
     //DEMANDER DES EXAMENS
     //ouvrir modal demande examens
-    $(document).on('click', '.diagnostic_btn_demande_examen', function (e) {
+    $(document).on('click', '.diagnostic_btn_demande_examen', function (e) { 
         e.preventDefault();
         let transfert_id = $(this).attr('id');
         $.ajax({
@@ -161,7 +176,7 @@ $(document).ready(function () {
             dataType: 'JSON',
             data: { actes, diagnostic_id },
             success: function (data) {
-                console.log(data);
+                notification('Succès', 'Operation effectuée ave succès', 'success', 2);
             },
             error: function (data) {
                 console.log(data);
@@ -222,7 +237,7 @@ $(document).ready(function () {
         });
         $('#body_table_prescription').html(tab_prescription_body);
     });
-    // valider demande examens
+    // valider prescription
     $(document).on('click', '#btn_valider_prescription', function (e) {
         e.preventDefault();
         let prescription_diagnostic_id = $('#hidden_prescription_diagnostic_id').val();
@@ -236,7 +251,8 @@ $(document).ready(function () {
                 tab_prescription
             },
             success: function (data) {
-                console.log(data);
+                $('#do_prescription_modal').modal('hide');
+                notification('Succès', 'Operation effectuée ave succès', 'success', 2);
             },
             error: function (data) {
                 console.log(data);
@@ -319,6 +335,8 @@ $(document).ready(function () {
     });
 
 
+
+    
 });
 
 

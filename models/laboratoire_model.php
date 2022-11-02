@@ -10,53 +10,19 @@ class Laboratoire_model extends Model
 
 
     /**
-     * Renvoie la liste des demandes d'examen pour la datatable
+     * Renvoie la liste des transferts
      * @return array fiche
      */
-    function xhr_labo_dataTables($etape = null, $date_de_reponse = null)
+    function xhr_transfert_DataTable($etape = null)
     {
-
         $query = '';
         $output = array();
-        $query .= 'SELECT * FROM examen e LEFT OUTER JOIN patient p ON e.fk_patient_id = p.patient_id LEFT OUTER JOIN fiche f ON e.fk_fiche_id = f.fiche_id LEFT OUTER JOIN users u ON u.users_id = e.fk_demandeur_id ';
-
-        if ($etape != null) {
-            $query .= ' WHERE exam_etape = ' . $etape . ' ';
-
-            if (isset($_POST["search"]["value"])) {
-                $query .= 'AND ';
-                $query .= ' ( exam_id LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR p.patient_nom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR p.patient_prenom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR p.patient_postnom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                // $query .= 'OR u.prenom LIKE "%'.$_POST["search"]["value"].'%" ';
-                // $query .= 'OR u.nom LIKE "%'.$_POST["search"]["value"].'%" ';
-                $query .= 'OR p.patient_fiche_numero LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR e.exam_service LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR e.exam_date_demande LIKE "%' . $_POST["search"]["value"] . '%" ) ';
-            }
-        } else {
-            if (isset($_POST["search"]["value"])) {
-                $query .= ' WHERE exam_id LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR p.patient_nom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR p.patient_prenom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR p.patient_postnom LIKE "%' . $_POST["search"]["value"] . '%" ';
-                // $query .= 'OR u.prenom LIKE "%'.$_POST["search"]["value"].'%" ';
-                // $query .= 'OR u.nom LIKE "%'.$_POST["search"]["value"].'%" ';
-                $query .= 'OR p.patient_fiche_numero LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR e.exam_service LIKE "%' . $_POST["search"]["value"] . '%" ';
-                $query .= 'OR e.exam_date_demande LIKE "%' . $_POST["search"]["value"] . '%" ';
-            }
-        }
-
-        if ($date_de_reponse != null) {
-            $query .= ' AND e.exam_date_reponse LIKE "%' . $date_de_reponse . '%" ';
-        }
+        $query .= 'SELECT * FROM transfert_visite tr LEFT OUTER JOIN visite vst ON tr.fk_visite = vst.pk_visite LEFT OUTER JOIN patient pt ON vst.fk_patient = pt.patient_id LEFT OUTER JOIN visite_signe_vitaux vsv ON vst.pk_visite = vsv.pk_visite_signe_vitaux LEFT OUTER JOIN signe_vitaux sv ON vsv.fk_signe_vitaux = sv.pk_signe_vitaux ';
 
         if (isset($_POST["order"])) {
             $query .= 'ORDER BY ' . $_POST['order']['0']['column'] . ' ' . $_POST['order']['0']['dir'] . ' ';
         } else {
-            $query .= 'ORDER BY exam_id DESC ';
+            $query .= 'ORDER BY pk_transfert_visite DESC ';
         }
 
         if ($_POST["length"] != -1) {
@@ -66,61 +32,58 @@ class Laboratoire_model extends Model
         $sth = $this->db->prepare($query);
         $sth->execute();
         $result =  $sth->fetchAll();
-
+        $sth->closeCursor();
         $data = array();
         $filtered_rows = $sth->rowCount();
 
-
         foreach ($result as $row) {
 
-            //les boutons d'action
-            if ($etape != null) {
-                switch ($etape) {
-                    case '1':
-                        $action_btns = "
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_commencer_exam_appeler_patient'  nom='" . $row["patient_nom"] . "' postnom='" . $row["patient_postnom"] . "' prenom='" . $row["patient_prenom"] . "'  patient_id='" . $row["patient_id"] . "' exam_id='" . $row["exam_id"] . "' title='Appeler le patient'><i class='fa fa-microphone'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_consultation_modal' id='" . $row["exam_id"] . "' fiche_id='" . $row["fiche_id"] . "' statut='" . $row["patient_statut"] . "' title='Voir informations du patient'><i class='fa fa-user'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_inserer_exam_modal' id='" . $row["exam_id"] . "' statut='" . $row["patient_statut"] . "' title='Inserer les resultats'><i class='fa fa-edit'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_inserer_exam_image_modal' id='" . $row["exam_id"] . "' title='Inserer les resultats imagerie'><i class='fa fa-heartbeat'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_resultat_exam_image_modal' id='" . $row["exam_id"] . "' title='Voir resultat imagerie'><i class='fa fa-eye'></i></a>
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_declasser_demande' id='" . $row["exam_id"] . "' title='Declasser la demande'><i class='fa fa-remove'></i></a>
-                        ";
-                        break;
+            $actions = "";
 
-                    case '2':
-                        $action_btns = "
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_exam_modal' id='" . $row["exam_id"] . "' title='Voir les details'><i class='fa fa-eye'></i></a>
-                        ";
-                        break;
-
-                    case '3':
-                        $action_btns = "
-                            <a style='cursor: pointer;' class='btn btn-default btn-xs btn_show_exam_motif_declassement_modal' id='" . $row["exam_id"] . "' title='Voir les details'><i class='fa fa-eye'></i></a>
-                        ";
-                        break;
-
-                    default:
-                        # code...
-                        break;
-                }
-            }
-
+            $query1 = "SELECT * FROM diagnostic WHERE fk_transfert = :fk_transfert ";
+            $statement = $this->db->prepare($query1);
+            $statement->execute(array(
+                ':fk_transfert' => (int) $row["pk_transfert_visite"]
+            ));
+            $diagnostics = $statement->fetchAll();
+            $statement->closeCursor();
+            // return $diagnostics;
 
             $sub_array = array();
-            $sub_array[] = $row["exam_id"]; //l'id de la demande examen
-            // $sub_array[] = $row["prenom"]." ".$row["nom"]; // demandeur
-            $sub_array[] = $row["patient_nom"] . " " . $row["patient_postnom"]; // patient
-            $sub_array[] = $row["patient_fiche_numero"]; //numero de la fiche du patient
-            $sub_array[] = $row["exam_date_demande"]; // heure de demande examens
-            $sub_array[] = $row["exam_service"]; // le service d'ou provient la demande
-            $sub_array[] = $action_btns;
+            $sub_array[] = $row["pk_transfert_visite"];
+            $sub_array[] = $row["patient_fiche_numero"];
+            $sub_array[] = $row["patient_nom"];
+            $sub_array[] = $row["patient_postnom"];
+            $sub_array[] = $row["patient_prenom"];
+            $sub_array[] = $row["patient_sexe"];
+            $sub_array[] = $row["debut_visite"];
+            $actions .= "
+                <a style='cursor: pointer;' class='btn btn-default btn-xs btn_commencer_consultation_patient_modal' id='". $row["pk_transfert_visite"] ."' title='Commencer la consultation'><i class='fa fa-edit'></i></a>
+                <div class='btn-group'>
+                    <button type='button' class='btn btn-default btn-xs dropdown-toggle dropdown-toggle-split' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                        <i class='fa fa-stethoscope'></i>
+                        <span class='sr-only'>Toggle Dropdown</span>
+                    </button>
+                <div class='dropdown-menu'>
+            ";
+            foreach ($diagnostics as $diagnostic) {
+                $actions .= "
+                    <a class='dropdown-item show_diagnostic_section' id='".$diagnostic['pk_diagnostic']."'>".$diagnostic['note_diagnostic']."</a>
+                    <div class='dropdown-divider'></div>
+                ";
+            }
+            $actions .= "
+                    </div>
+                </div>
+            ";
+            $sub_array[] = $actions;
             $data[] = $sub_array;
         }
 
         $results = array(
             "draw" => intval($_POST["draw"]),
             "recordsTotal" => $filtered_rows,
-            "recordsFiltered" => $this->get_total_all_records("SELECT * FROM examen e LEFT OUTER JOIN patient p ON e.fk_patient_id = p.patient_id LEFT OUTER JOIN fiche f ON e.fk_fiche_id = f.fiche_id LEFT OUTER JOIN users u ON u.users_id = e.fk_demandeur_id "),
+            "recordsFiltered" => $this->get_total_all_records("SELECT * FROM transfert_visite tr LEFT OUTER JOIN visite vst ON tr.fk_visite = vst.pk_visite LEFT OUTER JOIN patient pt ON vst.fk_patient = pt.patient_id LEFT OUTER JOIN visite_signe_vitaux vsv ON vst.pk_visite = vsv.pk_visite_signe_vitaux LEFT OUTER JOIN signe_vitaux sv ON vsv.fk_signe_vitaux = sv.pk_signe_vitaux"),
             "data" => $data
         );
 
@@ -132,20 +95,46 @@ class Laboratoire_model extends Model
      * Renvoie un examen avec tout les details
      * @return array exam
      */
-    function get_exam($exam_id)
+    function get_examens_demandes($diagnostic_id)
     {
-        $query = "SELECT * FROM examen e LEFT OUTER JOIN patient p ON e.fk_patient_id = p.patient_id LEFT OUTER JOIN fiche f ON p.patient_id = f.fk_patient_id LEFT OUTER JOIN users u ON u.users_id = e.fk_demandeur_id  WHERE exam_id = :exam_id ";
+        $query = "SELECT * FROM demande_labo dl LEFT OUTER JOIN actes ac ON dl.fk_acte = ac.pk_acte WHERE fk_diagnostic = :fk_diagnostic AND reponse = 0";
 
         $statement = $this->db->prepare($query);
         $statement->execute(array(
-            ':exam_id' => $exam_id
+            ':fk_diagnostic' => (int) $diagnostic_id
+        ));
+        $examens = $statement->fetchAll();
+        $statement->closeCursor();
+        return $examens;
+    }
+
+    /**
+     * Insert resultat examen
+     */
+    public function insert_resultat_examen($fk_demande,$note_resultat)
+    {
+        $query = "INSERT INTO resultat_labo_demande (note_resultat, fk_agent, fk_demande) VALUES (:note_resultat, :fk_agent, :fk_demande)";
+        $statement = $this->db->prepare($query);
+        $result = $statement->execute(array(
+            ':note_resultat' => $note_resultat,
+            ':fk_demande' => $fk_demande,
+            ':fk_agent' => (int) Session::get('user_id')
         ));
 
-        $statement->setFetchMode(PDO::FETCH_OBJ);
-        $exam = $statement->fetch();
-        $statement->closeCursor();
-        return $exam;
+        return $result;
     }
+
+    public function set_demande_satisfaite($fk_demande){
+        $query = "UPDATE demande_labo SET reponse = 1 WHERE pk_demande_labo = :pk_demande_labo";
+        $statement = $this->db->prepare($query);
+        $result = $statement->execute(array(
+            ':pk_demande_labo' => $fk_demande
+        ));
+        return $result;
+    }
+
+
+
 
     /**
      * Renvoie une fiches

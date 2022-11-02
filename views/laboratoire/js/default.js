@@ -1,16 +1,26 @@
 $(document).ready(function () {
 
+    // function pour la notification
+    function notification(titre, text, type, seconde) {
+        new PNotify({
+            title: titre,
+            text: text,
+            type: type,
+            delay: seconde*1000,
+            styling: 'bootstrap3'
+        });
+    }
+
     let path = "http://localhost/hopitos/";
+    $('#show_diagnostic_section').hide();
 
-    // INITIALISATION DES DATATABLES
-
-    //initialise datatable nouvelles demandes (etape 1)
-    var dataTable_nouvelles_demandes = $('#table_nouvelles_demandes').DataTable({
+    //initialise datatable nouvelles demandes
+    let dataTable_fiche_juste_ouvertes = $('#table_fiche_juste_ouvertes').DataTable({
         "processing": true,
         "serverSide": true,
         "order": [],
         "ajax": {
-            url: path + "laboratoire/labo_nouvelles_demandes",
+            url: path + "laboratoire/xhr_transfert_DataTable",
             type: "POST"
         },
         "columnDefs": [
@@ -20,75 +30,6 @@ $(document).ready(function () {
             }
         ]
     });
-
-    //initialise datatable demandes satisfaites du jour
-    var dataTable_demandes_satisf_du_jour = $('#table_demandes_satisf_du_jour').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-            url: path + "laboratoire/labo_demandes_sat_today",
-            type: "POST"
-        },
-        "columnDefs": [
-            {
-                "target": [0, 3, 4],
-                "orderable": false
-            }
-        ]
-    });
-
-    //initialise datatable toutes les demandes satisfaites
-    var dataTable_demandes_satisf_all = $('#table_demandes_satisf_all').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-            url: path + "laboratoire/labo_demandes_sat_all",
-            type: "POST"
-        },
-        "columnDefs": [
-            {
-                "target": [0, 3, 4],
-                "orderable": false
-            }
-        ]
-    });
-
-    //initialise datatable les demandes declassees du jour
-    var dataTable_demandes_declassees_today = $('#table_demandes_declassees_today').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-            url: path + "laboratoire/labo_demandes_declasees_today",
-            type: "POST"
-        },
-        "columnDefs": [
-            {
-                "target": [0, 3, 4],
-                "orderable": false
-            }
-        ]
-    });
-
-    //initialise datatable toutes les demandes declassees
-    var dataTable_demandes_declassees_all = $('#table_demandes_declassees_all').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-            url: path + "laboratoire/labo_demandes_declasees_all",
-            type: "POST"
-        },
-        "columnDefs": [
-            {
-                "target": [0, 3, 4],
-                "orderable": false
-            }
-        ]
-    });
-
 
     //APPELER PATIENT
     $(document).on('click', '.btn_commencer_exam_appeler_patient', function (e) {
@@ -111,287 +52,108 @@ $(document).ready(function () {
 
     });
 
-    // INSERER LES RESULTATS DES EXAMENS
-    //affiche le formulaire d'insertion examens
-    $(document).on('click', '.btn_show_inserer_exam_modal', function (e) {
+    // Voir diagnostics du transfert
+    $(document).on('click', '.close_link_by_asad', function (e) {
+        $('#show_diagnostic_section').hide();
+    });
+    $(document).on('click', '.show_diagnostic_section', function (e) {
         e.preventDefault();
-        var exam_id = $(this).attr('id');
-        var patient_statut = $(this).attr('statut');
-
+        let diagnostic_id = $(this).attr('id');
 
         $.ajax({
-            url: path + "laboratoire/get_patient_frais_labo_actif",
+            url: path + "consultation/get_diagnostic",
+            type: 'POST',
+            dataType: 'JSON',
+            data: { diagnostic_id },
+            success: function (data) {
+                // console.log(data);
+                $('#hidden_diagnostic_transfert_id').val(data.pk_diagnostic);
+                $('#show_diagnostic_anamnese').html(data.note_plainte);
+                $('#show_diagnostic_note_diagnostic').html(data.note_diagnostic);
+
+                $('.labo_btn_insert_examen_resultat').attr("id", data.pk_diagnostic);
+                $('.labo_btn_voir_resultat').attr("id", data.pk_diagnostic);
+
+                $('#show_diagnostic_section').show();
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error!!');
+            }
+        });
+    }); 
+
+    //Ouvrir modal insert examens
+    $(document).on('click', '.labo_btn_insert_examen_resultat', function (e) {
+        e.preventDefault();
+        var diagnostic_id = $(this).attr('id');
+
+        $.ajax({
+            url: path + "laboratoire/get_examens_demandes",
             type: 'POST',
             dataType: 'JSON',
             data: {
-                exam_id: exam_id
+                diagnostic_id
             },
-            success: function (pay_actifs) {
+            success: function (exams) {
+                console.log(exams);
+                let body_modal_inserer_resultat_labo = ``;
+                exams.forEach(exam => {
+                    body_modal_inserer_resultat_labo = `
+                        <li>
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>${exam.nom_acte}</span>
+                                </div>
+                                <div class="col-6">
+                                    <input width="100%" type="text" class="flat input_insert_resultat_labo" id="${exam.pk_demande_labo}" name="${exam.pk_demande_labo}">
+                                </div>
+                            </div>
+                        </li>
+                    `;
+                });
+                $('#body_modal_voir_insert_modal').html(body_modal_inserer_resultat_labo);
+                $('#insert_resultat_modal').modal('show');
+            },
+            error: function (data) {
+                alert('Error!!');
+            }
+        });
+    });
 
-                if (patient_statut == 'simple') {
-                    if (pay_actifs.length > 0 && pay_actifs[0].utilise == 0) {
+    //Done insert examens
+    $(document).on('click', '#btn_valider_insertion_resultat', function (e) {
+        e.preventDefault();
+        let tab_resultat = [];
 
-                        //j'affiche tout les champs
-                        afficher_tout_les_champs();
+        $('input[type="text"]').each(function () {
+            tab_resultat.push([$(this).attr("id"), $(this).val()]);
+        });
 
-                        //Appel Ajax
-                        $.ajax({
-                            url: path + "laboratoire/get_exam",
-                            type: 'POST',
-                            dataType: 'JSON',
-                            data: {
-                                exam_id: exam_id
-                            },
-                            success: function (exam) {
-                                //je cahe les champs qu'il faut caher
-                                cahe_champ_moins_important(exam);
-
-                                $('#laboratoire_autres_examens_liste').html(exam.autres_examens);
-                                $('#exam_show_service').html(exam.exam_service);
-                                $('#hidden_exam_id').val(exam.exam_id);
-                                $('#inserer_examens_modal').modal('show');
-                            },
-                            error: function (data) {
-                                alert('Error!!');
-                            }
-                        });
-
-                    } else {
-                        toastr.options.progressBar = true;
-                        toastr.options.showMethod = 'slideDown';
-                        toastr.options.hideMethod = 'fadeOut';
-                        toastr.options.closeMethod = 'fadeOut';
-                        toastr.warning('Priere d\'aller payer a la caisse avant d\'etre examine');
-                    }
+        $.ajax({
+            url: path + "laboratoire/insert_resultat_examen",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                tab_resultat
+            },
+            success: function (exams) {
+                console.log(exams);
+                if (exams) {
+                    notification('Succès', 'Operation effectuée ave succès', 'success', 2);
+                    $('#insert_resultat_modal').modal('hide');
                 } else {
-                    //j'affiche tout les champs
-                    afficher_tout_les_champs();
-
-                    //Appel Ajax
-                    $.ajax({
-                        url: path + "laboratoire/get_exam",
-                        type: 'POST',
-                        dataType: 'JSON',
-                        data: {
-                            exam_id: exam_id
-                        },
-                        success: function (exam) {
-                            //je cahe les champs qu'il faut caher
-                            cahe_champ_moins_important(exam);
-
-                            $('#laboratoire_autres_examens_liste').html(exam.autres_examens);
-                            $('#exam_show_service').html(exam.exam_service);
-                            $('#hidden_exam_id').val(exam.exam_id);
-                            $('#inserer_examens_modal').modal('show');
-                        },
-                        error: function (data) {
-                            alert('Error!!');
-                        }
-                    });
+                    notification('Echec', 'Contactez l administrateur', 'error', 2);
                 }
-
-
-
             },
             error: function (data) {
-                alert('Error');
-            }
-        });
-
-    })
-    // valider l'insersion de resultats examens
-    $(document).on('click', '#btn_done_inserer_exam', function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: path + "laboratoire/done_resultat_exam",
-            type: 'POST',
-            dataType: 'JSON',
-            data: $('#form_inserer_exam').serialize(),
-            success: function (data) {
-
-                if (data == true) {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.success('Les resultats des examens ont bien ete envoyer au medecin consultant. Merci', 'Resultats inseres avec succes');
-
-                    form_inserer_exam.reset();
-                    dataTable_nouvelles_demandes.ajax.reload();
-                    dataTable_demandes_satisf_du_jour.ajax.reload();
-                    dataTable_demandes_satisf_all.ajax.reload();
-                } else if (data == false) {
-                    swal.fire({
-                        title: 'Echec',
-                        text: 'Nous n\'avons pas pu inserer les resultats. Veillez contacter l\'admin du systeme',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
-                    });
-                }
-
-            },
-            error: function (data) {
+                console.log(data);
                 alert('Error!!');
             }
         });
-
-
+        
     });
 
-    // DECLASSER UNE DEMANDE D'EXAMEN
-    //affiche le modal pour renseigner le motif du declassement
-    $(document).on('click', '.btn_declasser_demande', function (e) {
-        e.preventDefault();
-        let exam_id = $(this).attr('id');
-        $('#hidden_declasser_exam_id').val(exam_id);
-        $('#declasser_demande_examen_modal').modal('show');
-
-    });
-    // valider le declassement de la demande
-    $(document).on('click', '#btn_done_declasser_exam', function (e) {
-        e.preventDefault();
-        let exam_id = $('#hidden_declasser_exam_id').val();
-        let motif_declasse = $('#declasser_exam_motif').val();
-
-        $.ajax({
-            url: path + "laboratoire/declasser_exam",
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                exam_id: exam_id,
-                motif_declasse: motif_declasse
-            },
-            success: function (data) {
-                if (data == true) {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.success('Demande d\'examen declassee avec succes');
-
-                    dataTable_nouvelles_demandes.ajax.reload();
-                    dataTable_demandes_declassees_today.ajax.reload();
-                    dataTable_demandes_declassees_all.ajax.reload();
-                } else if (data == false) {
-                    swal.fire({
-                        title: 'Echec',
-                        text: 'Nous n\'avons pas pu declasser la demande. Veillez contacter l\'admin du systeme',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
-                    });
-                }
-            },
-            error: function (data) {
-                alert('Error!!');
-            }
-        });
-
-    });
-
-    // VOIR LES RESULTATS APRES INSERTION
-    $(document).on('click', '.btn_show_exam_modal', function (e) {
-        e.preventDefault();
-        let exam_id = $(this).attr('id');
-
-        //Appel Ajax
-        $.ajax({
-            url: path + "laboratoire/get_exam",
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                exam_id: exam_id
-            },
-            success: function (exam) {
-
-                let i = 0;
-                let resultat_str = '';
-
-                for (const key in exam) {
-                    if (exam.hasOwnProperty(key)) {
-                        const element = exam[key];
-
-                        if (i >= 8 && i < 44 && element != '') {
-                            resultat_str += key + ' : ' + element + '<br>';
-                        }
-
-                    }
-                    i++;
-                }
-
-                $('#les_resultats_apres_insertion').html(resultat_str);
-                $('#voir_exam_apres_insertion_modal').modal('show');
-
-            },
-            error: function (data) {
-                alert('Error!!');
-            }
-        });
-
-    });
-
-    // VOIR LE MOTIF DU DECLASSEMENT
-    $(document).on('click', '.btn_show_exam_motif_declassement_modal', function (e) {
-        e.preventDefault();
-        let exam_id = $(this).attr('id');
-
-        //Appel Ajax
-        $.ajax({
-            url: path + "laboratoire/get_exam",
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                exam_id: exam_id
-            },
-            success: function (exam) {
-
-                $('#le_motif_apres_insertion').html(exam.motif_declasse);
-                $('#voir_motif_declassement_apres_insertion_modal').modal('show');
-
-            },
-            error: function (data) {
-                alert('Error!!');
-            }
-        });
-
-    });
-
-    //ouvrir modal insert examens image
-    $(document).on('click', '.btn_show_inserer_exam_image_modal', function (e) {
-        e.preventDefault();
-        var exam_id = $(this).attr('id');
-        $.ajax({
-            url: path + "laboratoire/get_exam",
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                exam_id: exam_id
-            },
-            success: function (exam) {
-                if (exam.radiographie != 'x_dem') {
-                    $('#radiographie').prop('disabled', true);
-                }
-                if (exam.echographie != 'x_dem') {
-                    $('#echographie').prop('disabled', true);
-                }
-                if (exam.irm != 'x_dem') {
-                    $('#irm').prop('disabled', true);
-                }
-                if (exam.endoscopie != 'x_dem') {
-                    $('#endoscopie').prop('disabled', true);
-                }
-                if (exam.scanner != 'x_dem') {
-                    $('#scanner').prop('disabled', true);
-                }
-
-                $('#hidden_image_exam_id').val(exam_id);
-                $('#inserer_resultat_examen_image_modal').modal('show');
-            },
-            error: function (data) {
-                alert('Error!!');
-            }
-        });
-    });
 
     // Done insert resultat imagerie
     $(document).on('submit', '#form_inserer_image_exam', function (e) {
@@ -407,6 +169,12 @@ $(document).ready(function () {
             processData: false,
             success: function (result) {
                 console.log(result);
+                if (exams) {
+                    notification('Succès', 'Operation effectuée ave succès', 'success', 2);
+                    $('#insert_resultat_modal').modal('hide');
+                } else {
+                    notification('Echec', 'Contactez l administrateur', 'error', 2);
+                }
             },
             error: function (data) {
                 console.log(data);
@@ -490,188 +258,5 @@ $(document).ready(function () {
     });
 
 
-
-    /**
-     * Auto-Actualise de datatables apres dix minute
-     */
-    setInterval(() => {
-        dataTable_nouvelles_demandes.ajax.reload();
-        dataTable_demandes_satisf_du_jour.ajax.reload();
-        dataTable_demandes_satisf_all.ajax.reload();
-        dataTable_demandes_declassees_today.ajax.reload();
-        dataTable_demandes_declassees_all.ajax.reload();
-    }, 600000);//dix minutes
-
-
 });
 
-////////////////////////////////////////////////////////////////
-////////////////// MES FONCTIONS ///////////////////////////////
-////////////////////////////////////////////////////////////////
-
-/**
- * Rend tout les champs affichables
- * @return void
- */
-function afficher_tout_les_champs() {
-    //hemato
-    $('#hemato_Hbg').show();
-    $('#hemato_GB').show();
-    $('#hemato_VS').show();
-    $('#hemato_FL_E').show();
-    $('#hemato_FL_B').show();
-    $('#hemato_FL_L').show();
-    $('#hemato_FL_M').show();
-    $('#hemato_TS').show();
-    $('#hemato_TC').show();
-    $('#hemato_GS').show();
-    $('#hemato_HTC').show();
-    //parasito
-    $('#parasito_GE').show();
-    $('#parasito_GF').show();
-    $('#parasito_CATT').show();
-    $('#parasito_frais_mince').show();
-    $('#parasito_selles_exam_direct').show();
-    $('#parasito_urines_sediment').show();
-    $('#parasito_PVUF').show();
-    $('#parasito_ecr_element').show();
-    $('#parasito_bacterio_nature_produit').show();
-    $('#parasito_bacterio_gramme').show();
-    $('#parasito_bacterio_ziehl').show();
-    //bio-chimie
-    $('#bio_nature_produit').show();
-    $('#bio_glucose').show();
-    $('#bio_bilirubine').show();
-    $('#bio_albumine').show();
-    $('#bio_acetone').show();
-    $('#bio_PH').show();
-    $('#bio_nitrite').show();
-    //IMMINO SEROLOGIE
-    $('#is_test_grossesse').show();
-    $('#is_widal_TO').show();
-    $('#is_TH').show();
-    $('#is_CATT').show();
-    $('#is_HBS').show();
-    $('#is_HC').show();
-    $('#is_P120').show();
-}
-
-/**
- * Cahe les champs pas important
- * @param array exam
- * @return void
- */
-function cahe_champ_moins_important(exam) {
-    //hemato
-    if (exam.hemato_Hbg != 'x_dem') {
-        $('#hemato_Hbg').hide();
-    }
-    if (exam.hemato_GB != 'x_dem') {
-        $('#hemato_GB').hide();
-    }
-    if (exam.hemato_VS != 'x_dem') {
-        $('#hemato_VS').hide();
-    }
-    if (exam.hemato_FL_E != 'x_dem') {
-        $('#hemato_FL_E').hide();
-    }
-    if (exam.hemato_FL_B != 'x_dem') {
-        $('#hemato_FL_B').hide();
-    }
-    if (exam.hemato_FL_L != 'x_dem') {
-        $('#hemato_FL_L').hide();
-    }
-    if (exam.hemato_FL_M != 'x_dem') {
-        $('#hemato_FL_M').hide();
-    }
-    if (exam.hemato_TS != 'x_dem') {
-        $('#hemato_TS').hide();
-    }
-    if (exam.hemato_TC != 'x_dem') {
-        $('#hemato_TC').hide();
-    }
-    if (exam.hemato_GS != 'x_dem') {
-        $('#hemato_GS').hide();
-    }
-    if (exam.hemato_HTC != 'x_dem') {
-        $('#hemato_HTC').hide();
-    }
-    //parasito
-    if (exam.parasito_GE != 'x_dem') {
-        $('#parasito_GE').hide();
-    }
-    if (exam.parasito_GF != 'x_dem') {
-        $('#parasito_GF').hide();
-    }
-    if (exam.parasito_CATT != 'x_dem') {
-        $('#parasito_CATT').hide();
-    }
-    if (exam.parasito_frais_mince != 'x_dem') {
-        $('#parasito_frais_mince').hide();
-    }
-    if (exam.parasito_selles_exam_direct != 'x_dem') {
-        $('#parasito_selles_exam_direct').hide();
-    }
-    if (exam.parasito_urines_sediment != 'x_dem') {
-        $('#parasito_urines_sediment').hide();
-    }
-    if (exam.parasito_PVUF != 'x_dem') {
-        $('#parasito_PVUF').hide();
-    }
-    if (exam.parasito_ecr_element != 'x_dem') {
-        $('#parasito_ecr_element').hide();
-    }
-    if (exam.parasito_bacterio_nature_produit != 'x_dem') {
-        $('#parasito_bacterio_nature_produit').hide();
-    }
-    if (exam.parasito_bacterio_gramme != 'x_dem') {
-        $('#parasito_bacterio_gramme').hide();
-    }
-    if (exam.parasito_bacterio_ziehl != 'x_dem') {
-        $('#parasito_bacterio_ziehl').hide();
-    }
-    //bio-chimie
-    if (exam.bio_nature_produit != 'x_dem') {
-        $('#bio_nature_produit').hide();
-    }
-    if (exam.bio_glucose != 'x_dem') {
-        $('#bio_glucose').hide();
-    }
-    if (exam.bio_bilirubine != 'x_dem') {
-        $('#bio_bilirubine').hide();
-    }
-    if (exam.bio_albumine != 'x_dem') {
-        $('#bio_albumine').hide();
-    }
-    if (exam.bio_acetone != 'x_dem') {
-        $('#bio_acetone').hide();
-    }
-    if (exam.bio_PH != 'x_dem') {
-        $('#bio_PH').hide();
-    }
-    if (exam.bio_nitrite != 'x_dem') {
-        $('#bio_nitrite').hide();
-    }
-    //IMMINO SEROLOGIE
-    if (exam.is_test_grossesse != 'x_dem') {
-        $('#is_test_grossesse').hide();
-    }
-    if (exam.is_widal_TO != 'x_dem') {
-        $('#is_widal_TO').hide();
-    }
-    if (exam.is_TH != 'x_dem') {
-        $('#is_TH').hide();
-    }
-    if (exam.is_CATT != 'x_dem') {
-        $('#is_CATT').hide();
-    }
-    if (exam.is_HBS != 'x_dem') {
-        $('#is_HBS').hide();
-    }
-    if (exam.is_HC != 'x_dem') {
-        $('#is_HC').hide();
-    }
-    if (exam.is_P120 != 'x_dem') {
-        $('#is_P120').hide();
-    }
-}

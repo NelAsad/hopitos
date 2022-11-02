@@ -3,6 +3,17 @@ $(document).ready(function () {
 
     let path = "http://localhost/hopitos/";
 
+    // function pour la notification
+    function notification(titre, text, type, seconde) {
+        new PNotify({
+            title: titre,
+            text: text,
+            type: type,
+            delay: seconde*1000,
+            styling: 'bootstrap3'
+        });
+    }
+
     //initialise_datatable_patients
     var dataTable_patient = $('#table_patients').DataTable({
         "processing": true,
@@ -51,20 +62,12 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.reponse == 'bien') {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.success('Fiche ouverte avec succes');
+                    notification('Succès', 'Fiche ouverte avec succes', 'success', 2);
                     $('#ouvrir_fiche_modal').modal('hide');
                     form_ouvrir_fiche.reset();
                 }
                 if (data.reponse == 'pas_bien') {
-                    toastr.options.progressBar = true;
-                    toastr.options.showMethod = 'slideDown';
-                    toastr.options.hideMethod = 'fadeOut';
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.warning('Echec d\'ouverture de la fiche');
+                    notification('Echec', 'Echec d\'ouverture de la fiche', 'error', 2);
                 }
             },
             error: function (data) {

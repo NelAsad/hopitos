@@ -1,301 +1,120 @@
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-          <h1>
-              Les patients
-          </h1>
-          <!-- <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">UI</a></li>
-        <li class="active">General</li>
-      </ol> -->
-      </section>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3><small>Les patients</small></h3>
+            </div>
+            <div class="clearfix"></div>
 
-      <!-- Main content -->
-      <section class="content">
-          <div class="row">
-              <div class="col-md-12">
-                  <!-- Custom Tabs -->
-                  <div class="nav-tabs-custom">
-                      <ul class="nav nav-tabs">
-                          <li class="active"><a href="#tab_1" data-toggle="tab">Inforations du patient</a></li>
-                          <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
-                      </ul>
-                      <div class="tab-content">
-                          <div class="tab-pane active" id="tab_1">
-                              <table id="table_patients" class="table table-striped">
-                                  <thead class="bg-primary">
-                                      <tr>
-                                          <th>Id</th>
-                                          <th>Prénom</th>
-                                          <th>Nom</th>
-                                          <th>Post-Nom</th>
-                                          <th>Sexe</th>
-                                          <th>Statut</th>
-                                          <th>Date naissance</th>
-                                          <th width="12%">Actions</th>
-                                      </tr>
-                                  </thead>
-                              </table>
-                          </div>
+            <div class="row" style="display: block;">
 
-                          <!-- /.tab-pane -->
-                      </div>
-                      <!-- /.tab-content -->
-                  </div>
-                  <!-- nav-tabs-custom -->
-              </div>
-              <!-- /.col -->
-          </div>
-      </section>
-  </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><small>Informations du patient</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="table-responsive">
+                                <table id="table_patients" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Prénom</th>
+                                            <th>Nom</th>
+                                            <th>Post-Nom</th>
+                                            <th>Sexe</th>
+                                            <th>Statut</th>
+                                            <th>Date naissance</th>
+                                            <th width="12%">Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-  <!-- modal voir patient -->
-  <div class="modal fade" id="patient_show_modal" data-backdrop="static" data-keyboard="false">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header bg-primary">
-                  <button style="opacity: 1.0;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span style="color: white; opacity: 1.0;" aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Informations du Patient</h4>
-              </div>
-              <div class="modal-body">
-                  <table class="table table-striped">
-                      <tbody>
-                          <tr>
-                              <td>Identifiant</td>
-                              <td>
-                                  <b><span id="show_patient_id"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Nom</td>
-                              <td>
-                                  <b><span id="show_patient_nom"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Post-Nom</td>
-                              <td>
-                                  <b><span id="show_patient_postnom"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Prenom</td>
-                              <td>
-                                  <b><span id="show_patient_prenom"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Sexe</td>
-                              <td>
-                                  <b><span id="show_patient_sexe"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Date de naissance</td>
-                              <td>
-                                  <b><span id="show_patient_date_naissance"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Adresse</td>
-                              <td>
-                                  <b><span id="show_patient_adresse"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Statut</td>
-                              <td>
-                                  <b><span id="show_patient_statut"></span></b>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Date d'enregistrement</td>
-                              <td>
-                                  <b><span id="show_patient_save_date"></span></b>
-                              </td>
-                          </tr>
-                          <!-- <tr>
-                              <td>Enregistre(e) par</td>
-                              <td>
-                                  <b><span id="show_patient_fk_users_id"></span></b>
-                              </td>
-                          </tr> -->
-                      </tbody>
-                  </table>
-
-
-                  <div id="membre_famille_content">
-                      <hr>
-                      <h4>Membres de famille</h4>
-                      <table class="table table-striped">
-                          <thead class="bg-primary">
-                              <tr>
-                                  <td>Nom</td>
-                                  <td>Postonm</td>
-                                  <td>Prenom</td>
-                                  <td>Sexe</td>
-                              </tr>
-                          </thead>
-                          <tbody id="table_membres_famille_body">
-
-                          </tbody>
-                      </table>
-                  </div>
-
-
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fermer</button>
-              </div>
-          </div>
-          <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-  <!-- modal ouvrir une fiche -->
-  <div class="modal fade" id="ouvrir_fiche_modal" data-backdrop="static" data-keyboard="false">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Ouverture fiche</h4>
-              </div>
-              <div class="modal-body">
-                  <form class="ui small form" id="form_ouvrir_fiche">
-                      <input type="hidden" id="ouvrir_fiche_fk_patient_id">
-                      <div class="row">
-                          <div class="col-xs-3">
-                              <label>Poids</label>
-                              <input class="form-control" type="text" id="ouvrir_fiche_poids" placeholder="Poids">
-                          </div>
-                          <div class="col-xs-3">
-                              <label>Tension</label>
-                              <input class="form-control" type="text" id="ouvrir_fiche_tension" placeholder="Tension">
-                          </div>
-                          <div class="col-xs-3">
-                              <label>Temperature</label>
-                              <input class="form-control" type="text" id="ouvrir_fiche_temperature" placeholder="Temperature">
-                          </div>
-                          <div class="col-xs-3">
-                              <label>Medecin Consultant</label>
-                              <select class="form-control" id="ouvrir_fiche_medecin_id">
-                                  <?php
-                                    foreach ($this->medecins as $medecin) {
-                                    ?>
-                                      <option value="<?php echo $medecin['users_id'] ?>"><?php echo $medecin['prenom_agent'] . ' ' . $medecin['nom_agent'] ?></option>
-                                  <?php
-                                    }
-                                    ?>
-                              </select>
-                          </div>
-                      </div>
-                  </form>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                  <button type="button" class="btn btn-primary" id="btn_done_ouverture_fiche">Valider</button>
-              </div>
-          </div>
-          <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+</div>
 
 
 
-  <!-- modal ajouter membre famille -->
-  <div class="modal fade" id="add_famille_membre_modal" data-backdrop="static" data-keyboard="false">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Ajout un membre de la famille</h4>
-              </div>
-              <div class="modal-body">
-                  <form action="">
-                      <div class="row">
-                          <input type="hidden" id="hidden_famille_patient_id">
-                          <div class="col-xs-4">
-                              <label>Prenom</label>
-                              <input class="form-control" type="text" id="famille_patient_prenom" placeholder="Prénom">
-                          </div>
-                          <div class="col-xs-4">
-                              <label>Nom</label>
-                              <input class="form-control" type="text" id="famille_patient_nom" placeholder="Nom">
-                          </div>
-                          <div class="col-xs-4">
-                              <label>Postnom</label>
-                              <input class="form-control" type="text" id="famille_patient_postnom" placeholder="Post-Nom">
-                          </div>
-
-                          <div class="col-xs-4">
-                              <label>Date de naissance</label>
-                              <input class="form-control" type="date" id="famille_patient_date_naissance">
-                          </div>
-                          <div class="col-xs-4">
-                              <label>Sexe</label>
-                              <select class="form-control" class="dropdown" id="famille_patient_sexe">
-                                  <option value="M">Masculin</option>
-                                  <option value="F">Feminin</option>
-                              </select>
-                          </div>
-                          <div class="col-xs-4">
-                              <label>Adresse</label>
-                              <input class="form-control" type="text" id="famille_patient_adresse" placeholder="Adresse">
-                          </div>
-                      </div>
-                  </form>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-                  <button type="button" class="btn btn-primary" id="btn_done_add_membre_famille">Ajouter</button>
-              </div>
-          </div>
-          <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+<!-- modal ouvrir une fiche -->
+<div id="ouvrir_fiche_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ouverture fiche</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ui small form" id="form_ouvrir_fiche">
+                    <input type="hidden" id="ouvrir_fiche_fk_patient_id">
+                    <div class="row">
+                        <div class="col-3">
+                            <label>Poids</label>
+                            <input class="form-control" type="text" id="ouvrir_fiche_poids" placeholder="Poids">
+                        </div>
+                        <div class="col-3">
+                            <label>Tension</label>
+                            <input class="form-control" type="text" id="ouvrir_fiche_tension" placeholder="Tension">
+                        </div>
+                        <div class="col-3">
+                            <label>Temperature</label>
+                            <input class="form-control" type="text" id="ouvrir_fiche_temperature" placeholder="Temperature">
+                        </div>
+                        <div class="col-3">
+                            <label>Medecin Consultant</label>
+                            <select class="form-control" id="ouvrir_fiche_medecin_id">
+                                <?php
+                                foreach ($this->medecins as $medecin) {
+                                ?>
+                                    <option value="<?php echo $medecin['users_id'] ?>"><?php echo $medecin['prenom_agent'] . ' ' . $medecin['nom_agent'] ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="btn_done_ouverture_fiche">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-  <!-- modal voir membres famille -->
-  <div class="modal fade" id="voir_famille_membre_modal" data-backdrop="static" data-keyboard="false">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Membres de la famille</h4>
-              </div>
-              <div class="modal-body">
-                  <table class="table table-striped">
-                      <thead class="bg-primary">
-                          <tr>
-                              <td>Nom</td>
-                              <td>Postonm</td>
-                              <td>Prenom</td>
-                              <td>Sexe</td>
-                          </tr>
-                      </thead>
-                      <tbody id="table_membres_famille_body">
+<div class="modal fade" id="" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
 
-                      </tbody>
-                  </table>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fermer</button>
-              </div>
-          </div>
-          <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -43,63 +43,36 @@ class Laboratoire extends Controller
     /**
      * Donne les donnes initiales: les nouvelles demandes d'examen (DataTables)
      */
-    function labo_nouvelles_demandes()
+    function xhr_transfert_DataTable()
     {
-        $this->model->xhr_labo_dataTables('1');
+        $this->model->xhr_transfert_DataTable();
     }
-    /**
-     * Donne les donnes initiales: les demandes d'examen satisfaites du jour (DataTables)
-     */
-    function labo_demandes_sat_today()
-    {
-        $today_date = date("Y-m-d", time());
-        $this->model->xhr_labo_dataTables('2', $today_date);
-    }
-    /**
-     * Donne les donnes initiales: les demandes d'examen (toutes les demandes) (DataTables)
-     */
-    function labo_demandes_sat_all()
-    {
-        $this->model->xhr_labo_dataTables('2');
-    }
-    /**
-     * Donne les donnes initiales: les demandes d'examen declassees du jour (DataTables)
-     */
-    function labo_demandes_declasees_today()
-    {
-        $today_date = date("Y-m-d", time());
-        $this->model->xhr_labo_dataTables('3', $today_date);
-    }
-    /**
-     * Donne les donnes initiales: les demandes d'examen declassees (toutes les demandes) (DataTables)
-     */
-    function labo_demandes_declasees_all()
-    {
-        $this->model->xhr_labo_dataTables('3');
-    }
-
 
     /**
      * Donne un examen avec tout les details
      */
-    function get_exam()
+    function get_examens_demandes()
     {
-        $exam_id = $_POST['exam_id'];
-        //return all of this exam
-        $exam = $this->model->get_exam($exam_id);
-        echo json_encode($exam);
+        $diagnostic_id = $_POST['diagnostic_id'];
+        
+        $examens = $this->model->get_examens_demandes($diagnostic_id);
+        echo json_encode($examens);
     }
 
     /**
-     * Donne une fiche avec tout les details
+     * insert resultat examen
      */
-    function get_fiche(){
-        $fiche_id = $_POST['fiche_id'];
+    function insert_resultat_examen(){
+        $tab_resultat = $_POST['tab_resultat'];
 
-        //return all of this fiche
-        $fiche = $this->model->get_fiche($fiche_id);
+        foreach ($tab_resultat as $resultat) {
+            $result = $this->model->insert_resultat_examen($resultat[0],$resultat[1]);
+            if ($result) {
+                $this->model->set_demande_satisfaite($resultat[0]);
+            }
+        }
 
-        echo json_encode($fiche);
+        echo json_encode(true);
     }
 
     /**

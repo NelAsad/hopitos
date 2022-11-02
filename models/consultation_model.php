@@ -9,7 +9,7 @@ class Consultation_model extends Model
     }
 
     /**
-     * Renvoie la liste des fiches pour la datatable
+     * Renvoie la liste des transferts
      * @return array fiche
      */
     function xhr_consultation_DataTable($etape = null)

@@ -115,10 +115,10 @@
                         <form id="form_commencer_consultation">
                             <input type="hidden" id="hidden_commencer_consultation_transfert_id">
                             <label for="message">Consultation</label>
-                            <textarea id="commencer_consultation_symptomes" required="required" rows="5" class="form-control mb-4" name="message"></textarea>
+                            <textarea id="commencer_consultation_symptomes" required="required" rows="5" class="form-control mb-4 tiny" name="message"></textarea>
 
                             <label for="message">Diagnostic</label>
-                            <textarea id="commencer_consultation_diagnostic" required="required" rows="5" class="form-control" name="message"></textarea>
+                            <textarea id="commencer_consultation_diagnostic" required="required" rows="5" class="form-control tiny" name="message"></textarea>
                         </form>
                     </div>
                 </div>
@@ -286,3 +286,54 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- RECU -->
+<div id="recu_payement_fiche" >
+     <div class="row" style="margin-bottom: 20px;">
+         <div class="col-xs-4">
+             <img src="<?php echo URL; ?>public/images/logo4.png" alt="" class="img img-responsive">
+         </div>
+         <div class="col-xs-8 text-center" style="padding-top: 10px;">
+             <span>MEDICAL CITY ADH</span> <br>
+             <span>ADH</span> <br>
+             <span>Les urgences 24h/7</span>
+         </div>
+     </div>
+     <hr>
+     <div align="center" style="margin-bottom: 20px; margin-bottom: 20px;">
+         ORDONNANCE PRESIDENTIELLE
+     </div>
+     <hr>
+     <div align="center" style="margin-bottom: 20px; margin-bottom: 20px;">
+         <span id="recu_patient_identite"></span>
+     </div>
+     <div align="center">-----------------------------</div>
+     <div>
+         <div class="table-responsive">
+             <table class="table table-striped">
+                 <tbody>
+                     <tr>
+                         <td>Date : </td>
+                         <td><span id="recu_payement_fiche_date"></span></td>
+                         <td></td>
+                     </tr>
+                     <tr>
+                         <td>Motif : </td>
+                         <td><span id="recu_motif_payement"></span></td>
+                         <td></td>
+                     </tr>
+                     <tr>
+                         <td>Montant : </td>
+                         <td><span id="montant_recu_payement_fiche"></span> FC</td>
+                         <td></td>
+                     </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <div style="background-color: #fff;" align="center">
+         <div id="recu_fiche_barcode"></div>
+     </div>
+ </div>

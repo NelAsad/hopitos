@@ -33,6 +33,10 @@
   <link href="<?php echo URL; ?>public/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
   <!-- Animate.css -->
   <link href="<?php echo URL; ?>public/vendors/animate.css/animate.min.css" rel="stylesheet">
+  <!-- PNotify -->
+  <link href="<?php echo URL; ?>public/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+  <link href="<?php echo URL; ?>public/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+  <link href="<?php echo URL; ?>public/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
   <!-- Custom Theme Style -->
   <link href="<?php echo URL; ?>public/build/css/custom.min.css" rel="stylesheet">
 

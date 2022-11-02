@@ -46,7 +46,6 @@
 <!-- bootstrap-daterangepicker -->
 <script src="<?php echo URL; ?>public/vendors/moment/min/moment.min.js"></script>
 <script src="<?php echo URL; ?>public/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
 <!-- Datatables -->
 <script src="<?php echo URL; ?>public/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo URL; ?>public/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -63,7 +62,19 @@
 <script src="<?php echo URL; ?>public/vendors/jszip/dist/jszip.min.js"></script>
 <script src="<?php echo URL; ?>public/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="<?php echo URL; ?>public/vendors/pdfmake/build/vfs_fonts.js"></script>
-
+<!-- PNotify -->
+<script src="<?php echo URL; ?>public/vendors/pnotify/dist/pnotify.js"></script>
+<script src="<?php echo URL; ?>public/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="<?php echo URL; ?>public/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+<!-- Tinymce -->
+<script src="<?php echo URL; ?>public/librairies/tinymce/jquery.tinymce.min.js"></script>
+<script src="<?php echo URL; ?>public/librairies/tinymce/tinymce.min.js"></script>
+<!-- PrintThis -->
+<script src="<?php echo URL; ?>public/librairies/printthis/printThis.js"></script>
+<!-- JqueryBarcode -->
+<script src="<?php echo URL; ?>public/librairies/jquerybarcode/jquery/jquery-barcode.js"></script>
+<!-- Barcode -->
+<script src="<?php echo URL; ?>public/js/barcode.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="<?php echo URL; ?>public/build/js/custom.min.js"></script>
 
